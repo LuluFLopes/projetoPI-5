@@ -1,4 +1,4 @@
-package senac.com.projetoPI5;
+package senacsp.com.ProjetoPI5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

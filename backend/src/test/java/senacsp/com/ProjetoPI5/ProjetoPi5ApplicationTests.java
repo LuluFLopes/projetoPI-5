@@ -1,4 +1,4 @@
-package senac.com.projetoPI5;
+package senacsp.com.ProjetoPI5;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
