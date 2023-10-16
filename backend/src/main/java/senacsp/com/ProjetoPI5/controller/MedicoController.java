@@ -17,7 +17,7 @@ public class MedicoController {
     public void adicionarMedico(){
     }
 
-    @PutMapping("/inativar")
-    public void inativarMedico(){
+    @PutMapping("/inativar/{id}")
+    public void inativarMedico(@PathVariable int id){
     }
 }

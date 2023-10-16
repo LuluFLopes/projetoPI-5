@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/funcionarios")
-public class AtendenteController {
+public class FuncionarioController {
     @GetMapping("/listar")
     public void listarFuncionarios(){
     }
@@ -17,7 +17,7 @@ public class AtendenteController {
     public void adicionarFuncionario(){
     }
 
-    @PutMapping("/inativar")
-    public void inativarFuncionario(){
+    @PutMapping("/inativar/{id}")
+    public void inativarFuncionario(@PathVariable int id){
     }
 }

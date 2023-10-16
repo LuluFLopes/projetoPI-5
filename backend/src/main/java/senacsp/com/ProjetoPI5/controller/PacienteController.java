@@ -6,19 +6,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pacientes")
 public class PacienteController {
 
-    @GetMapping("/buscar/pacientes")
+    @GetMapping("/listar")
     public void listarPacientes() {
     }
 
-    @GetMapping("/buscar/paciente/{id}")
+    @GetMapping("/buscar/{id}")
     public void buscarPaciente(@PathVariable int id) {
     }
 
-    @PostMapping("/cadastrar/paciente")
+    @PostMapping("/cadastrar")
+    @ResponseBody
     public void adicionarPaciente(){
     }
 
-    @PutMapping("/inativar/paciente")
-    public void inativarPaciente(){
+    @PutMapping("/inativar/{id}")
+    public void inativarPaciente(@PathVariable int id){
     }
 }
