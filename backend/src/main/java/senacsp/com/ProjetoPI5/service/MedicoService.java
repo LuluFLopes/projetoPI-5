@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 @Service
 public class MedicoService {
 
-    private final String MENSAGEM_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado";
+    private final String MENSAGEM_MEDICO_NAO_ENCONTRADO = "Médico não encontrado";
 
     private final MedicoRepository medicoRepository;
 
@@ -25,10 +25,10 @@ public class MedicoService {
 
     public Medico buscarMedico(int id) {
         return medicoRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(MENSAGEM_PACIENTE_NAO_ENCONTRADO));
+                .orElseThrow(() -> new NoSuchElementException(MENSAGEM_MEDICO_NAO_ENCONTRADO));
     }
 
-    public void adicionarMedico(Medico medico){
+    public void adicionarMedico(Medico medico) {
         medicoRepository.save(medico);
     }
 
