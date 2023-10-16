@@ -23,7 +23,7 @@ public class EspecializacaoController {
     }
 
     @GetMapping("/buscar/{id}")
-    public ResponseEntity<Especializacao> buscarEspecializacao(@PathVariable int id){
+    public ResponseEntity<Especializacao> buscarEspecializacao(@PathVariable int id) {
         return ResponseEntity.ok(especializacaoService.buscarUnidade(id));
     }
 
@@ -33,12 +33,12 @@ public class EspecializacaoController {
     }
 
     @PutMapping("/inativar/{id}")
-    public void inativarEspecializacao(@PathVariable int id){
+    public void inativarEspecializacao(@PathVariable int id) {
         especializacaoService.inativarUnidade(id);
     }
 
     @PutMapping("/ativar/{id}")
-    public void ativarEspecializacao(@PathVariable int id){
+    public void ativarEspecializacao(@PathVariable int id) {
         especializacaoService.ativarUnidade(id);
     }
 
