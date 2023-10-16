@@ -9,6 +9,6 @@ import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
     @Modifying
-    @Query("UPDATE Usuario u SET u.status = :status WHERE u.id = :id")
+    @Query("UPDATE Paciente p SET p.status = :status WHERE p.id = :id")
     void ajustarStatus(@Param("status") Status status, @Param("id") Integer id);
 }

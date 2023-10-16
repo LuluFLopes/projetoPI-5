@@ -32,8 +32,7 @@ public class PacienteController {
     }
 
     @PostMapping("/cadastrar")
-    @ResponseBody
-    public void adicionarPaciente(Paciente paciente){
+    public void adicionarPaciente(@RequestBody Paciente paciente){
         pacienteService.adicionarPaciente(paciente);
     }
 
