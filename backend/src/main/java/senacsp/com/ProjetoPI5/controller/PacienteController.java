@@ -19,30 +19,26 @@ public class PacienteController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<Paciente>> listarPacientes() {
-        List<Paciente> pacientes = pacienteService.listarPacientes();
-        return !pacientes.isEmpty() ?
-                ResponseEntity.ok(pacientes) :
-                ResponseEntity.notFound().build();
+        return ResponseEntity.ok(pacienteService.listarPacientes());
     }
 
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Paciente> buscarPaciente(@PathVariable int id) {
-        Paciente paciente = pacienteService.buscarPaciente(id);
-        return ResponseEntity.ok(paciente);
+        return ResponseEntity.ok(pacienteService.buscarPaciente(id));
     }
 
     @PostMapping("/cadastrar")
-    public void adicionarPaciente(@RequestBody Paciente paciente){
+    public void adicionarPaciente(@RequestBody Paciente paciente) {
         pacienteService.adicionarPaciente(paciente);
     }
 
     @PutMapping("/inativar/{id}")
-    public void inativarPaciente(@PathVariable int id){
+    public void inativarPaciente(@PathVariable int id) {
         pacienteService.inativarPaciente(id);
     }
 
     @PutMapping("/ativar/{id}")
-    public void ativarPaciente(@PathVariable int id){
+    public void ativarPaciente(@PathVariable int id) {
         pacienteService.ativarPaciente(id);
     }
 

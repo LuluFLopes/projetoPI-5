@@ -13,6 +13,8 @@ public class MedicoService {
 
     private final String MENSAGEM_MEDICO_NAO_ENCONTRADO = "Médico não encontrado";
 
+    private final String MENSAGEM_LISTA_MEDICO_VAZIA = "Médicos não encontrados";
+
     private final MedicoRepository medicoRepository;
 
     public MedicoService(MedicoRepository medicoRepository) {
@@ -20,7 +22,13 @@ public class MedicoService {
     }
 
     public List<Medico> listarMedicos() {
-        return medicoRepository.findAll();
+        List<Medico> medicos = medicoRepository.findAll();
+
+        if (medicos.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_MEDICO_VAZIA);
+        }
+
+        return medicos;
     }
 
     public Medico buscarMedico(int id) {

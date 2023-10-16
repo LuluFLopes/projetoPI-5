@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 public class PacienteService {
 
     private final String MENSAGEM_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado";
+    private final String MENSAGEM_LISTA_PACIENTE_VAZIA = "Pacientes não encontrados";
 
     private final PacienteRepository pacienteRepository;
 
@@ -19,11 +20,17 @@ public class PacienteService {
         this.pacienteRepository = pacienteRepository;
     }
 
-    public List<Paciente> listarPacientes(){
-        return pacienteRepository.findAll();
+    public List<Paciente> listarPacientes() {
+        List<Paciente> pacientes = pacienteRepository.findAll();
+
+        if (pacientes.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_PACIENTE_VAZIA);
+        }
+
+        return pacientes;
     }
 
-    public Paciente buscarPaciente(int id){
+    public Paciente buscarPaciente(int id) {
         return pacienteRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_PACIENTE_NAO_ENCONTRADO));
     }
@@ -32,11 +39,11 @@ public class PacienteService {
         pacienteRepository.save(paciente);
     }
 
-    public void inativarPaciente(int id){
+    public void inativarPaciente(int id) {
         pacienteRepository.ajustarStatus(Status.INATIVO, id);
     }
 
-    public void ativarPaciente(int id){
+    public void ativarPaciente(int id) {
         pacienteRepository.ajustarStatus(Status.ATIVO, id);
     }
 }

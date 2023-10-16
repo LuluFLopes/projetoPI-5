@@ -19,16 +19,12 @@ public class MedicoController {
 
     @GetMapping("/listar")
     public ResponseEntity<List<Medico>> listarMedicos() {
-        List<Medico> medicos = medicoService.listarMedicos();
-        return !medicos.isEmpty() ?
-                ResponseEntity.ok(medicos) :
-                ResponseEntity.notFound().build();
+        return ResponseEntity.ok(medicoService.listarMedicos());
     }
 
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Medico> buscarMedico(@PathVariable int id) {
-        Medico medico = medicoService.buscarMedico(id);
-        return ResponseEntity.ok(medico);
+        return ResponseEntity.ok(medicoService.buscarMedico(id));
     }
 
     @PostMapping("/cadastrar")
@@ -45,4 +41,5 @@ public class MedicoController {
     public void ativarMedico(@PathVariable int id) {
         medicoService.ativarMedico(id);
     }
+
 }

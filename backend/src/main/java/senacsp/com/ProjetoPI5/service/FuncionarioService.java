@@ -13,6 +13,8 @@ public class FuncionarioService {
 
     private final String MENSAGEM_FUNCIONARIO_NAO_ENCONTRADO = "Funcionário não encontrado";
 
+    private final String MENSAGEM_LISTA_FUNCIONARIO_VAZIA = "Funcionários não encontrados";
+
     private final FuncionarioRepository funcionarioRepository;
 
     public FuncionarioService(FuncionarioRepository funcionarioRepository) {
@@ -20,7 +22,13 @@ public class FuncionarioService {
     }
 
     public List<Funcionario> listarFuncionarios() {
-        return funcionarioRepository.findAll();
+        List<Funcionario> funcionarios = funcionarioRepository.findAll();
+
+        if(funcionarios.isEmpty()){
+            throw new NoSuchElementException(MENSAGEM_LISTA_FUNCIONARIO_VAZIA);
+        }
+
+        return funcionarios;
     }
 
     public Funcionario buscarFuncionario(int id) {
