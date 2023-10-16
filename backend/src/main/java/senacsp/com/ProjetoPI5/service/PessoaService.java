@@ -1,19 +1,29 @@
 package senacsp.com.ProjetoPI5.service;
 
 import org.springframework.stereotype.Service;
+import senacsp.com.ProjetoPI5.model.Pessoa;
+
+import java.util.List;
 
 @Service
 public class PessoaService {
-    public void cadastrarPessoa(){
+
+    private List<Pessoa> lista;
+
+    public PessoaService(List<Pessoa> lista) {
+        this.lista = lista;
     }
 
-    public void atualizarPessoa(){
+    public void cadastrar(Pessoa pessoa){
     }
 
-    public void inativarPessoa(){
+    public void atualizar(Pessoa pessoa){
     }
 
-    public void listarPessoas(){
+    public void inativar(Pessoa pessoa){
+    }
+
+    public void listar(Pessoa pessoa){
     }
 
 }

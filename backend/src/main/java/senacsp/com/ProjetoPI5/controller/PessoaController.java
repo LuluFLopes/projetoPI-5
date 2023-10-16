@@ -1,13 +1,14 @@
 package senacsp.com.ProjetoPI5.controller;
 
 import org.springframework.web.bind.annotation.*;
+import senacsp.com.ProjetoPI5.model.Pessoa;
 
 @RestController
 @RequestMapping("/manutencao")
 public class PessoaController {
 
     @GetMapping("/buscar/pacientes")
-    public void listarPacientes() {
+    public void listarPacientes(Pessoa pessoa) {
     }
 
     @GetMapping("/buscar/paciente/{id}")

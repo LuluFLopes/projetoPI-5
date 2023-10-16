@@ -2,9 +2,10 @@ package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.*;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
+import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 
 @Entity
-public abstract class Pessoa {
+public abstract class Pessoa <T extends Pessoa> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,6 +19,20 @@ public abstract class Pessoa {
     private Login login;
     @Enumerated
     private Status status;
+
+    public Pessoa(Pessoa pessoa) {
+        this.id = pessoa.getId();
+        this.nome = pessoa.getNome();
+        this.cpf = pessoa.getCpf();
+        this.endereco = pessoa.getEndereco();
+        this.contato = pessoa.getContato();
+        this.login = pessoa.getLogin();
+        this.status = pessoa.getStatus();
+    }
+
+    public abstract boolean isSatisfiedBy(TipoCadastro tipoCadastro);
+
+    public abstract T castStrategy(T pessoa);
 
     public int getId() {
         return id;
