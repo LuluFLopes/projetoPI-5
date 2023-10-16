@@ -36,6 +36,7 @@ public class PacienteService {
     }
 
     public void adicionarPaciente(Paciente paciente) {
+        paciente.setStatus(Status.ATIVO);
         pacienteRepository.save(paciente);
     }
 

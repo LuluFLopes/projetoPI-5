@@ -37,6 +37,7 @@ public class MedicoService {
     }
 
     public void adicionarMedico(Medico medico) {
+        medico.setStatus(Status.ATIVO);
         medicoRepository.save(medico);
     }
 

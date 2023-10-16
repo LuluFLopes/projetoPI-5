@@ -37,6 +37,7 @@ public class FuncionarioService {
     }
 
     public void adicionarFuncionario(Funcionario funcionario) {
+        funcionario.setStatus(Status.ATIVO);
         funcionarioRepository.save(funcionario);
     }
 
