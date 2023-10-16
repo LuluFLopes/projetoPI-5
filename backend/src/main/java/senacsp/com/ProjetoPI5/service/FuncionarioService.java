@@ -24,7 +24,7 @@ public class FuncionarioService {
     public List<Funcionario> listarFuncionarios() {
         List<Funcionario> funcionarios = funcionarioRepository.findAll();
 
-        if(funcionarios.isEmpty()){
+        if (funcionarios.isEmpty()) {
             throw new NoSuchElementException(MENSAGEM_LISTA_FUNCIONARIO_VAZIA);
         }
 
