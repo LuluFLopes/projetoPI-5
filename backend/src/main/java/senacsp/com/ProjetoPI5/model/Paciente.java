@@ -2,7 +2,7 @@ package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.*;
 
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
 public class Paciente extends Pessoa {
     @ManyToOne
     private Agendamento agendamento;

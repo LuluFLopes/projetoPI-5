@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

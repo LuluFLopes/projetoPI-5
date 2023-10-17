@@ -1,16 +1,13 @@
 package senacsp.com.ProjetoPI5.model;
 
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Entity
 public class Medico extends Pessoa {
     private String crm;
     @OneToOne
     private Especializacao especializacao;
-    @OneToMany
+    @ManyToOne
     private Agendamento agendamento;
 
     public String getCrm() {
