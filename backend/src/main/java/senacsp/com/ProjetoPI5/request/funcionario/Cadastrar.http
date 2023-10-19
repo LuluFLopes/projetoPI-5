@@ -4,6 +4,7 @@ Content-Type: application/json
 {
   "nome": "Luciano",
   "cpf": "405.046.560-40",
+  "cargo": "ADMINISTRADOR",
   "endereco": {
     "logradouro": "Rua Teste",
     "numero":"20",
