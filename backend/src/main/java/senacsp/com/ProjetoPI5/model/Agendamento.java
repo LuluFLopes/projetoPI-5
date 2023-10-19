@@ -12,7 +12,7 @@ public class Agendamento {
     private int id;
     private LocalDate dataInicio;
     private LocalDate dataTermino;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Unidade unidade;
     @Enumerated
     private Andamento andamento;

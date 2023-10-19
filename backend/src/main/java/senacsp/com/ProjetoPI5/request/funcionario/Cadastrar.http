@@ -1,0 +1,24 @@
+POST http://localhost:8081/funcionarios/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Luciano",
+  "cpf": "405.046.560-40",
+  "endereco": {
+    "logradouro": "Rua Teste",
+    "numero":"20",
+    "complemento": "Teste",
+    "cep":"22222-222",
+    "bairro": "Teste",
+    "cidade":"Teste",
+    "uf":"SP"
+  },
+  "contato":{
+    "email": "luciano.teste@teste.com.br",
+    "telefone": "11931010447"
+  },
+  "login": {
+    "usuario":"luciano.teste",
+    "senha":"123"
+  }
+}

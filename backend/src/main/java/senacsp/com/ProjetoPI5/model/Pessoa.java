@@ -11,11 +11,11 @@ public abstract class Pessoa {
     private int id;
     private String nome;
     private String cpf;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Contato contato;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Login login;
     @Enumerated
     private Status status;

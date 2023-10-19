@@ -9,7 +9,7 @@ public class Unidade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String descricao;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     @Enumerated
     private Status status;

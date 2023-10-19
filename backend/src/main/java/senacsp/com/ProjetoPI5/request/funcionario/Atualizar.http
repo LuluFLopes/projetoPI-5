@@ -1,0 +1,32 @@
+POST http://localhost:8081/funcionarios/atualizar
+Content-Type: application/json
+
+{
+  "id": 1,
+  "nome": "Luciano",
+  "cpf": "405.046.560-40",
+  "status": "ATIVO",
+  "cargo": "ATENDENTE",
+  "endereco": {
+    "id": 1,
+    "logradouro": "Rua Teste",
+    "numero": 20,
+    "complemento": "Teste",
+    "cep": "22222-222",
+    "bairro": "Teste",
+    "cidade": "Teste",
+    "uf": "SP",
+    "status": "ATIVO"
+  },
+  "contato": {
+    "id": 1,
+    "email": "luciano.teste@teste.com.br",
+    "telefone": "11931010447",
+    "status": "ATIVO"
+  },
+  "login": {
+    "id": 1,
+    "usuario": "luciano.teste",
+    "senha": "354"
+  }
+}
