@@ -1,6 +1,7 @@
 package senacsp.com.ProjetoPI5.service;
 
 import org.springframework.stereotype.Service;
+import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.repository.PacienteRepository;
@@ -46,5 +47,9 @@ public class PacienteService {
 
     public void ativarPaciente(int id) {
         pacienteRepository.ajustarStatus(Status.ATIVO, id);
+    }
+
+    public Paciente login(Login login){
+        return pacienteRepository.login(login.getUsuario(), login.getSenha());
     }
 }

@@ -2,6 +2,7 @@ package senacsp.com.ProjetoPI5.service;
 
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Funcionario;
+import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.repository.FuncionarioRepository;
 
@@ -49,4 +50,7 @@ public class FuncionarioService {
         funcionarioRepository.ajustarStatus(Status.ATIVO, id);
     }
 
+    public Funcionario login(Login login){
+        return funcionarioRepository.login(login.getUsuario(), login.getSenha());
+    }
 }

@@ -2,6 +2,7 @@ package senacsp.com.ProjetoPI5.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.service.PacienteService;
 
@@ -40,6 +41,11 @@ public class PacienteController {
     @PutMapping("/ativar/{id}")
     public void ativarPaciente(@PathVariable int id) {
         pacienteService.ativarPaciente(id);
+    }
+
+    @PutMapping("/login")
+    public ResponseEntity<Paciente> login(@RequestBody Login login) {
+        return ResponseEntity.ok(pacienteService.login(login));
     }
 
 }

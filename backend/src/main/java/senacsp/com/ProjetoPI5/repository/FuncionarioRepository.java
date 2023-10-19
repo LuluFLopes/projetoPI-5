@@ -13,4 +13,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
     @Modifying
     @Query("UPDATE Funcionario f SET f.status = :status WHERE f.id = :id")
     void ajustarStatus(@Param("status") Status status, @Param("id") Integer id);
+
+    @Query("SELECT f FROM Funcionario f WHERE f.login.usuario = :usuario AND f.login.senha = :senha")
+    Funcionario login(@Param("usuario") String usuario, @Param("senha") String senha);
 }

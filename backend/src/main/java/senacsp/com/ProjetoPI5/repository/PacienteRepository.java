@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import senacsp.com.ProjetoPI5.model.Funcionario;
 import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 
@@ -13,4 +14,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
     @Modifying
     @Query("UPDATE Paciente p SET p.status = :status WHERE p.id = :id")
     void ajustarStatus(@Param("status") Status status, @Param("id") Integer id);
+
+    @Query("SELECT p FROM Paciente p WHERE p.login.usuario = :usuario AND p.login.senha = :senha")
+    Paciente login(@Param("usuario") String usuario, @Param("senha") String senha);
 }
