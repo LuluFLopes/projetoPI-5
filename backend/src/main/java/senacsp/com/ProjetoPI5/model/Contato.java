@@ -10,8 +10,6 @@ public class Contato {
     int id;
     String email;
     String telefone;
-    @Enumerated
-    Status status;
 
     public int getId() {
         return id;
@@ -35,13 +33,5 @@ public class Contato {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 }
