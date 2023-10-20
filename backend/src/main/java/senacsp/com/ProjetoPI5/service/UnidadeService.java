@@ -39,6 +39,10 @@ public class UnidadeService {
         unidadeRepository.save(unidade);
     }
 
+    public void alterarUnidade(Unidade unidade) {
+        unidadeRepository.save(unidade);
+    }
+
     public void inativarUnidade(int id) {
         unidadeRepository.ajustarStatus(Status.INATIVO, id);
     }

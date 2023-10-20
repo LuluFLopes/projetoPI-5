@@ -42,6 +42,10 @@ public class FuncionarioService {
         funcionarioRepository.save(funcionario);
     }
 
+    public void alterarFuncionario(Funcionario funcionario){
+        funcionarioRepository.save(funcionario);
+    }
+
     private void setarCamposComoAtivoPorPadrao(Funcionario funcionario) {
         funcionario.setStatus(Status.ATIVO);
         funcionario.getContato().setStatus(Status.ATIVO);

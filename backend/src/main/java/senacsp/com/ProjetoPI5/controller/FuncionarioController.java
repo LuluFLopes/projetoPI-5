@@ -33,6 +33,11 @@ public class FuncionarioController {
         funcionarioService.adicionarFuncionario(funcionario);
     }
 
+    @PostMapping("/alterar")
+    public void alterarFuncionario(@RequestBody Funcionario funcionario) {
+        funcionarioService.alterarFuncionario(funcionario);
+    }
+
     @PutMapping("/inativar/{id}")
     public void inativarFuncionario(@PathVariable int id) {
         funcionarioService.inativarFuncionario(id);

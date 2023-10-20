@@ -41,6 +41,10 @@ public class PacienteService {
         pacienteRepository.save(paciente);
     }
 
+    public void alterarPaciente(Paciente paciente) {
+        pacienteRepository.save(paciente);
+    }
+
     public void inativarPaciente(int id) {
         pacienteRepository.ajustarStatus(Status.INATIVO, id);
     }
@@ -49,7 +53,7 @@ public class PacienteService {
         pacienteRepository.ajustarStatus(Status.ATIVO, id);
     }
 
-    public Paciente login(Login login){
+    public Paciente login(Login login) {
         return pacienteRepository.login(login.getUsuario(), login.getSenha());
     }
 }

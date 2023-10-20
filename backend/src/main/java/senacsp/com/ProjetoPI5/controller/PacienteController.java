@@ -33,6 +33,11 @@ public class PacienteController {
         pacienteService.adicionarPaciente(paciente);
     }
 
+    @PostMapping("/alterar")
+    public void alterarPaciente(@RequestBody Paciente paciente) {
+        pacienteService.alterarPaciente(paciente);
+    }
+
     @PutMapping("/inativar/{id}")
     public void inativarPaciente(@PathVariable int id) {
         pacienteService.inativarPaciente(id);

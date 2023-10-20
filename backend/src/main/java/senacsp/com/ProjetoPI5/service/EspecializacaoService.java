@@ -40,6 +40,11 @@ public class EspecializacaoService {
         especializacaoRepository.save(especializacao);
     }
 
+    public void alterarUnidade(Especializacao especializacao){
+        especializacaoRepository.save(especializacao);
+    }
+
+
     public void inativarUnidade(int id) {
         especializacaoRepository.ajustarStatus(Status.INATIVO, id);
     }

@@ -42,6 +42,10 @@ public class MedicoService {
         medicoRepository.save(medico);
     }
 
+    public void alterarMedico(Medico medico){
+        medicoRepository.save(medico);
+    }
+
     public void inativarMedico(int id) {
         medicoRepository.ajustarStatus(Status.INATIVO, id);
     }

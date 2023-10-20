@@ -32,6 +32,11 @@ public class UnidadeController {
         unidadeService.adicionarUnidade(unidade);
     }
 
+    @PostMapping("/alterar")
+    public void alterarPaciente(@RequestBody Unidade unidade) {
+        unidadeService.alterarUnidade(unidade);
+    }
+
     @PutMapping("/inativar/{id}")
     public void inativarPaciente(@PathVariable int id) {
         unidadeService.inativarUnidade(id);

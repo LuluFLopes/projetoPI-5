@@ -33,6 +33,11 @@ public class MedicoController {
         medicoService.adicionarMedico(medico);
     }
 
+    @PostMapping("/alterar")
+    public void alterarMedico(@RequestBody Medico medico) {
+        medicoService.alterarMedico(medico);
+    }
+
     @PutMapping("/inativar/{id}")
     public void inativarMedico(@PathVariable int id) {
         medicoService.inativarMedico(id);

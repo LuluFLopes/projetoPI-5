@@ -29,4 +29,12 @@ public class Especializacao {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

@@ -32,6 +32,11 @@ public class EspecializacaoController {
         especializacaoService.adicionarUnidade(especializacao);
     }
 
+    @PostMapping("/alterar")
+    public void alterarEspecializacao(@RequestBody Especializacao especializacao) {
+        especializacaoService.alterarUnidade(especializacao);
+    }
+
     @PutMapping("/inativar/{id}")
     public void inativarEspecializacao(@PathVariable int id) {
         especializacaoService.inativarUnidade(id);

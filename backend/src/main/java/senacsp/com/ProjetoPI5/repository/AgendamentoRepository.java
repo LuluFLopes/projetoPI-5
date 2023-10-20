@@ -12,5 +12,5 @@ import senacsp.com.ProjetoPI5.model.enumeradores.Andamento;
 public interface AgendamentoRepository extends JpaRepository<Agendamento, Integer> {
     @Modifying
     @Query("UPDATE Agendamento a SET a.andamento = :andamento WHERE a.id = :id")
-    void ajustarStatus(@Param("andamento") Andamento andamento, @Param("id") Integer id);
+    void ajustarAgendamento(@Param("andamento") Andamento andamento, @Param("id") Integer id);
 }
