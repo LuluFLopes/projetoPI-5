@@ -17,8 +17,6 @@ public class Endereco {
     private String cidade;
     @Enumerated
     private Uf uf;
-    @Enumerated
-    private Status status;
 
     public int getId() {
         return id;
@@ -84,11 +82,4 @@ public class Endereco {
         this.uf = uf;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 }

@@ -1,0 +1,53 @@
+POST http://localhost:8081/medicos/atualizar
+Content-Type: application/json
+
+{
+  "id": 2,
+  "nome": "Luciano",
+  "cpf": "405.046.560-40",
+  "endereco": {
+    "logradouro": "Rua Teste",
+    "numero": "20",
+    "complemento": "Teste",
+    "cep": "22222-222",
+    "bairro": "Teste",
+    "cidade": "Teste",
+    "uf": "SP"
+  },
+  "contato": {
+    "id": 2,
+    "email": "luciano.teste@teste.com.br",
+    "telefone": "11931010447"
+  },
+  "login": {
+    "id": 2,
+    "usuario": "luciano.teste",
+    "senha": "123"
+  },
+  "especializacao": {
+    "id": 1,
+    "descricao": "Oftamologista",
+    "status": "ATIVO"
+  },
+  "agendamento": {
+    "id": 1,
+    "dataInicio": "",
+    "dataTermino": "",
+    "unidade": {
+      "id": 1,
+      "descricao": "Unidade Santo Amaro",
+      "endereco": {
+        "id": 2,
+        "logradouro": "Rua Teste",
+        "numero": "20",
+        "complemento": "Teste",
+        "cep": "22222-222",
+        "bairro": "Teste",
+        "cidade": "Teste",
+        "uf": "SP"
+      },
+      "status": "ATIVO"
+    },
+    "andamento": "AGENDADO"
+  }
+}

@@ -49,7 +49,6 @@ public class FuncionarioService {
     private void setarCamposComoAtivoPorPadrao(Funcionario funcionario) {
         funcionario.setStatus(Status.ATIVO);
         funcionario.getContato().setStatus(Status.ATIVO);
-        funcionario.getEndereco().setStatus(Status.ATIVO);
     }
 
     public void inativarFuncionario(int id) {
