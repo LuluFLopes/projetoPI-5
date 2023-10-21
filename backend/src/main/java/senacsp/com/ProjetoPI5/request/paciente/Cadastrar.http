@@ -1,16 +1,13 @@
-POST http://localhost:8081/funcionarios/atualizar
+POST http://localhost:8081/pacientes/cadastrar
 Content-Type: application/json
 
 {
-  "id": 1,
   "nome": "Luciano",
   "cpf": "405.046.560-40",
-  "status": "ATIVO",
-  "cargo": "ATENDENTE",
+  "crm": "2132415343",
   "endereco": {
-    "id": 1,
     "logradouro": "Rua Teste",
-    "numero": 20,
+    "numero": "20",
     "complemento": "Teste",
     "cep": "22222-222",
     "bairro": "Teste",
@@ -18,13 +15,11 @@ Content-Type: application/json
     "uf": "SP"
   },
   "contato": {
-    "id": 1,
     "email": "luciano.teste@teste.com.br",
     "telefone": "11931010447"
   },
   "login": {
-    "id": 1,
     "usuario": "luciano.teste",
-    "senha": "354"
+    "senha": "123"
   }
 }
