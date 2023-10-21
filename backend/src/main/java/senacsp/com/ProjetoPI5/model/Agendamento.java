@@ -14,6 +14,8 @@ public class Agendamento {
     private LocalDate dataTermino;
     @ManyToOne(cascade = CascadeType.ALL)
     private Unidade unidade;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Medico medico;
     @Enumerated
     private Andamento andamento;
 
@@ -47,6 +49,14 @@ public class Agendamento {
 
     public void setUnidade(Unidade unidade) {
         this.unidade = unidade;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public Andamento getAndamento() {

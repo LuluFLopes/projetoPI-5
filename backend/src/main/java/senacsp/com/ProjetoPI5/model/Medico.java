@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 
 @Entity
 public class Medico extends Pessoa {
+
     private String crm;
     @OneToOne(cascade = CascadeType.ALL)
     private Especializacao especializacao;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Agendamento agendamento;
 
     public String getCrm() {
         return crm;
@@ -26,11 +25,4 @@ public class Medico extends Pessoa {
         this.especializacao = especializacao;
     }
 
-    public Agendamento getAgendamento() {
-        return agendamento;
-    }
-
-    public void setAgendamento(Agendamento agendamento) {
-        this.agendamento = agendamento;
-    }
 }

@@ -1,0 +1,2 @@
+GET http://localhost:8081/especializacao/listar
+Content-Type: application/json

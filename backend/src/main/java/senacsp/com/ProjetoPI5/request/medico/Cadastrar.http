@@ -4,6 +4,7 @@ Content-Type: application/json
 {
   "nome": "Luciano",
   "cpf": "405.046.560-40",
+  "crm": "2132415343",
   "endereco": {
     "logradouro": "Rua Teste",
     "numero": "20",
@@ -24,24 +25,5 @@ Content-Type: application/json
   "especializacao": {
     "descricao": "Oftamologista",
     "status": "ATIVO"
-  },
-  "agendamento": {
-    "dataInicio": "",
-    "dataTermino": "",
-    "unidade": {
-      "descricao": "Unidade Santo Amaro",
-      "endereco": {
-        "logradouro": "Rua Teste",
-        "numero": "20",
-        "complemento": "Teste",
-        "cep": "22222-222",
-        "bairro": "Teste",
-        "cidade": "Teste",
-        "uf": "SP"
-      },
-      "status": "ATIVO"
-    },
-    "crm": "2132415343",
-    "andamento": "AGENDADO"
   }
 }

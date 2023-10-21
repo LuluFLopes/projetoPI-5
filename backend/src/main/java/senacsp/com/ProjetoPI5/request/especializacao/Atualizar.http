@@ -1,0 +1,7 @@
+POST http://localhost:8081/especializacao/alterar
+Content-Type: application/json
+
+{
+  "id": 1,
+  "descricao": "Clinico geral"
+}
