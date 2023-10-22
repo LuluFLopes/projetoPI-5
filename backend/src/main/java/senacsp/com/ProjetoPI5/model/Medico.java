@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Medico extends Pessoa {
 
     private String crm;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Especializacao especializacao;
 
     public String getCrm() {

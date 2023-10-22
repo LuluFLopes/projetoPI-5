@@ -23,7 +23,6 @@ Content-Type: application/json
     "senha": "123"
   },
   "especializacao": {
-    "descricao": "Oftamologista",
-    "status": "ATIVO"
+    "id": 1
   }
 }

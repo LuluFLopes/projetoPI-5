@@ -1,34 +1,32 @@
-POST http://localhost:8081/medicos/atualizar
+POST http://localhost:8081/medicos/alterar
 Content-Type: application/json
 
 {
-  "id": 2,
-  "nome": "Luciano",
+  "id": 1,
+  "nome": "Luciano Alterar",
   "cpf": "405.046.560-40",
   "crm": "2132415343",
   "endereco": {
-    "id": 2,
-    "logradouro": "Rua Teste",
+    "id": 1,
+    "logradouro": "Rua Teste2",
     "numero": "20",
-    "complemento": "Teste",
+    "complemento": "Teste2",
     "cep": "22222-222",
-    "bairro": "Teste",
-    "cidade": "Teste",
+    "bairro": "Teste2",
+    "cidade": "Teste2",
     "uf": "SP"
   },
   "contato": {
-    "id": 2,
+    "id": 1,
     "email": "luciano.teste@teste.com.br",
     "telefone": "11931010447"
   },
   "login": {
-    "id": 2,
+    "id": 1,
     "usuario": "luciano.teste",
     "senha": "123"
   },
   "especializacao": {
-    "id": 1,
-    "descricao": "Oftamologista",
-    "status": "ATIVO"
+    "id": 1
   }
 }

@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
@@ -37,24 +38,29 @@ public class MedicoService {
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_MEDICO_NAO_ENCONTRADO));
     }
 
+    @Transactional
     public void adicionarMedico(Medico medico) {
         medico.setStatus(Status.ATIVO);
         medicoRepository.save(medico);
     }
 
+    @Transactional
     public void alterarMedico(Medico medico){
+        medico.setStatus(Status.ATIVO);
         medicoRepository.save(medico);
     }
 
+    @Transactional
     public void inativarMedico(int id) {
         medicoRepository.ajustarStatus(Status.INATIVO, id);
     }
 
+    @Transactional
     public void ativarMedico(int id) {
         medicoRepository.ajustarStatus(Status.ATIVO, id);
     }
 
     public Medico login(Login login){
-        return medicoRepository.login(login.getUsuario(), login.getUsuario());
+        return medicoRepository.login(login.getUsuario(), login.getSenha());
     }
 }

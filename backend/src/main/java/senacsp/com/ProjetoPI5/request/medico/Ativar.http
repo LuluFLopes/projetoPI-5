@@ -1,0 +1,2 @@
+PUT http://localhost:8081/medicos/ativar/1
+Content-Type: application/json
