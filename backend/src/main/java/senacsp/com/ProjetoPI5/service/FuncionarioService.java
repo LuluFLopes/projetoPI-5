@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Funcionario;
 import senacsp.com.ProjetoPI5.model.Login;
@@ -37,11 +38,13 @@ public class FuncionarioService {
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_FUNCIONARIO_NAO_ENCONTRADO));
     }
 
+    @Transactional
     public void adicionarFuncionario(Funcionario funcionario) {
         setarCamposComoAtivoPorPadrao(funcionario);
         funcionarioRepository.save(funcionario);
     }
 
+    @Transactional
     public void alterarFuncionario(Funcionario funcionario){
         funcionarioRepository.save(funcionario);
     }
@@ -50,14 +53,17 @@ public class FuncionarioService {
         funcionario.setStatus(Status.ATIVO);
     }
 
+    @Transactional
     public void inativarFuncionario(int id) {
         funcionarioRepository.ajustarStatus(Status.INATIVO, id);
     }
 
+    @Transactional
     public void ativarFuncionario(int id) {
         funcionarioRepository.ajustarStatus(Status.ATIVO, id);
     }
 
+    @Transactional
     public Funcionario login(Login login){
         return funcionarioRepository.login(login.getUsuario(), login.getSenha());
     }

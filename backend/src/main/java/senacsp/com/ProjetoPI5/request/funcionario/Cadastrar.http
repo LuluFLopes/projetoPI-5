@@ -19,7 +19,7 @@ Content-Type: application/json
     "telefone": "11931010447"
   },
   "login": {
-    "usuario":"luciano.teste",
+    "usuario":"luciano.teste2",
     "senha":"123"
   }
 }

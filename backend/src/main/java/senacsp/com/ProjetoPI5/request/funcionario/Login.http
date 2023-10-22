@@ -1,0 +1,7 @@
+PUT http://localhost:8081/funcionarios/login
+Content-Type: application/json
+
+{
+  "usuario": "luciano.teste",
+  "senha": "123"
+}
