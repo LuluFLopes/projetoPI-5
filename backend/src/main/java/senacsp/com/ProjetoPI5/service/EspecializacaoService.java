@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Especializacao;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
@@ -36,19 +37,24 @@ public class EspecializacaoService {
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_ESPECIALIZACAO_NAO_ENCONTRADO));
     }
 
+    @Transactional
     public void adicionarUnidade(Especializacao especializacao) {
+        especializacao.setStatus(Status.ATIVO);
         especializacaoRepository.save(especializacao);
     }
 
+    @Transactional
     public void alterarUnidade(Especializacao especializacao){
+        especializacao.setStatus(Status.ATIVO);
         especializacaoRepository.save(especializacao);
     }
 
-
+    @Transactional
     public void inativarUnidade(int id) {
         especializacaoRepository.ajustarStatus(Status.INATIVO, id);
     }
 
+    @Transactional
     public void ativarUnidade(int id) {
         especializacaoRepository.ajustarStatus(Status.ATIVO, id);
     }
