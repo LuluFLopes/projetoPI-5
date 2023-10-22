@@ -27,6 +27,8 @@ Content-Type: application/json
     "senha": "123"
   },
   "especializacao": {
-    "id": 1
+    "id": 1,
+    "descricao": "Clinico geral",
+    "status": "ATIVO"
   }
 }
