@@ -5,6 +5,7 @@ Content-Type: application/json
   "id": 1,
   "descricao": "Unidade Santo Amaro",
   "endereco": {
+    "id": 1,
     "logradouro": "Rua Teste",
     "numero": 20,
     "complemento": "Teste",
@@ -12,5 +13,6 @@ Content-Type: application/json
     "bairro": "Teste",
     "cidade": "Teste",
     "uf": "SP"
-  }
+  },
+  "status": "ATIVO"
 }

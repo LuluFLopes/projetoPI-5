@@ -2,20 +2,24 @@ package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.*;
 import senacsp.com.ProjetoPI5.model.enumeradores.Andamento;
+import senacsp.com.ProjetoPI5.model.enumeradores.HorarioDeAtendimento;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Agendamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDate dataInicio;
-    private LocalDate dataTermino;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataTermino;
     @ManyToOne(cascade = CascadeType.ALL)
     private Unidade unidade;
     @ManyToOne(cascade = CascadeType.ALL)
     private Medico medico;
+    @OneToOne
+    private Paciente paciente;
     @Enumerated
     private Andamento andamento;
 
@@ -27,19 +31,19 @@ public class Agendamento {
         this.id = id;
     }
 
-    public LocalDate getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDate dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDate getDataTermino() {
+    public LocalDateTime getDataTermino() {
         return dataTermino;
     }
 
-    public void setDataTermino(LocalDate dataTermino) {
+    public void setDataTermino(LocalDateTime dataTermino) {
         this.dataTermino = dataTermino;
     }
 
@@ -57,6 +61,14 @@ public class Agendamento {
 
     public void setMedico(Medico medico) {
         this.medico = medico;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
     public Andamento getAndamento() {
