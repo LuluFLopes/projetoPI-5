@@ -16,14 +16,14 @@ public class EncriptadorService {
         return encriptador.encrypt(senha);
     }
 
-    private List<Pessoa> desencriptadorLista(List<Pessoa> lista) {
+    public List<Pessoa> desencriptadorLista(List<Pessoa> lista) {
         for (Pessoa p : lista) {
             p.getLogin().setSenha(encriptador.decrypt(p.getLogin().getSenha()));
         }
         return lista;
     }
 
-    private void desencriptadorPessoa(Pessoa pessoa) {
+    public void desencriptadorPessoa(Pessoa pessoa) {
         pessoa.getLogin().setSenha(encriptador.decrypt(pessoa.getLogin().getSenha()));
     }
 
