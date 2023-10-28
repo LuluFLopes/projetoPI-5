@@ -17,8 +17,11 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
 
-    public PacienteService(PacienteRepository pacienteRepository) {
+    private final EncriptadorService encriptadorService;
+
+    public PacienteService(PacienteRepository pacienteRepository, EncriptadorService encriptadorService) {
         this.pacienteRepository = pacienteRepository;
+        this.encriptadorService = encriptadorService;
     }
 
     public List<Paciente> listarPacientes() {
@@ -28,21 +31,33 @@ public class PacienteService {
             throw new NoSuchElementException(MENSAGEM_LISTA_PACIENTE_VAZIA);
         }
 
+        pacientes.forEach(encriptadorService::desencriptarSenha);
+
         return pacientes;
     }
 
     public Paciente buscarPaciente(int id) {
-        return pacienteRepository.findById(id)
+        Paciente paciente = pacienteRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_PACIENTE_NAO_ENCONTRADO));
+
+        encriptadorService.desencriptarSenha(paciente);
+
+        return paciente;
     }
 
     public void adicionarPaciente(Paciente paciente) {
-        paciente.setStatus(Status.ATIVO);
+        tratarDadosPaciente(paciente);
         pacienteRepository.save(paciente);
     }
 
     public void alterarPaciente(Paciente paciente) {
+        tratarDadosPaciente(paciente);
         pacienteRepository.save(paciente);
+    }
+
+    private void tratarDadosPaciente(Paciente paciente){
+        paciente.setStatus(Status.ATIVO);
+        encriptadorService.encriptarSenha(paciente);
     }
 
     public void inativarPaciente(int id) {

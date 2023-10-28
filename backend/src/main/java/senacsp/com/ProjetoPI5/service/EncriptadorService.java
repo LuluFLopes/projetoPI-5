@@ -4,26 +4,17 @@ import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Pessoa;
 
-import java.util.List;
-
 @Service
 public class EncriptadorService {
 
     private final BasicTextEncryptor encriptador = new BasicTextEncryptor();
 
-    public String encriptarSenha(String senha) {
-        encriptador.setPasswordCharArray("palavra-teste".toCharArray());
-        return encriptador.encrypt(senha);
+    public void encriptarSenha(Pessoa pessoa) {
+        encriptador.setPasswordCharArray("chave-padrao".toCharArray());
+        pessoa.getLogin().setSenha(encriptador.encrypt(pessoa.getLogin().getSenha()));
     }
 
-    public List<Pessoa> desencriptadorLista(List<Pessoa> lista) {
-        for (Pessoa p : lista) {
-            p.getLogin().setSenha(encriptador.decrypt(p.getLogin().getSenha()));
-        }
-        return lista;
-    }
-
-    public void desencriptadorPessoa(Pessoa pessoa) {
+    public void desencriptarSenha(Pessoa pessoa) {
         pessoa.getLogin().setSenha(encriptador.decrypt(pessoa.getLogin().getSenha()));
     }
 
