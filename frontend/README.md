@@ -1,4 +1,4 @@
-# projetopi
+# frontend
 
 ## Project setup
 ```
