@@ -2,8 +2,8 @@ POST http://localhost:8081/agendamentos/listarHorariosDisponiveisPorData
 Content-Type: application/json
 
 {
-  "paciente": {
-    "id": 1
+  "medico": {
+    "id": 2
   },
   "dataAgendamento": [
     2023,

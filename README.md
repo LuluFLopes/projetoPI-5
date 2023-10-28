@@ -1,4 +1,4 @@
-# ProjetoPI-4-Semestre
+# ProjetoPI-5-Semestre
 
 > Ao clonar o projeto, rodar os seguintes comamndos na dentro da pasta frontend:
 
