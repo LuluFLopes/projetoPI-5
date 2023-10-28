@@ -49,7 +49,7 @@ public class MedicoService {
 
     @Transactional
     public void adicionarMedico(Medico medico) {
-        medico.setStatus(Status.ATIVO);
+        tratarDadosMedico(medico);
         medicoRepository.save(medico);
     }
 
