@@ -19,8 +19,11 @@ public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository) {
+    private final EncriptadorService encriptadorService;
+
+    public FuncionarioService(FuncionarioRepository funcionarioRepository, EncriptadorService encriptadorService) {
         this.funcionarioRepository = funcionarioRepository;
+        this.encriptadorService = encriptadorService;
     }
 
     public List<Funcionario> listarFuncionarios() {
@@ -30,27 +33,35 @@ public class FuncionarioService {
             throw new NoSuchElementException(MENSAGEM_LISTA_FUNCIONARIO_VAZIA);
         }
 
+        funcionarios.forEach(encriptadorService::desencriptarSenha);
+
         return funcionarios;
     }
 
     public Funcionario buscarFuncionario(int id) {
-        return funcionarioRepository.findById(id)
+        Funcionario funcionario = funcionarioRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_FUNCIONARIO_NAO_ENCONTRADO));
+
+        encriptadorService.desencriptarSenha(funcionario);
+
+        return funcionario;
     }
 
     @Transactional
     public void adicionarFuncionario(Funcionario funcionario) {
-        setarCamposComoAtivoPorPadrao(funcionario);
+        trataDadosFuncionario(funcionario);
         funcionarioRepository.save(funcionario);
     }
 
     @Transactional
     public void alterarFuncionario(Funcionario funcionario){
+        trataDadosFuncionario(funcionario);
         funcionarioRepository.save(funcionario);
     }
 
-    private void setarCamposComoAtivoPorPadrao(Funcionario funcionario) {
+    private void trataDadosFuncionario(Funcionario funcionario) {
         funcionario.setStatus(Status.ATIVO);
+        encriptadorService.encriptarSenha(funcionario);
     }
 
     @Transactional

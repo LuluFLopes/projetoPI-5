@@ -19,8 +19,11 @@ public class MedicoService {
 
     private final MedicoRepository medicoRepository;
 
-    public MedicoService(MedicoRepository medicoRepository) {
+    private final EncriptadorService encriptadorService;
+
+    public MedicoService(MedicoRepository medicoRepository, EncriptadorService encriptadorService) {
         this.medicoRepository = medicoRepository;
+        this.encriptadorService = encriptadorService;
     }
 
     public List<Medico> listarMedicos() {
@@ -30,24 +33,35 @@ public class MedicoService {
             throw new NoSuchElementException(MENSAGEM_LISTA_MEDICO_VAZIA);
         }
 
+        medicos.forEach(encriptadorService::desencriptarSenha);
+
         return medicos;
     }
 
     public Medico buscarMedico(int id) {
-        return medicoRepository.findById(id)
+        Medico medico = medicoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_MEDICO_NAO_ENCONTRADO));
+
+        encriptadorService.desencriptarSenha(medico);
+
+        return medico;
     }
 
     @Transactional
     public void adicionarMedico(Medico medico) {
-        medico.setStatus(Status.ATIVO);
+        tratarDadosMedico(medico);
         medicoRepository.save(medico);
     }
 
     @Transactional
     public void alterarMedico(Medico medico){
-        medico.setStatus(Status.ATIVO);
+        tratarDadosMedico(medico);
         medicoRepository.save(medico);
+    }
+
+    private void tratarDadosMedico(Medico medico){
+        medico.setStatus(Status.ATIVO);
+        encriptadorService.encriptarSenha(medico);
     }
 
     @Transactional
