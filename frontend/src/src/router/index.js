@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import LoginCliente from "@/View/LoginCliente";
 
 Vue.use(VueRouter)
 
@@ -6,7 +7,7 @@ const routes = [
   {
     path: '/loginCliente',
     name: 'loginCliente',
-    component: loginCliente
+    component: LoginCliente
   },
 ]
 
