@@ -1,0 +1,28 @@
+POST http://localhost:8081/agendamentos/cadastrar
+Content-Type: application/json
+
+{
+  "dataAgendamento": [
+    2023,
+    1,
+    25
+  ],
+  "horaInicio": [
+    18,
+    0
+  ],
+  "horaTermino": [
+    19,
+    0
+  ],
+  "paciente": {
+    "id": 1
+  },
+  "medico": {
+    "id": 2
+  },
+  "unidade": {
+    "id": 1
+  },
+  "andamento": "AGENDADO"
+}

@@ -4,7 +4,6 @@ Content-Type: application/json
 {
   "nome": "Luciano",
   "cpf": "405.046.560-40",
-  "crm": "2132415343",
   "endereco": {
     "logradouro": "Rua Teste",
     "numero": "20",
@@ -19,7 +18,7 @@ Content-Type: application/json
     "telefone": "11931010447"
   },
   "login": {
-    "usuario": "luciano.teste",
+    "usuario": "luciano.teste2",
     "senha": "123"
   }
 }

@@ -19,6 +19,6 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
     @Query("UPDATE Agendamento a SET a.andamento = :andamento WHERE a.id = :id")
     void ajustarAgendamento(@Param("andamento") Andamento andamento, @Param("id") Integer id);
 
-    @Query("SELECT a FROM Agendamento a WHERE a.paciente.id = :id AND a.dataInicio = :dataInicio")
-    List<Agendamento> listarAgendamentos(@Param("id") Integer id, @Param("dataInicio") LocalDateTime dataInicio);
+    @Query("SELECT a FROM Agendamento a WHERE a.paciente.id = :id AND a.dataAgendamento = :dataAgendamento")
+    List<Agendamento> listarAgendamentos(@Param("id") Integer id, @Param("dataAgendamento") LocalDate dataAgendamento);
 }

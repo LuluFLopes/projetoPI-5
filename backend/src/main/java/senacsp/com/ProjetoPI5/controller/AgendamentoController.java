@@ -46,7 +46,7 @@ public class AgendamentoController {
         agendamentoService.adicionarAgendamento(agendamento);
     }
 
-    @PostMapping
+    @PostMapping("/listarHorariosDisponiveisPorData")
     public ResponseEntity<List<HorarioDisponivelView>> listarHorariosDisponiveis(@RequestBody Agendamento agendamento) {
         return ResponseEntity.ok(agendamentoService.listarHorariosDisponiveis(agendamento));
     }

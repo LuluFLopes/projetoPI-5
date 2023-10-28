@@ -8,6 +8,7 @@ import senacsp.com.ProjetoPI5.repository.AgendamentoRepository;
 import senacsp.com.ProjetoPI5.view.HorarioDisponivelView;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 @Service
@@ -46,7 +47,7 @@ public class AgendamentoService {
     }
 
     public List<HorarioDisponivelView> listarHorariosDisponiveis(Agendamento agendamento) {
-        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentos(agendamento.getId(), agendamento.getDataInicio());
+        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentos(agendamento.getPaciente().getId(), agendamento.getDataAgendamento());
         return filtrarHorariosSemAgendamento(agendamentos, Arrays.asList(HorarioDeAtendimento.values()));
     }
 
@@ -55,10 +56,10 @@ public class AgendamentoService {
         for (HorarioDeAtendimento horario : horarioDeAtendimento) {
             boolean horarioDisponivel = true;
             for (Agendamento agendamento : agendados) {
-                LocalDateTime dataInicio = agendamento.getDataInicio();
-                LocalDateTime dataTermino = agendamento.getDataTermino();
-                if (horario.getHoraDeInicio().equals(dataInicio.toLocalTime())
-                        && horario.getHoraDeTermino().equals(dataTermino.toLocalTime())) {
+                LocalTime dataInicio = agendamento.getHoraInicio();
+                LocalTime dataTermino = agendamento.getHoraTermino();
+                if (horario.getHoraDeInicio().equals(dataInicio)
+                        && horario.getHoraDeTermino().equals(dataTermino)) {
                     horarioDisponivel = false;
                     break;
                 }

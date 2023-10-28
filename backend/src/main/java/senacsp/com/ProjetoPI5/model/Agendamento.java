@@ -2,23 +2,23 @@ package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.*;
 import senacsp.com.ProjetoPI5.model.enumeradores.Andamento;
-import senacsp.com.ProjetoPI5.model.enumeradores.HorarioDeAtendimento;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Agendamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private LocalDateTime dataInicio;
-    private LocalDateTime dataTermino;
-    @ManyToOne(cascade = CascadeType.ALL)
+    private LocalDate dataAgendamento;
+    private LocalTime horaInicio;
+    private LocalTime horaTermino;
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Unidade unidade;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Medico medico;
-    @OneToOne
+    @ManyToOne
     private Paciente paciente;
     @Enumerated
     private Andamento andamento;
@@ -31,20 +31,28 @@ public class Agendamento {
         this.id = id;
     }
 
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
+    public LocalDate getDataAgendamento() {
+        return dataAgendamento;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setDataAgendamento(LocalDate dataInicio) {
+        this.dataAgendamento = dataInicio;
     }
 
-    public LocalDateTime getDataTermino() {
-        return dataTermino;
+    public LocalTime getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setDataTermino(LocalDateTime dataTermino) {
-        this.dataTermino = dataTermino;
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraTermino() {
+        return horaTermino;
+    }
+
+    public void setHoraTermino(LocalTime horaTermino) {
+        this.horaTermino = horaTermino;
     }
 
     public Unidade getUnidade() {

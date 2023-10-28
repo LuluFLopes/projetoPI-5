@@ -5,7 +5,6 @@ Content-Type: application/json
   "id": 1,
   "nome": "Luciano",
   "cpf": "405.046.560-40",
-  "crm": "2132415343",
   "endereco": {
     "logradouro": "Rua Teste",
     "numero": "20",
