@@ -9,7 +9,7 @@ public class EncriptadorService {
 
     private final BasicTextEncryptor encriptador = new BasicTextEncryptor();
 
-    public void encriptarSenha(Pessoa pessoa) {
+    public void encriptarSenhaPorPessoa(Pessoa pessoa) {
         encriptador.setPasswordCharArray("chave-padrao".toCharArray());
         pessoa.getLogin().setSenha(encriptador.encrypt(pessoa.getLogin().getSenha()));
     }

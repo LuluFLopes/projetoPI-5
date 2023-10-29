@@ -15,6 +15,6 @@ public interface MedicoRepository extends JpaRepository<Medico, Integer> {
     @Query("UPDATE Medico m SET m.status = :status WHERE m.id = :id")
     void ajustarStatus(@Param("status") Status status, @Param("id") Integer id);
 
-    @Query("SELECT m FROM Medico m WHERE m.login.usuario = :usuario AND m.login.senha = :senha")
-    Medico login(@Param("usuario") String usuario, @Param("senha") String senha);
+    @Query("SELECT m FROM Medico m WHERE m.login.usuario = :usuario")
+    Medico login(@Param("usuario") String usuario);
 }

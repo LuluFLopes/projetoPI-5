@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Funcionario;
 import senacsp.com.ProjetoPI5.model.Login;
+import senacsp.com.ProjetoPI5.model.Medico;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.repository.FuncionarioRepository;
 
@@ -61,7 +62,7 @@ public class FuncionarioService {
 
     private void trataDadosFuncionario(Funcionario funcionario) {
         funcionario.setStatus(Status.ATIVO);
-        encriptadorService.encriptarSenha(funcionario);
+        encriptadorService.encriptarSenhaPorPessoa(funcionario);
     }
 
     @Transactional
@@ -76,6 +77,17 @@ public class FuncionarioService {
 
     @Transactional
     public Funcionario login(Login login){
-        return funcionarioRepository.login(login.getUsuario(), login.getSenha());
+        Funcionario funcionario = funcionarioRepository.login(login.getUsuario());
+
+        if(validaSeSenhasBatem(login, funcionario)){
+            return funcionario;
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    private boolean validaSeSenhasBatem(Login login, Funcionario funcionario) {
+        encriptadorService.desencriptarSenha(funcionario);
+        return login.getSenha().equals(funcionario.getLogin().getSenha());
     }
 }

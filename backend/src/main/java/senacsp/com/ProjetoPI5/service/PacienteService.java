@@ -55,9 +55,9 @@ public class PacienteService {
         pacienteRepository.save(paciente);
     }
 
-    private void tratarDadosPaciente(Paciente paciente){
+    private void tratarDadosPaciente(Paciente paciente) {
         paciente.setStatus(Status.ATIVO);
-        encriptadorService.encriptarSenha(paciente);
+        encriptadorService.encriptarSenhaPorPessoa(paciente);
     }
 
     public void inativarPaciente(int id) {
@@ -69,6 +69,16 @@ public class PacienteService {
     }
 
     public Paciente login(Login login) {
-        return pacienteRepository.login(login.getUsuario(), login.getSenha());
+        Paciente paciente = pacienteRepository.login(login.getUsuario());
+        if (validaSeSenhasBatem(login, paciente)) {
+            return paciente;
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    private boolean validaSeSenhasBatem(Login login, Paciente paciente) {
+        encriptadorService.desencriptarSenha(paciente);
+        return login.getSenha().equals(paciente.getLogin().getSenha());
     }
 }

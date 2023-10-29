@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
+import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.repository.MedicoRepository;
 
@@ -54,14 +55,14 @@ public class MedicoService {
     }
 
     @Transactional
-    public void alterarMedico(Medico medico){
+    public void alterarMedico(Medico medico) {
         tratarDadosMedico(medico);
         medicoRepository.save(medico);
     }
 
-    private void tratarDadosMedico(Medico medico){
+    private void tratarDadosMedico(Medico medico) {
         medico.setStatus(Status.ATIVO);
-        encriptadorService.encriptarSenha(medico);
+        encriptadorService.encriptarSenhaPorPessoa(medico);
     }
 
     @Transactional
@@ -74,7 +75,17 @@ public class MedicoService {
         medicoRepository.ajustarStatus(Status.ATIVO, id);
     }
 
-    public Medico login(Login login){
-        return medicoRepository.login(login.getUsuario(), login.getSenha());
+    public Medico login(Login login) {
+        Medico medico = medicoRepository.login(login.getUsuario());
+        if (validaSeSenhasBatem(login, medico)) {
+            return medico;
+        } else {
+            throw new NoSuchElementException();
+        }
+    }
+
+    private boolean validaSeSenhasBatem(Login login, Medico medico) {
+        encriptadorService.desencriptarSenha(medico);
+        return login.getSenha().equals(medico.getLogin().getSenha());
     }
 }
