@@ -2,15 +2,34 @@
   <div class="principal">
     <v-col>
       <v-row>
+        <v-col cols="1">
+        </v-col>
         <v-col cols="3">
           <v-card height="378px">
+            <h2 style="text-align: center;padding-bottom: 10px">Dados do Agendamento</h2>
+            <div>
+              <label>Unidade: {{ this.unidadeView.descricao }}</label>
+              <label>Endereço: {{
+                  `${this.unidadeView.endereco.logradouro} ${this.unidadeView.endereco.numero} ${this.unidadeView.endereco.complemento}`
+                }}</label>
+            </div>
+            <v-divider></v-divider>
+            <div>
+              <label>Médico: {{ this.medicoView.nome }}</label>
+              <label>CRM: {{ this.medicoView.crm }}</label>
+              <label>Especialização: {{ this.medicoView.especializacao.descricao }}</label>
+            </div>
+            <v-divider></v-divider>
+            <div>
+              <label>Horário de Agendamento: {{ this.horarioAtendimentoView }}</label>
+            </div>
           </v-card>
         </v-col>
         <v-col cols="3">
-          <v-card class="container-combobox" height="378px">
+          <v-card class="containerCombobox" height="378px">
             <v-combobox
                 v-model="unidadeInput"
-                class="padrao-combobox"
+                class="padraoCombobox"
                 clearable
                 label="Unidades"
                 variant="outlined"
@@ -20,7 +39,7 @@
 
             <v-combobox
                 v-model="especializacaoInput"
-                class="padrao-combobox"
+                class="padraoCombobox"
                 clearable
                 label="Especialidades"
                 variant="outlined"
@@ -30,7 +49,7 @@
 
             <v-combobox
                 v-model="medicoInput"
-                class="padrao-combobox"
+                class="padraoCombobox"
                 clearable
                 label="Medicos"
                 variant="outlined"
@@ -45,12 +64,18 @@
         </v-col>
         <v-col cols="2" v-if="this.componenteDatasAtiva">
           <v-card height="378px">
-            <h2 class="cabecalho-horarios">Horários Disponíveis</h2>
+            <h2 class="cabecalhoHorarios">Horários Disponíveis</h2>
             <div class="menuHorarios" v-for="(horario, index) in horariosDisponiveis" :key="index">
               <v-card class="horariosDisponiveis" @click="selecionarHorarios(horario)">{{ horario }}</v-card>
             </div>
           </v-card>
         </v-col>
+
+      </v-row>
+      <v-row>
+        <v-btn color="primary" width="20vw" height="7vh" class="btnRealizarAgendamento" :disabled="this.isBotaoRelizarAgendamentoHabilitado"
+               @click="realizarAgendamento()">Realizar agendamento
+        </v-btn>
       </v-row>
     </v-col>
   </div>
@@ -101,13 +126,32 @@ export default defineComponent({
       listaDeMedicosCompleta: [],
       unidadeInput: '',
       especializacaoInput: '',
-      medicoInput: ''
+      medicoInput: '',
+      unidadeView: {
+        descricao: '',
+        endereco: {
+          logradouro: '',
+          numero: '',
+          complemento: '',
+        }
+      },
+      medicoView: {
+        nome: '',
+        crm: '',
+        especializacao: {
+          descricao: ''
+        }
+      },
+      horarioAtendimentoView: '',
+      isBotaoRelizarAgendamentoHabilitado: true,
     }
   },
   methods: {
     async buscarDatas() {
       this.limparLista();
       this.preencherRequisicaoBuscarDatas();
+      this.isBotaoRelizarAgendamentoHabilitado = true;
+      this.horarioAtendimentoView = '';
       try {
         const request = await axios.post(this.urlBuscarHorarios, this.dadosBuscaHorarios);
         this.preencherHorariosDisponiveis(request.data);
@@ -148,8 +192,19 @@ export default defineComponent({
         console.log(ex.message);
       }
     },
-    selecionarHorarios(index) {
-      this.agendamento.horarioAgendamento = this.horariosDisponiveis[index];
+    async realizarAgendamento() {
+
+      try {
+        const request = await axios.post();
+        console.log(request);
+      } catch (ex) {
+        console.log(ex.message);
+      }
+    },
+    selecionarHorarios(horario) {
+      this.agendamento.horarioAgendamento = horario;
+      this.horarioAtendimentoView = horario;
+      this.isBotaoRelizarAgendamentoHabilitado = false;
     },
     preencherRequisicaoBuscarDatas() {
       this.dadosBuscaHorarios = {
@@ -189,6 +244,7 @@ export default defineComponent({
       let unidadeUtilizada = {};
       this.listaDeUnidadesCompleta.forEach(unidade => {
         if (unidade.descricao === this.unidadeInput) {
+          this.unidadeView = unidade;
           unidadeUtilizada = unidade;
         }
       });
@@ -209,15 +265,15 @@ export default defineComponent({
     },
     gravarMedicos() {
       this.agendamento.medico.id = this.filtrarMedicosPorNome();
-      if(this.agendamento.medico.id > 0) {
+      if (this.agendamento.medico.id > 0) {
         this.componenteDatasAtiva = true;
       }
-
     },
     filtrarMedicosPorNome() {
       let medicoUtilizado = {};
       this.listaDeMedicosCompleta.forEach(medico => {
         if (medico.nome === this.medicoInput) {
+          this.medicoView = medico;
           medicoUtilizado = medico;
         }
       });
@@ -232,16 +288,22 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .principal {
   max-height: 350px !important;
 }
 
-.container-combobox {
+label {
+  display: block;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+}
+
+.containerCombobox {
   text-align: center;
 }
 
-.padrao-combobox {
+.padraoCombobox {
   width: 80%;
   padding-top: 5vh;
   margin: 0 auto;
@@ -251,7 +313,7 @@ export default defineComponent({
   display: inline-block;
 }
 
-.cabecalho-horarios {
+.cabecalhoHorarios {
   text-align: center;
   margin-bottom: 50px;
 }
@@ -263,5 +325,9 @@ export default defineComponent({
   margin-top: 5px;
   font-weight: bold;
   color: #FFF !important;
+}
+
+.btnRealizarAgendamento {
+  margin: 8vh auto;
 }
 </style>
