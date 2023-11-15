@@ -24,5 +24,8 @@ Content-Type: application/json
   },
   "especializacao": {
     "id": 1
+  },
+  "unidade": {
+    "id": 1
   }
 }

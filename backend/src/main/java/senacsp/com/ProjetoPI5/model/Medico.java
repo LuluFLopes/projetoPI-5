@@ -9,6 +9,9 @@ public class Medico extends Pessoa {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Especializacao especializacao;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Unidade unidade;
+
     public String getCrm() {
         return crm;
     }
@@ -25,4 +28,11 @@ public class Medico extends Pessoa {
         this.especializacao = especializacao;
     }
 
+    public Unidade getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unidade unidade) {
+        this.unidade = unidade;
+    }
 }

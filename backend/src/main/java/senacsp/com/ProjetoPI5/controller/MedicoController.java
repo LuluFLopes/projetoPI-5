@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.controller;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import senacsp.com.ProjetoPI5.model.Login;
@@ -21,6 +22,11 @@ public class MedicoController {
     @GetMapping("/listar")
     public ResponseEntity<List<Medico>> listarMedicos() {
         return ResponseEntity.ok(medicoService.listarMedicos());
+    }
+
+    @GetMapping("/listarPorUnidadeEPorEspecializacao")
+    public ResponseEntity<List<Medico>> listarMedicosPorUnidadeENome(@RequestParam ("idUnidade") Integer idUnidade, @RequestParam("idEspecializacao") Integer idEspecializacao) {
+        return ResponseEntity.ok(medicoService.listarPorUnidadeEPorEspecializacao(idUnidade, idEspecializacao));
     }
 
     @GetMapping("/buscar/{id}")

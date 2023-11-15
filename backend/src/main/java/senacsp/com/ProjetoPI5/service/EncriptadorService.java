@@ -16,6 +16,8 @@ public class EncriptadorService {
     }
 
     public void desencriptarSenha(Pessoa pessoa) {
+        encriptador =  new BasicTextEncryptor();
+        encriptador.setPasswordCharArray("chave-padrao".toCharArray());
         pessoa.getLogin().setSenha(encriptador.decrypt(pessoa.getLogin().getSenha()));
     }
 

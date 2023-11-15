@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
-import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.repository.MedicoRepository;
 
@@ -29,6 +28,18 @@ public class MedicoService {
 
     public List<Medico> listarMedicos() {
         List<Medico> medicos = medicoRepository.findAll();
+
+        if (medicos.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_MEDICO_VAZIA);
+        }
+
+        medicos.forEach(encriptadorService::desencriptarSenha);
+
+        return medicos;
+    }
+
+    public List<Medico> listarPorUnidadeEPorEspecializacao(Integer idUnidade, Integer idEspecializacao) {
+        List<Medico> medicos = medicoRepository.listarPorUnidadeEPorEspecializacao(idUnidade, idEspecializacao);
 
         if (medicos.isEmpty()) {
             throw new NoSuchElementException(MENSAGEM_LISTA_MEDICO_VAZIA);
