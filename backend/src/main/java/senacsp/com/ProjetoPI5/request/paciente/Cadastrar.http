@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "nome": "Luciano",
-  "cpf": "405.046.560-40",
+  "cpf": "405.046.560-70",
   "endereco": {
     "logradouro": "Rua Teste",
     "numero": "20",
@@ -14,7 +14,7 @@ Content-Type: application/json
     "uf": "SP"
   },
   "contato": {
-    "email": "luciano.teste@teste.com.br",
+    "email": "luciano.teste2@teste2.com.br",
     "telefone": "11931010447"
   },
   "login": {

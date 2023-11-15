@@ -7,9 +7,10 @@ import senacsp.com.ProjetoPI5.model.Pessoa;
 @Service
 public class EncriptadorService {
 
-    private final BasicTextEncryptor encriptador = new BasicTextEncryptor();
+    private BasicTextEncryptor encriptador;
 
     public void encriptarSenhaPorPessoa(Pessoa pessoa) {
+        encriptador =  new BasicTextEncryptor();
         encriptador.setPasswordCharArray("chave-padrao".toCharArray());
         pessoa.getLogin().setSenha(encriptador.encrypt(pessoa.getLogin().getSenha()));
     }

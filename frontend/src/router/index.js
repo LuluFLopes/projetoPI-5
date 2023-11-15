@@ -2,8 +2,12 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import LoginCliente from "@/View/LoginCliente";
 import Home from "@/View/Home";
+<<<<<<< Updated upstream
 import CadastroPaciente from "@/View/CadastroPaciente.vue";
 import CadastroFuncionario from "@/View/CadastroFuncionario.vue";
+=======
+import TelaAgendamento from "@/View/TelaAgendamento";
+>>>>>>> Stashed changes
 
 Vue.use(VueRouter)
 
@@ -19,6 +23,7 @@ const routes = [
     component: Home
   },
   {
+<<<<<<< Updated upstream
     path: '/CadastroPaciente',
     name: 'CadastroPaciente',
     component: CadastroPaciente
@@ -28,6 +33,12 @@ const routes = [
     name: 'CadastroFuncionario',
     component: CadastroFuncionario
   },
+=======
+    path: '/Agendamento',
+    name: 'Agendamento',
+    component: TelaAgendamento
+  }
+>>>>>>> Stashed changes
 ]
 
 const router = new VueRouter({

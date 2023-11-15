@@ -6,12 +6,12 @@ import java.time.LocalTime;
 
 public class HorarioDisponivelView {
 
-    LocalTime horaInicio;
-    LocalTime horaTermino;
+    String horaInicio;
+    String horaTermino;
 
     public HorarioDisponivelView(LocalTime horaInicio, LocalTime horaTermino) {
-        this.horaInicio = horaInicio;
-        this.horaTermino = horaTermino;
+        this.horaInicio = horaInicio.toString();
+        this.horaTermino = horaTermino.toString();
     }
 
     public static HorarioDisponivelView conversor(HorarioDeAtendimento horario){
@@ -21,19 +21,19 @@ public class HorarioDisponivelView {
         );
     }
 
-    public LocalTime getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public LocalTime getHoraTermino() {
+    public String getHoraTermino() {
         return horaTermino;
     }
 
-    public void setHoraTermino(LocalTime horaTermino) {
+    public void setHoraTermino(String horaTermino) {
         this.horaTermino = horaTermino;
     }
 }
