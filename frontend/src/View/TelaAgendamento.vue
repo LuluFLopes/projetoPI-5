@@ -21,7 +21,7 @@
             </div>
             <v-divider></v-divider>
             <div>
-              <label>Horário de Agendamento: {{ this.horarioAtendimentoView }}</label>
+              <label>Horário de Agendamento: {{ this.horarioAtendimentoView.horaInicio }}</label>
             </div>
           </v-card>
         </v-col>
@@ -66,14 +66,15 @@
           <v-card height="378px">
             <h2 class="cabecalhoHorarios">Horários Disponíveis</h2>
             <div class="menuHorarios" v-for="(horario, index) in horariosDisponiveis" :key="index">
-              <v-card class="horariosDisponiveis" @click="selecionarHorarios(horario)">{{ horario }}</v-card>
+              <v-card class="horariosDisponiveis" @click="selecionarHorarios(horario)">{{ horario.horaInicio }}</v-card>
             </div>
           </v-card>
         </v-col>
 
       </v-row>
       <v-row>
-        <v-btn color="primary" width="20vw" height="7vh" class="btnRealizarAgendamento" :disabled="this.isBotaoRelizarAgendamentoHabilitado"
+        <v-btn color="primary" width="20vw" height="7vh" class="btnRealizarAgendamento"
+               :disabled="this.isBotaoRelizarAgendamentoHabilitado"
                @click="realizarAgendamento()">Realizar agendamento
         </v-btn>
       </v-row>
@@ -91,14 +92,15 @@ export default defineComponent({
     return {
       horariosDisponiveis: [],
       agendamento: {
-        horarioAgendamento: '',
+        horaInicio: '',
+        horaTermino: '',
         medico: {
           id: 0
         },
         unidade: {
           id: 0
         },
-        cliente: {
+        paciente: {
           id: 0
         },
         especializacao: {
@@ -110,6 +112,7 @@ export default defineComponent({
       urlBuscarUnidades: 'http://localhost:8081/unidades/listar',
       urlBuscarEspecialidades: 'http://localhost:8081/especializacao/listar',
       urlBuscarMedicoPorUnidadeEPorEspecializacao: 'http://localhost:8081/medicos/listarPorUnidadeEPorEspecializacao',
+      urlCadastrarAgendamento: 'http://localhost:8081/agendamentos/cadastrar',
       dadosBuscaHorarios: {
         medico: {
           id: 0
@@ -152,6 +155,7 @@ export default defineComponent({
       this.preencherRequisicaoBuscarDatas();
       this.isBotaoRelizarAgendamentoHabilitado = true;
       this.horarioAtendimentoView = '';
+      this.agendamento.dataAgendamento = this.dataPesquisada;
       try {
         const request = await axios.post(this.urlBuscarHorarios, this.dadosBuscaHorarios);
         this.preencherHorariosDisponiveis(request.data);
@@ -193,16 +197,16 @@ export default defineComponent({
       }
     },
     async realizarAgendamento() {
-
       try {
-        const request = await axios.post();
+        const request = await axios.post(this.urlCadastrarAgendamento, this.agendamento);
         console.log(request);
       } catch (ex) {
         console.log(ex.message);
       }
     },
     selecionarHorarios(horario) {
-      this.agendamento.horarioAgendamento = horario;
+      this.agendamento.horaInicio = horario.horaInicio;
+      this.agendamento.horaTermino = horario.horaTermino;
       this.horarioAtendimentoView = horario;
       this.isBotaoRelizarAgendamentoHabilitado = false;
     },
@@ -216,7 +220,12 @@ export default defineComponent({
     },
     preencherHorariosDisponiveis(listaDeHorariosDisponiveis) {
       listaDeHorariosDisponiveis.forEach(horario => {
-        this.horariosDisponiveis.push(horario.horaInicio);
+        this.horariosDisponiveis.push(
+            {
+              horaInicio: horario.horaInicio,
+              horaTermino: horario.horaTermino
+            }
+        );
       });
     },
     limparLista() {
@@ -278,11 +287,16 @@ export default defineComponent({
         }
       });
       return medicoUtilizado ? medicoUtilizado.id : 0;
+    },
+    preencherPaciente() {
+      let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+      this.agendamento.paciente.id = dadosLogin.id;
     }
   },
   mounted() {
     this.buscarListaDeUnidades();
     this.buscarEspecialidades();
+    this.preencherPaciente();
   }
 })
 </script>
