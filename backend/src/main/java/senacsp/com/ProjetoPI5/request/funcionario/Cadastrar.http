@@ -5,21 +5,27 @@ Content-Type: application/json
   "nome": "Luciano",
   "cpf": "405.046.560-40",
   "cargo": "ADMINISTRADOR",
+  "dataNascimento": [
+    1990,
+    10,
+    10
+  ],
   "endereco": {
     "logradouro": "Rua Teste",
-    "numero":"20",
+    "numero": "20",
     "complemento": "Teste",
-    "cep":"22222-222",
+    "cep": "22222-222",
     "bairro": "Teste",
-    "cidade":"Teste",
-    "uf":"SP"
+    "cidade": "Teste",
+    "uf": "SP"
   },
-  "contato":{
+  "contato": {
     "email": "luciano.teste@teste.com.br",
     "telefone": "11931010447"
   },
   "login": {
-    "usuario":"luciano.teste2",
-    "senha":"123"
-  }
+    "usuario": "luciano.teste3",
+    "senha": "123"
+  },
+  "genero": "MASCULINO"
 }

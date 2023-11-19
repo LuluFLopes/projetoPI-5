@@ -6,6 +6,11 @@ Content-Type: application/json
   "nome": "Luciano Alterar",
   "cpf": "405.046.560-40",
   "crm": "2132415343",
+  "dataNascimento": [
+    1990,
+    10,
+    10
+  ],
   "endereco": {
     "id": 1,
     "logradouro": "Rua Teste2",
@@ -27,8 +32,10 @@ Content-Type: application/json
     "senha": "123"
   },
   "especializacao": {
-    "id": 1,
-    "descricao": "Clinico geral",
-    "status": "ATIVO"
-  }
+    "id": 2
+  },
+  "unidade": {
+    "id": 2
+  },
+  "genero": "MASCULINO"
 }

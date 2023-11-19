@@ -7,6 +7,11 @@ Content-Type: application/json
   "cpf": "405.046.560-40",
   "status": "ATIVO",
   "cargo": "ATENDENTE",
+  "dataNascimento": [
+    1990,
+    10,
+    10
+  ],
   "endereco": {
     "id": 1,
     "logradouro": "Rua Teste",
@@ -26,5 +31,6 @@ Content-Type: application/json
     "id": 1,
     "usuario": "luciano.teste",
     "senha": "354"
-  }
+  },
+  "genero": "MASCULINO"
 }

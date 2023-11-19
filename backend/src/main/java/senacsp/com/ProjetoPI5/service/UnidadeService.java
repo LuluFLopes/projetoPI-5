@@ -36,6 +36,7 @@ public class UnidadeService {
     }
 
     public void adicionarUnidade(Unidade unidade) {
+        unidade.setStatus(Status.ATIVO);
         unidadeRepository.save(unidade);
     }
 

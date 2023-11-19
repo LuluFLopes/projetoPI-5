@@ -4,13 +4,18 @@ Content-Type: application/json
 {
   "nome": "Luciano",
   "cpf": "405.046.560-70",
+  "dataNascimento": [
+    1990,
+    10,
+    10
+  ],
   "endereco": {
-    "logradouro": "Rua Teste",
+    "logradouro": "Rua Teste20",
     "numero": "20",
-    "complemento": "Teste",
+    "complemento": "Teste20",
     "cep": "22222-222",
-    "bairro": "Teste",
-    "cidade": "Teste",
+    "bairro": "Teste20",
+    "cidade": "Teste20",
     "uf": "SP"
   },
   "contato": {
@@ -20,5 +25,6 @@ Content-Type: application/json
   "login": {
     "usuario": "luciano.teste2",
     "senha": "123"
-  }
+  },
+  "genero": "MASCULINO"
 }

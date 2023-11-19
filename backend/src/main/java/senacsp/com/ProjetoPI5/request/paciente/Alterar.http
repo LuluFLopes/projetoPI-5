@@ -5,7 +5,13 @@ Content-Type: application/json
   "id": 1,
   "nome": "Luciano",
   "cpf": "405.046.560-40",
+  "dataNascimento": [
+    1990,
+    10,
+    10
+  ],
   "endereco": {
+    "id": 1,
     "logradouro": "Rua Teste",
     "numero": "20",
     "complemento": "Teste",
@@ -23,5 +29,6 @@ Content-Type: application/json
     "id": 1,
     "usuario": "luciano.teste",
     "senha": "123"
-  }
+  },
+  "genero": "MASCULINO"
 }
