@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
+import senacsp.com.ProjetoPI5.repository.EspecializacaoRepository;
 import senacsp.com.ProjetoPI5.repository.MedicoRepository;
+import senacsp.com.ProjetoPI5.repository.UnidadeRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,9 +23,15 @@ public class MedicoService {
 
     private final EncriptadorService encriptadorService;
 
-    public MedicoService(MedicoRepository medicoRepository, EncriptadorService encriptadorService) {
+    private final UnidadeRepository unidadeRepository;
+
+    private final EspecializacaoRepository especializacaoRepository;
+
+    public MedicoService(MedicoRepository medicoRepository, EncriptadorService encriptadorService, UnidadeRepository unidadeRepository, EspecializacaoRepository especializacaoRepository) {
         this.medicoRepository = medicoRepository;
         this.encriptadorService = encriptadorService;
+        this.unidadeRepository = unidadeRepository;
+        this.especializacaoRepository = especializacaoRepository;
     }
 
     public List<Medico> listarMedicos() {
@@ -73,6 +81,8 @@ public class MedicoService {
 
     private void tratarDadosMedico(Medico medico) {
         medico.setStatus(Status.ATIVO);
+        medico.setUnidade(unidadeRepository.getReferenceById(medico.getUnidade().getId()));
+        medico.setEspecializacao(especializacaoRepository.getReferenceById(medico.getEspecializacao().getId()));
         encriptadorService.encriptarSenhaPorPessoa(medico);
     }
 
