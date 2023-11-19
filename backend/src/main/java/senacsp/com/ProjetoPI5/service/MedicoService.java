@@ -1,6 +1,7 @@
 package senacsp.com.ProjetoPI5.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
@@ -21,17 +22,17 @@ public class MedicoService {
 
     private final MedicoRepository medicoRepository;
 
-    private final EncriptadorService encriptadorService;
-
     private final UnidadeRepository unidadeRepository;
 
     private final EspecializacaoRepository especializacaoRepository;
 
-    public MedicoService(MedicoRepository medicoRepository, EncriptadorService encriptadorService, UnidadeRepository unidadeRepository, EspecializacaoRepository especializacaoRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public MedicoService(MedicoRepository medicoRepository, UnidadeRepository unidadeRepository, EspecializacaoRepository especializacaoRepository, PasswordEncoder passwordEncoder) {
         this.medicoRepository = medicoRepository;
-        this.encriptadorService = encriptadorService;
         this.unidadeRepository = unidadeRepository;
         this.especializacaoRepository = especializacaoRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Medico> listarMedicos() {
@@ -40,8 +41,6 @@ public class MedicoService {
         if (medicos.isEmpty()) {
             throw new NoSuchElementException(MENSAGEM_LISTA_MEDICO_VAZIA);
         }
-
-        medicos.forEach(encriptadorService::desencriptarSenha);
 
         return medicos;
     }
@@ -53,18 +52,12 @@ public class MedicoService {
             throw new NoSuchElementException(MENSAGEM_LISTA_MEDICO_VAZIA);
         }
 
-        medicos.forEach(encriptadorService::desencriptarSenha);
-
         return medicos;
     }
 
     public Medico buscarMedico(int id) {
-        Medico medico = medicoRepository.findById(id)
+        return medicoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_MEDICO_NAO_ENCONTRADO));
-
-        encriptadorService.desencriptarSenha(medico);
-
-        return medico;
     }
 
     @Transactional
@@ -83,7 +76,7 @@ public class MedicoService {
         medico.setStatus(Status.ATIVO);
         medico.setUnidade(unidadeRepository.getReferenceById(medico.getUnidade().getId()));
         medico.setEspecializacao(especializacaoRepository.getReferenceById(medico.getEspecializacao().getId()));
-        encriptadorService.encriptarSenhaPorPessoa(medico);
+        medico.getLogin().setSenha(passwordEncoder.encode(medico.getLogin().getSenha()));
     }
 
     @Transactional
@@ -106,7 +99,6 @@ public class MedicoService {
     }
 
     private boolean validaSeSenhasBatem(Login login, Medico medico) {
-        encriptadorService.desencriptarSenha(medico);
-        return login.getSenha().equals(medico.getLogin().getSenha());
+        return passwordEncoder.matches(login.getSenha(), medico.getLogin().getSenha());
     }
 }

@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Paciente;
@@ -17,11 +18,11 @@ public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
 
-    private final EncriptadorService encriptadorService;
+    private final PasswordEncoder passwordEncoder;
 
-    public PacienteService(PacienteRepository pacienteRepository, EncriptadorService encriptadorService) {
+    public PacienteService(PacienteRepository pacienteRepository, PasswordEncoder passwordEncoder) {
         this.pacienteRepository = pacienteRepository;
-        this.encriptadorService = encriptadorService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Paciente> listarPacientes() {
@@ -31,18 +32,12 @@ public class PacienteService {
             throw new NoSuchElementException(MENSAGEM_LISTA_PACIENTE_VAZIA);
         }
 
-        pacientes.forEach(encriptadorService::desencriptarSenha);
-
         return pacientes;
     }
 
     public Paciente buscarPaciente(int id) {
-        Paciente paciente = pacienteRepository.findById(id)
+        return pacienteRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_PACIENTE_NAO_ENCONTRADO));
-
-        encriptadorService.desencriptarSenha(paciente);
-
-        return paciente;
     }
 
     public void adicionarPaciente(Paciente paciente) {
@@ -57,7 +52,7 @@ public class PacienteService {
 
     private void tratarDadosPaciente(Paciente paciente) {
         paciente.setStatus(Status.ATIVO);
-        encriptadorService.encriptarSenhaPorPessoa(paciente);
+        paciente.getLogin().setSenha(passwordEncoder.encode(paciente.getLogin().getSenha()));
     }
 
     public void inativarPaciente(int id) {
@@ -78,7 +73,6 @@ public class PacienteService {
     }
 
     private boolean validaSeSenhasBatem(Login login, Paciente paciente) {
-        encriptadorService.desencriptarSenha(paciente);
-        return login.getSenha().equals(paciente.getLogin().getSenha());
+        return passwordEncoder.matches(login.getSenha(), paciente.getLogin().getSenha());
     }
 }
