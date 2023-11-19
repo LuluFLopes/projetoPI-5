@@ -1,7 +1,10 @@
 package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.*;
+import senacsp.com.ProjetoPI5.model.enumeradores.Genero;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
+
+import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -11,6 +14,7 @@ public abstract class Pessoa {
     private int id;
     private String nome;
     private String cpf;
+    private LocalDate dataNascimento;
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     @OneToOne(cascade = CascadeType.ALL)
@@ -19,6 +23,8 @@ public abstract class Pessoa {
     private Login login;
     @Enumerated
     private Status status;
+    @Enumerated
+    private Genero genero;
 
     public int getId() {
         return id;
@@ -42,6 +48,14 @@ public abstract class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public Endereco getEndereco() {
@@ -74,5 +88,13 @@ public abstract class Pessoa {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
 }
