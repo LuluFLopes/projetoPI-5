@@ -28,10 +28,10 @@ VALUES
 
 INSERT INTO LOGIN (SENHA, USUARIO)
 VALUES 
-('123', 'usuario.teste1'),
-('123', 'usuario.teste2'),
-('123', 'usuario.teste3'),
-('123', 'usuario.teste4');
+('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'usuario.teste1'),
+('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'usuario.teste2'),
+('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'usuario.teste3'),
+('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'usuario.teste4');
 
 
 INSERT INTO CONTATO (EMAIL, TELEFONE)
