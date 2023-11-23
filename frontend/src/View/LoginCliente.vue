@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="div-imagem">
+      <img class="imagem-fundo" src="../assets/equipe-medica.png"  alt=""/>
+    </div>
     <v-card class="cartao-principal">
       <v-text-field v-model="dadosLogin.usuario" label="Login: "></v-text-field>
       <v-text-field v-model="dadosLogin.senha" label="Senha: " type="password"></v-text-field>
@@ -56,6 +59,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.div-imagem{
+  display: flex;
+  justify-content: center;
+}
+
+.imagem-fundo {
+  top: 0;
+  position: absolute;
+  width: 40vw;
+  opacity: 35%;
+}
+
 div {
   margin: 0 auto;
 }
