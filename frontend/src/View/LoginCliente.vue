@@ -42,7 +42,8 @@ export default defineComponent({
           usuario: request.data.login.usuario,
           isLogado: true
         }));
-        router.push('/');
+        router.push('/home');
+        window.location.reload();
       } catch (ex) {
         alert("Não foi possível fazer o login, verifique seus dados!");
         console.log(ex.message);

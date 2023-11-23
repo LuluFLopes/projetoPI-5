@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '/Agendamento',
-    name: 'Agendamento',
+    name: 'agendamento',
     component: TelaAgendamento
   }
 ]
