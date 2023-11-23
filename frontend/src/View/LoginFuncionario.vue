@@ -20,10 +20,11 @@ import axios from "axios";
 import router from "@/router";
 
 export default defineComponent({
-  name: "Login-Cliente",
+  name: "Login-Funcionario",
   data() {
     return {
-      url: 'http://localhost:8081/pacientes/login',
+      urlFuncionario: 'http://localhost:8081/funcionarios/login',
+      urlMedico: 'http://localhost:8081/medicos/login',
       dadosLogin: {
         usuario: '',
         senha: ''
@@ -33,13 +34,25 @@ export default defineComponent({
   methods: {
     async fazerLogin() {
       try {
-        const request = await axios.put(this.url, this.dadosLogin);
-        sessionStorage.setItem('usuarioLogado', JSON.stringify({
-          id: request.data.id,
-          usuario: request.data.login.usuario,
-          isLogado: true
-        }));
-        router.push('/');
+        const requestFuncionario = await axios.put(this.urlFuncionario, this.dadosLogin);
+        const requestMedico = await axios.put(this.urlMedico, this.dadosLogin);
+
+        if (requestFuncionario !== undefined) {
+          sessionStorage.setItem('usuarioLogado', JSON.stringify({
+            id: requestFuncionario.data.id,
+            usuario: requestFuncionario.data.login.usuario,
+            isLogado: true
+          }));
+          router.push('/');
+        } else {
+          sessionStorage.setItem('usuarioLogado', JSON.stringify({
+            id: requestMedico.data.id,
+            usuario: requestMedico.data.login.usuario,
+            isLogado: true
+          }));
+          router.push('/');
+        }
+
       } catch (ex) {
         alert("Não foi possível fazer o login, verifique seus dados!");
         console.log(ex.message);

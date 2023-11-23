@@ -3,7 +3,7 @@
     <v-row>
       <div>
         <v-col cols="6" align="left">
-          <img src="../assets/mednote.png">
+          <img src="../assets/mednote.png"/>
         </v-col>
       </div>
       <div class="menu-navegacao">

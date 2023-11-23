@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import LoginCliente from "@/View/LoginCliente";
+import LoginFuncionario from "@/View/LoginFuncionario";
 import Home from "@/View/Home";
 import CadastroPaciente from "@/View/CadastroPaciente.vue";
 import CadastroFuncionario from "@/View/CadastroFuncionario.vue";
@@ -13,6 +14,11 @@ const routes = [
     path: '/loginCliente',
     name: 'loginCliente',
     component: LoginCliente
+  },
+  {
+    path: '/loginFuncionario',
+    name: 'loginFuncionario',
+    component: LoginFuncionario
   },
   {
     path: '/Home',
