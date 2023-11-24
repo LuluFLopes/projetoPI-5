@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="div-imagem">
-      <img class="imagem-fundo" src="../assets/equipe-medica.png"  alt=""/>
+      <img class="imagem-fundo" src="../assets/equipe-medica.png" alt=""/>
     </div>
     <v-card class="cartao-principal">
       <v-text-field v-model="dadosLogin.usuario" label="Login: "></v-text-field>
@@ -11,9 +11,16 @@
       <v-row/>
       <div class="texto-cadastro">
         <p>Ainda não tem cadastro ?</p>
-        <p><a href="">Clique Aqui</a></p>
+        <router-link to="CadastroPaciente">Clique Aqui</router-link>
       </div>
     </v-card>
+    <v-alert class="alerta-total"
+             v-if="alertaLigado"
+             dismissible
+             elevation="24"
+             :type="tipoAlerta"
+    >{{ this.msgAlerta }}
+    </v-alert>
   </div>
 </template>
 
@@ -30,7 +37,10 @@ export default defineComponent({
       dadosLogin: {
         usuario: '',
         senha: ''
-      }
+      },
+      alertaLigado: false,
+      tipoAlerta: '',
+      msgAlerta: '',
     }
   },
   methods: {
@@ -45,10 +55,19 @@ export default defineComponent({
         router.push('/home');
         window.location.reload();
       } catch (ex) {
-        alert("Não foi possível fazer o login, verifique seus dados!");
+        this.gerarAlerta('error', 'Erro ao logar', 3);
         console.log(ex.message);
       }
     },
+    gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
+      this.tipoAlerta = tipoDeAlerta;
+      this.msgAlerta = mensagem;
+      this.alertaLigado = true;
+
+      setTimeout(() => {
+        this.alertaLigado = false;
+      }, segundosParaFechar * 1000);
+    }
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
@@ -60,7 +79,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.div-imagem{
+.div-imagem {
   display: flex;
   justify-content: center;
 }
@@ -85,6 +104,12 @@ div {
 
 .texto-cadastro {
   margin-top: 3vh;
+}
+
+.alerta-total {
+  position: absolute;
+  top: 1vh;
+  left: 3vw;
 }
 
 </style>
