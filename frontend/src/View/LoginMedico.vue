@@ -51,9 +51,10 @@ export default defineComponent({
           id: request.data.id,
           usuario: request.data.login.usuario,
           nome: request.data.nome,
-          isLogado: true
+          isLogado: true,
+          tipoUsuario: 'MEDICO',
         }));
-        router.push('/');
+        router.push('/home');
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao logar', 3);
         console.log(ex.message);

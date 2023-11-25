@@ -70,7 +70,7 @@ export default defineComponent({
           break;
         case 4:
           this.deslogar();
-          router.push('home');
+          router.push('/');
           window.location.reload();
           break;
       }
