@@ -1,5 +1,9 @@
 <template>
-  <div></div>
+  <div>
+    <div class="imagem-principal">
+      <img src="../assets/equipe-medica2.png"  alt=""/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -10,4 +14,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.imagem-principal {
+  text-align: center;
+  opacity: 35%;
+}
 </style>
