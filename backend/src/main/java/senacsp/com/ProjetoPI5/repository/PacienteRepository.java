@@ -15,6 +15,4 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
     @Query("UPDATE Paciente p SET p.status = :status WHERE p.id = :id")
     void ajustarStatus(@Param("status") Status status, @Param("id") Integer id);
 
-    @Query("SELECT p FROM Paciente p WHERE p.login.usuario = :usuario")
-    Paciente login(@Param("usuario") String usuario);
 }

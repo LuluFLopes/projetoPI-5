@@ -89,16 +89,4 @@ public class MedicoService {
         medicoRepository.ajustarStatus(Status.ATIVO, id);
     }
 
-    public Medico login(Login login) {
-        Medico medico = medicoRepository.login(login.getUsuario());
-        if (validaSeSenhasBatem(login, medico)) {
-            return medico;
-        } else {
-            throw new NoSuchElementException();
-        }
-    }
-
-    private boolean validaSeSenhasBatem(Login login, Medico medico) {
-        return passwordEncoder.matches(login.getSenha(), medico.getLogin().getSenha());
-    }
 }

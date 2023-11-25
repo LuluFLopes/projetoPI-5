@@ -53,8 +53,4 @@ public class MedicoController {
         medicoService.ativarMedico(id);
     }
 
-    @PutMapping("/login")
-    public ResponseEntity<Medico> login(@RequestBody Login login) {
-        return ResponseEntity.ok(medicoService.login(login));
-    }
 }

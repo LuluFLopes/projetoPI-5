@@ -63,16 +63,4 @@ public class PacienteService {
         pacienteRepository.ajustarStatus(Status.ATIVO, id);
     }
 
-    public Paciente login(Login login) {
-        Paciente paciente = pacienteRepository.login(login.getUsuario());
-        if (validaSeSenhasBatem(login, paciente)) {
-            return paciente;
-        } else {
-            throw new NoSuchElementException();
-        }
-    }
-
-    private boolean validaSeSenhasBatem(Login login, Paciente paciente) {
-        return passwordEncoder.matches(login.getSenha(), paciente.getLogin().getSenha());
-    }
 }

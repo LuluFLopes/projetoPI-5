@@ -48,8 +48,4 @@ public class FuncionarioController {
         funcionarioService.ativarFuncionario(id);
     }
 
-    @PutMapping("/login")
-    public ResponseEntity<Funcionario> login(@RequestBody Login login) {
-        return ResponseEntity.ok(funcionarioService.login(login));
-    }
 }

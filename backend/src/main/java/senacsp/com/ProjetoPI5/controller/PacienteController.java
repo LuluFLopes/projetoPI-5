@@ -48,9 +48,4 @@ public class PacienteController {
         pacienteService.ativarPaciente(id);
     }
 
-    @PutMapping("/login")
-    public ResponseEntity<Paciente> login(@RequestBody Login login) {
-        return ResponseEntity.ok(pacienteService.login(login));
-    }
-
 }

@@ -69,18 +69,4 @@ public class FuncionarioService {
         funcionarioRepository.ajustarStatus(Status.ATIVO, id);
     }
 
-    @Transactional
-    public Funcionario login(Login login) {
-        Funcionario funcionario = funcionarioRepository.login(login.getUsuario());
-
-        if (validaSeSenhasBatem(login, funcionario)) {
-            return funcionario;
-        } else {
-            throw new NoSuchElementException();
-        }
-    }
-
-    private boolean validaSeSenhasBatem(Login login, Funcionario funcionario) {
-        return passwordEncoder.matches(login.getSenha(), funcionario.getLogin().getSenha());
-    }
 }
