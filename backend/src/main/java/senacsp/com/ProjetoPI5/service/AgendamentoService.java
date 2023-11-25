@@ -32,6 +32,15 @@ public class AgendamentoService {
         return agendamentos;
     }
 
+    public List<Agendamento> listarAgendamentos(int id) {
+        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentos(id);
+
+        if (agendamentos.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_AGENDAMENTO_VAZIA);
+        }
+        return agendamentos;
+    }
+
     public Agendamento buscarAgendamento(int id) {
         return agendamentoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_AGENDAMENTO_NAO_ENCONTRADO));

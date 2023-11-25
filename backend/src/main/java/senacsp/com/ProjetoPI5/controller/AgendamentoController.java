@@ -25,6 +25,11 @@ public class AgendamentoController {
         return ResponseEntity.ok(agendamentoService.listarAgendamentos());
     }
 
+    @GetMapping("/listarPorPaciente/{id}")
+    public ResponseEntity<List<Agendamento>> listarAgendamentos(@PathVariable int id) {
+        return ResponseEntity.ok(agendamentoService.listarAgendamentos(id));
+    }
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Agendamento> buscarAgendamentos(@PathVariable int id) {
         return ResponseEntity.ok(agendamentoService.buscarAgendamento(id));

@@ -7,6 +7,7 @@ import Home from "@/View/Home";
 import CadastroPaciente from "@/View/CadastroPaciente.vue";
 import CadastroFuncionario from "@/View/CadastroFuncionario.vue";
 import TelaAgendamento from "@/View/TelaAgendamento";
+import TelaHistoricoConsultas from "@/View/TelaHistoricoConsultas";
 
 Vue.use(VueRouter)
 
@@ -27,24 +28,29 @@ const routes = [
     component: LoginMedico
   },
   {
-    path: '/Home',
-    name: 'Home',
+    path: '/home',
+    name: 'home',
     component: Home
   },
   {
-    path: '/CadastroPaciente',
-    name: 'CadastroPaciente',
+    path: '/cadastroPaciente',
+    name: 'cadastroPaciente',
     component: CadastroPaciente
   },
   {
-    path: '/CadastroFuncionario',
-    name: 'CadastroFuncionario',
+    path: '/cadastroFuncionario',
+    name: 'cadastroFuncionario',
     component: CadastroFuncionario
   },
   {
-    path: '/Agendamento',
+    path: '/agendamento',
     name: 'agendamento',
     component: TelaAgendamento
+  },
+  {
+    path: '/historicoConsultas',
+    name: 'historicoConsultas',
+    component: TelaHistoricoConsultas
   }
 ]
 
