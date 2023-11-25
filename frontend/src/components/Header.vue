@@ -8,7 +8,7 @@
       </v-col>
       <v-col cols="4">
         <div class="div-link" v-if="this.isLogado !== true">
-          <router-link class="router-link" to="loginCliente">Entrar</router-link>
+          <router-link class="router-link" to="login">Entrar</router-link>
           <p class="router-link">&nbsp;/&nbsp;</p>
           <router-link class="router-link" to="CadastroPaciente">Registrar</router-link>
         </div>
