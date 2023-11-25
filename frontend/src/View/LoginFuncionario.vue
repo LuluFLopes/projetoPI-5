@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="div-imagem">
-      <img class="imagem-fundo" src="../assets/equipe-medica.png"  alt=""/>
+      <img class="imagem-fundo" src="../assets/equipe-medica.png" alt=""/>
     </div>
     <v-card class="cartao-principal">
       <v-text-field v-model="dadosLogin.usuario" label="Login: "></v-text-field>
@@ -47,13 +47,13 @@ export default defineComponent({
     async fazerLogin() {
       try {
         const request = await axios.put(this.url, this.dadosLogin);
-          sessionStorage.setItem('usuarioLogado', JSON.stringify({
-            id: request.data.id,
-            usuario: request.data.login.usuario,
-            nome: request.data.nome,
-            isLogado: true
-          }));
-          router.push('/');
+        sessionStorage.setItem('usuarioLogado', JSON.stringify({
+          id: request.data.id,
+          usuario: request.data.login.usuario,
+          nome: request.data.nome,
+          isLogado: true
+        }));
+        router.push('/');
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao logar', 3);
         console.log(ex.message);
@@ -71,15 +71,17 @@ export default defineComponent({
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
-    if (dadosLogin.isLogado) {
-      router.push('/');
+    if (dadosLogin !== undefined && dadosLogin !== null) {
+      if (dadosLogin.isLogado) {
+        router.push('/');
+      }
     }
   }
 });
 </script>
 
 <style scoped>
-.div-imagem{
+.div-imagem {
   display: flex;
   justify-content: center;
 }

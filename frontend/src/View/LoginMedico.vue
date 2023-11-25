@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="div-imagem">
-      <img class="imagem-fundo" src="../assets/equipe-medica.png"  alt=""/>
+      <img class="imagem-fundo" src="../assets/equipe-medica.png" alt=""/>
     </div>
     <v-card class="cartao-principal">
       <v-text-field v-model="dadosLogin.usuario" label="Login: "></v-text-field>
@@ -71,15 +71,17 @@ export default defineComponent({
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
-    if (dadosLogin.isLogado) {
-      router.push('/');
+    if (dadosLogin !== undefined && dadosLogin !== null) {
+      if (dadosLogin.isLogado) {
+        router.push('/');
+      }
     }
   }
 });
 </script>
 
 <style scoped>
-.div-imagem{
+.div-imagem {
   display: flex;
   justify-content: center;
 }

@@ -72,8 +72,10 @@ export default defineComponent({
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
-    if (dadosLogin.isLogado) {
-      router.push('/');
+    if (dadosLogin !== undefined && dadosLogin !== null) {
+      if (dadosLogin.isLogado) {
+        router.push('/');
+      }
     }
   }
 });
