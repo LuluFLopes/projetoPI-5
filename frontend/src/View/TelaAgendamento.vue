@@ -60,7 +60,7 @@
         </v-col>
 
         <v-col cols="2" v-if="this.componenteDatasAtiva">
-          <v-date-picker v-model="dataPesquisada" class="menuHorarios" @change="buscarDatas()"></v-date-picker>
+          <v-date-picker header-color="#7ececa" v-model="dataPesquisada" class="menuHorarios" @change="buscarDatas()"></v-date-picker>
         </v-col>
         <v-col cols="2" v-if="this.componenteDatasAtiva">
           <v-card height="378px">
@@ -73,7 +73,7 @@
 
       </v-row>
       <v-row>
-        <v-btn color="primary" width="20vw" height="7vh" class="btnRealizarAgendamento"
+        <v-btn color="#1693a5" width="20vw" height="7vh" class="btnRealizarAgendamento"
                :disabled="this.isBotaoRelizarAgendamentoHabilitado"
                @click="realizarAgendamento()">Realizar agendamento
         </v-btn>
@@ -304,6 +304,7 @@ export default defineComponent({
 <style scoped>
 .principal {
   max-height: 350px !important;
+  margin-top: 10vh;
 }
 
 label {
