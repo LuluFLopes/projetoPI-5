@@ -56,11 +56,20 @@
                 :items="this.listaDeMedicos"
                 @change="gravarMedicos()"
             ></v-combobox>
+
+            <v-alert class="alerta-total"
+                     v-if="alertaLigado"
+                     dismissible
+                     elevation="24"
+                     :type="tipoAlerta"
+            >{{ this.msgAlerta }}
+            </v-alert>
           </v-card>
         </v-col>
 
         <v-col cols="2" v-if="this.componenteDatasAtiva">
-          <v-date-picker header-color="#7ececa" v-model="dataPesquisada" class="menuHorarios" @change="buscarDatas()"></v-date-picker>
+          <v-date-picker header-color="#7ececa" v-model="dataPesquisada" class="menuHorarios"
+                         @change="buscarDatas()"></v-date-picker>
         </v-col>
         <v-col cols="2" v-if="this.componenteDatasAtiva">
           <v-card height="378px">
@@ -147,6 +156,9 @@ export default defineComponent({
       },
       horarioAtendimentoView: '',
       isBotaoRelizarAgendamentoHabilitado: true,
+      alertaLigado: false,
+      tipoAlerta: '',
+      msgAlerta: '',
     }
   },
   methods: {
@@ -171,6 +183,7 @@ export default defineComponent({
         }
         this.preencheListaUnidadeParaComboBox();
       } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao buscar unidades', 3);
         console.log(ex.message);
       }
     },
@@ -182,6 +195,7 @@ export default defineComponent({
         }
         this.preencheListaEspecialidadeParaComboBox();
       } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao buscar especialidades', 3);
         console.log(ex.message);
       }
     },
@@ -193,6 +207,7 @@ export default defineComponent({
         }
         this.preencheListaMedicoParaComboBox();
       } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao buscar medicos', 3);
         console.log(ex.message);
       }
     },
@@ -201,6 +216,7 @@ export default defineComponent({
         const request = await axios.post(this.urlCadastrarAgendamento, this.agendamento);
         console.log(request);
       } catch (ex) {
+        this.gerarAlerta('error', 'Não foi possível realizar o agendamento, entre em contato com o suporte', 3);
         console.log(ex.message);
       }
     },
@@ -291,6 +307,15 @@ export default defineComponent({
     preencherPaciente() {
       let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
       this.agendamento.paciente.id = dadosLogin.id;
+    },
+    gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
+      this.tipoAlerta = tipoDeAlerta;
+      this.msgAlerta = mensagem;
+      this.alertaLigado = true;
+
+      setTimeout(() => {
+        this.alertaLigado = false;
+      }, segundosParaFechar * 1000);
     }
   },
   mounted() {
@@ -344,5 +369,11 @@ label {
 
 .btnRealizarAgendamento {
   margin: 8vh auto;
+}
+
+.alerta-total {
+  position: absolute;
+  top: 1vh;
+  left: 3vw;
 }
 </style>
