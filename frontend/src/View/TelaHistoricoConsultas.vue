@@ -59,8 +59,6 @@ export default defineComponent({
       }
     },
     abrirModal(elemento){
-      /* eslint-disable */
-      debugger;
       this.detalhesConsulta = elemento;
       this.isModalAberto = true;
     },
