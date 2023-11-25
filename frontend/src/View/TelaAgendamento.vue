@@ -94,6 +94,7 @@
 <script>
 import {defineComponent} from "vue";
 import axios from "axios";
+import router from "@/router";
 
 export default defineComponent({
   name: "TelaAgendamento",
@@ -213,8 +214,8 @@ export default defineComponent({
     },
     async realizarAgendamento() {
       try {
-        const request = await axios.post(this.urlCadastrarAgendamento, this.agendamento);
-        console.log(request);
+        await axios.post(this.urlCadastrarAgendamento, this.agendamento);
+        await router.push('agendamentoConcluido');
       } catch (ex) {
         this.gerarAlerta('error', 'Não foi possível realizar o agendamento, entre em contato com o suporte', 3);
         console.log(ex.message);
