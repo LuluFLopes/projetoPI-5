@@ -52,7 +52,7 @@ export default defineComponent({
           usuario: request.data.login.usuario,
           nome: request.data.nome,
           isLogado: true,
-          tipoUsuario: 'FUNCIONARIO',
+          tipoCadastro: 'FUNCIONARIO',
         }));
         router.push('/home');
       } catch (ex) {

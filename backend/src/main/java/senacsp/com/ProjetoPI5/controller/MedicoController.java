@@ -1,6 +1,5 @@
 package senacsp.com.ProjetoPI5.controller;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import senacsp.com.ProjetoPI5.model.Login;

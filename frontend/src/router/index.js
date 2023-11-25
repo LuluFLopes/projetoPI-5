@@ -8,6 +8,7 @@ import CadastroPaciente from "@/View/CadastroPaciente.vue";
 import CadastroFuncionario from "@/View/CadastroFuncionario.vue";
 import TelaAgendamento from "@/View/TelaAgendamento";
 import TelaHistoricoConsultas from "@/View/TelaHistoricoConsultas";
+import HomeAdministrador from "@/View/HomeAdministrador";
 
 Vue.use(VueRouter)
 
@@ -51,7 +52,12 @@ const routes = [
     path: '/historicoConsultas',
     name: 'historicoConsultas',
     component: TelaHistoricoConsultas
-  }
+  },
+  {
+    path: '/homeAdm',
+    name: 'homeAdm',
+    component: HomeAdministrador
+  },
 ]
 
 const router = new VueRouter({

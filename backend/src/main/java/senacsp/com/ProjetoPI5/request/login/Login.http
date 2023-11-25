@@ -1,0 +1,7 @@
+PUT http://localhost:8081/login/login
+Content-Type: application/json
+
+{
+  "usuario": "usuario.teste3",
+  "senha": "123"
+}

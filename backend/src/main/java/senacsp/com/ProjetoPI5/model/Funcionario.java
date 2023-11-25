@@ -1,8 +1,6 @@
 package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import senacsp.com.ProjetoPI5.model.enumeradores.Cargo;
 
 @Entity

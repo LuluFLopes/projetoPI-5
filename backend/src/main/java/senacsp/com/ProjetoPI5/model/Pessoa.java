@@ -3,6 +3,7 @@ package senacsp.com.ProjetoPI5.model;
 import jakarta.persistence.*;
 import senacsp.com.ProjetoPI5.model.enumeradores.Genero;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
+import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 
 import java.time.LocalDate;
 
@@ -25,6 +26,8 @@ public abstract class Pessoa {
     private Status status;
     @Enumerated
     private Genero genero;
+    @Enumerated
+    private TipoCadastro tipoCadastro;
 
     public int getId() {
         return id;
@@ -96,5 +99,13 @@ public abstract class Pessoa {
 
     public void setGenero(Genero genero) {
         this.genero = genero;
+    }
+
+    public TipoCadastro getTipoCadastro() {
+        return tipoCadastro;
+    }
+
+    public void setTipoCadastro(TipoCadastro tipoCadastro) {
+        this.tipoCadastro = tipoCadastro;
     }
 }

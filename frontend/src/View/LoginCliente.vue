@@ -52,7 +52,7 @@ export default defineComponent({
           usuario: request.data.login.usuario,
           nome: request.data.nome,
           isLogado: true,
-          tipoUsuario: 'CLIENTE',
+          tipoCadastro: 'CLIENTE',
         }));
         router.push('/home');
         window.location.reload();
