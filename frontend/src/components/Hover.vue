@@ -15,9 +15,9 @@
             color="#45b5c4"
         >
           <br>
-          <p class="texto-cartao">Especialização: {{  }}</p>
-          <p class="texto-cartao">Profissional: {{  }}</p>
-          <p class="texto-cartao">Data e Hora: {{  }} as {{  }}</p>
+          <p class="texto-cartao">Especialização: {{ dadosAgendamento.medico.especializacao.descricao }}</p>
+          <p class="texto-cartao">Profissional: {{ dadosAgendamento.medico.nome }}</p>
+          <p class="texto-cartao">Data e Hora: {{ dataConvertida }} as {{ horarioConvertido }}</p>
           <v-btn color="#1693a5" class="btn-detalhes" @click="exibirDetalhes()">Detalhes</v-btn>
         </v-card>
       </v-hover>
@@ -33,9 +33,27 @@ export default defineComponent({
   props: {
     dadosAgendamento: Object,
   },
+  data() {
+    return {}
+  },
+  computed: {
+    dataConvertida(){
+      let data = this.dadosAgendamento.dataAgendamento;
+      let dataEmString = new Date(`${data[0]}-${data[1]}-${data[2]}`);
+      return dataEmString.toLocaleDateString('pt-BR');
+    },
+    horarioConvertido(){
+      let hora = this.dadosAgendamento.horaInicio;
+      let horarioConvertido = new Date();
+      horarioConvertido.setHours(hora[0]);
+      horarioConvertido.setMinutes(hora[1]);
+      horarioConvertido.setSeconds(0);
+      return horarioConvertido.toLocaleTimeString('pr-BR');
+    }
+  },
   emits: ['ao-clicar-botao-detalhes'],
   methods: {
-    exibirDetalhes(){
+    exibirDetalhes() {
       this.$emit('ao-clicar-botao-detalhes');
     }
   }
@@ -47,6 +65,7 @@ export default defineComponent({
   font-weight: bold;
   margin-left: 2vw;
 }
+
 .btn-detalhes {
   margin-left: 90%;
 }

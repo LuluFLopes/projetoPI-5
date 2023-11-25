@@ -66,7 +66,7 @@ export default defineComponent({
           //TODO criar endereço -> router.push('alterarCadastro');
           break;
         case 3:
-          // TODO criar endereço -> router.push('historico');
+          router.push('historicoConsultas');
           break;
         case 4:
           this.deslogar();

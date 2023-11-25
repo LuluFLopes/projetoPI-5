@@ -5,7 +5,7 @@
       <div v-if="listaDeAgendamentos.length > 0">
         <v-container class="container-historico" v-for="(elemento, index) in listaDeAgendamentos"
                      :key="index">
-          <hover @ao-clicar-botao-detalhes="testarEvento" :mensagem="elemento" />
+          <hover @ao-clicar-botao-detalhes="testarEvento" :dadosAgendamento="elemento" />
         </v-container>
       </div>
       <p class="texto-agendamento" v-if="listaDeAgendamentos.length <= 0">Não há agendamentos registrados</p>
@@ -36,6 +36,7 @@ export default defineComponent({
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
+      url: 'http://localhost:8081/agendamentos/listarPorPaciente',
     }
   },
   methods: {
