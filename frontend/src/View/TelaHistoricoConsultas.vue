@@ -5,11 +5,12 @@
       <div v-if="listaDeAgendamentos.length > 0">
         <v-container class="container-historico" v-for="(elemento, index) in listaDeAgendamentos"
                      :key="index">
-          <hover @ao-clicar-botao-detalhes="testarEvento" :dadosAgendamento="elemento" />
+          <hover @ao-clicar-botao-detalhes="abrirModal" :dadosAgendamento="elemento" />
         </v-container>
       </div>
       <p class="texto-agendamento" v-if="listaDeAgendamentos.length <= 0">Não há agendamentos registrados</p>
     </v-card>
+    <modal-detalhes-consulta :isAberto="isModalAberto" @ao-clicar-botao-fechar-modal="fecharModal()" />
     <v-alert class="alerta-total"
              v-if="alertaLigado"
              dismissible
@@ -25,10 +26,11 @@ import {defineComponent} from "vue";
 import Hover from "@/components/Hover";
 import router from "@/router";
 import axios from "axios";
+import ModalDetalhesConsulta from "@/components/ModalDetalhesConsulta";
 
 export default defineComponent({
   name: "TelaHistoricoConsultas",
-  components: {Hover},
+  components: {ModalDetalhesConsulta, Hover},
   data() {
     return {
       listaDeAgendamentos: [],
@@ -37,6 +39,7 @@ export default defineComponent({
       tipoAlerta: '',
       msgAlerta: '',
       url: 'http://localhost:8081/agendamentos/listarPorPaciente',
+      isModalAberto: false,
     }
   },
   methods: {
@@ -54,8 +57,11 @@ export default defineComponent({
         this.gerarAlerta('error', 'Não foi possivel localizar o cliente', 3);
       }
     },
-    testarEvento(){
-      this.gerarAlerta('success', 'Deu bom', 1);
+    abrirModal(){
+      this.isModalAberto = true;
+    },
+    fecharModal(){
+      this.isModalAberto = false;
     },
     verificaLogin() {
       let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
