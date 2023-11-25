@@ -38,14 +38,17 @@ export default defineComponent({
     return {
       isLogado: false,
       usuario: {
-        nome: 'Fulano'
+        nome: ''
       }
     }
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
-    if (dadosLogin.isLogado) {
-      this.isLogado = true;
+    if (dadosLogin !== undefined && dadosLogin !== null) {
+      if (dadosLogin.isLogado) {
+        this.isLogado = true;
+        this.usuario.nome = dadosLogin.nome;
+      }
     }
   }
 })

@@ -46,10 +46,11 @@ export default defineComponent({
   methods: {
     async fazerLogin() {
       try {
-        const requestFuncionario = await axios.put(this.url, this.dadosLogin);
+        const request = await axios.put(this.url, this.dadosLogin);
           sessionStorage.setItem('usuarioLogado', JSON.stringify({
-            id: requestFuncionario.data.id,
-            usuario: requestFuncionario.data.login.usuario,
+            id: request.data.id,
+            usuario: request.data.login.usuario,
+            nome: request.data.nome,
             isLogado: true
           }));
           router.push('/');

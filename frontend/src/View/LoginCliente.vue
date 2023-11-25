@@ -50,6 +50,7 @@ export default defineComponent({
         sessionStorage.setItem('usuarioLogado', JSON.stringify({
           id: request.data.id,
           usuario: request.data.login.usuario,
+          nome: request.data.nome,
           isLogado: true
         }));
         router.push('/home');
