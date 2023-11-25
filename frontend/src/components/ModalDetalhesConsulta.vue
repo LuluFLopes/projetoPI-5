@@ -13,48 +13,36 @@
             <v-card class="elementos" elevation="10">
               <h2 class="sub-titulos">Informações do Paciente</h2>
               <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ detalhesConsulta.paciente.nome }}</p>
-                <p class="padrao-linha">CPF: {{ detalhesConsulta.paciente.cpf }}</p>
-                <p class="padrao-linha padrao-direita">Genero: {{ detalhesConsulta.paciente.genero }}</p>
+                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ nomePaciente }}</p>
+                <p class="padrao-linha">CPF: {{ cpfPaciente }}</p>
+                <p class="padrao-linha padrao-direita">Genero: {{ generoPaciente }}</p>
               </div>
               <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Data Nascimento: {{  }}</p>
+                <p class="padrao-linha padrao-esquerda">Data Nascimento: {{ dataNascimento }}</p>
               </div>
             </v-card>
             <v-card class="elementos" elevation="10">
               <h2 class="sub-titulos">Informações do Médico</h2>
               <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ }}</p>
-                <p class="padrao-linha">CPF: {{ }}</p>
-                <p class="padrao-linha padrao-direita">Sexo: {{ }}</p>
+                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ nomeMedico }}</p>
+                <p class="padrao-linha">CRM: {{ crm }}</p>
+                <p class="padrao-linha padrao-direita">Genero: {{ generoMedico }}</p>
               </div>
               <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ }}</p>
-                <p class="padrao-linha">CPF: {{ }}</p>
-                <p class="padrao-linha padrao-direita">Sexo: {{ }}</p>
-              </div>
-              <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ }}</p>
-                <p class="padrao-linha">CPF: {{ }}</p>
-                <p class="padrao-linha padrao-direita">Sexo: {{ }}</p>
+                <p class="padrao-linha padrao-esquerda">Especialização:
+                  {{ especializacao }}</p>
               </div>
             </v-card>
             <v-card class="elementos" elevation="10">
               <h2 class="sub-titulos">Informações do Agendamento</h2>
               <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ }}</p>
-                <p class="padrao-linha">CPF: {{ }}</p>
-                <p class="padrao-linha padrao-direita">Sexo: {{ }}</p>
+                <p class="padrao-linha padrao-esquerda">Unidade: {{ unidade }}</p>
+                <p class="padrao-linha">Data do Agendamento:  {{ dataAgendamento }}</p>
+                <p class="padrao-linha padrao-direita">Hora do Agendamento: {{ horaAgendamento }}</p>
               </div>
               <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ }}</p>
-                <p class="padrao-linha">CPF: {{ }}</p>
-                <p class="padrao-linha padrao-direita">Sexo: {{ }}</p>
-              </div>
-              <div class="padrao-div">
-                <p class="padrao-linha padrao-esquerda">Nome Completo: {{ }}</p>
-                <p class="padrao-linha">CPF: {{ }}</p>
-                <p class="padrao-linha padrao-direita">Sexo: {{ }}</p>
+                <p class="padrao-linha padrao-esquerda">Endereço: {{ endereco }}</p>
+                <p class="padrao-linha padrao-direita">Status do Agendamento: {{ statusDoAgendamento }}</p>
               </div>
             </v-card>
           </div>
@@ -83,6 +71,57 @@ export default defineComponent({
   props: {
     isAberto: Boolean,
     detalhesConsulta: Object,
+  },
+  computed: {
+    nomePaciente() {
+      return this.detalhesConsulta.paciente.nome;
+    },
+    cpfPaciente() {
+      return this.detalhesConsulta.paciente.cpf;
+    },
+    generoPaciente() {
+      return this.detalhesConsulta.paciente.genero;
+    },
+    dataNascimento() {
+      let dataNascimento = this.detalhesConsulta.paciente.dataNascimento;
+      let dataFormatada = new Date(`${dataNascimento[0]}-${dataNascimento[1]}-${dataNascimento[2]}`);
+      return dataFormatada.toLocaleDateString('pt-BR');
+    },
+    nomeMedico() {
+      return this.detalhesConsulta.medico.nome;
+    },
+    crm() {
+      return this.detalhesConsulta.medico.crm;
+    },
+    generoMedico() {
+      return this.detalhesConsulta.medico.genero;
+    },
+    especializacao() {
+      return this.detalhesConsulta.medico.especializacao.descricao;
+    },
+    unidade() {
+      return this.detalhesConsulta.unidade.descricao;
+    },
+    dataAgendamento(){
+      let data = this.detalhesConsulta.dataAgendamento;
+      let dataEmString = new Date(`${data[0]}-${data[1]}-${data[2]}`);
+      return dataEmString.toLocaleDateString('pt-BR');
+    },
+    horaAgendamento(){
+      let hora = this.detalhesConsulta.horaInicio;
+      let horarioConvertido = new Date();
+      horarioConvertido.setHours(hora[0]);
+      horarioConvertido.setMinutes(hora[1]);
+      horarioConvertido.setSeconds(0);
+      return horarioConvertido.toLocaleTimeString('pr-BR');
+    },
+    endereco() {
+      let endereco = this.detalhesConsulta.unidade.endereco;
+      return `${endereco.logradouro}, ${endereco.numero} - ${endereco.complemento} - ${endereco.bairro} - ${endereco.cep}`
+    },
+    statusDoAgendamento() {
+      return this.detalhesConsulta.andamento;
+    }
   },
   methods: {
     desativarModal() {
@@ -126,7 +165,7 @@ export default defineComponent({
 .padrao-div {
   display: flex;
   justify-content: space-between;
-  margin-top: 1vh;
+  margin-top: 3vh;
   font-weight: bold;
 }
 
