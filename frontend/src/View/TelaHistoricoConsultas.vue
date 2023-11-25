@@ -5,12 +5,12 @@
       <div v-if="listaDeAgendamentos.length > 0">
         <v-container class="container-historico" v-for="(elemento, index) in listaDeAgendamentos"
                      :key="index">
-          <hover @ao-clicar-botao-detalhes="abrirModal" :dadosAgendamento="elemento" />
+          <hover @ao-clicar-botao-detalhes="abrirModal(elemento)" :dadosAgendamento="elemento" />
         </v-container>
       </div>
       <p class="texto-agendamento" v-if="listaDeAgendamentos.length <= 0">Não há agendamentos registrados</p>
     </v-card>
-    <modal-detalhes-consulta :isAberto="isModalAberto" @ao-clicar-botao-fechar-modal="fecharModal()" />
+    <modal-detalhes-consulta :isAberto="isModalAberto" :detalhesConsulta="detalhesConsulta" @ao-clicar-botao-fechar-modal="fecharModal()" />
     <v-alert class="alerta-total"
              v-if="alertaLigado"
              dismissible
@@ -40,6 +40,7 @@ export default defineComponent({
       msgAlerta: '',
       url: 'http://localhost:8081/agendamentos/listarPorPaciente',
       isModalAberto: false,
+      detalhesConsulta: {},
     }
   },
   methods: {
@@ -57,7 +58,10 @@ export default defineComponent({
         this.gerarAlerta('error', 'Não foi possivel localizar o cliente', 3);
       }
     },
-    abrirModal(){
+    abrirModal(elemento){
+      /* eslint-disable */
+      debugger;
+      this.detalhesConsulta = elemento;
       this.isModalAberto = true;
     },
     fecharModal(){
