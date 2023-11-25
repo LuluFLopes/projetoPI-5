@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
+import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 import senacsp.com.ProjetoPI5.repository.PacienteRepository;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class PacienteService {
 
     private void tratarDadosPaciente(Paciente paciente) {
         paciente.setStatus(Status.ATIVO);
+        paciente.setTipoCadastro(TipoCadastro.PACIENTE);
         paciente.getLogin().setSenha(passwordEncoder.encode(paciente.getLogin().getSenha()));
     }
 

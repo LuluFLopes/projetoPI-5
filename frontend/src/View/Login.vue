@@ -11,7 +11,7 @@
       <v-row/>
       <div class="texto-cadastro">
         <p>Ainda não tem cadastro ?</p>
-        <p><a href="">Clique Aqui</a></p>
+        <router-link to="CadastroPaciente">Clique Aqui</router-link>
       </div>
     </v-card>
     <v-alert class="alerta-total"
@@ -30,10 +30,10 @@ import axios from "axios";
 import router from "@/router";
 
 export default defineComponent({
-  name: "Login-Funcionario",
+  name: "Login-Cliente",
   data() {
     return {
-      url: 'http://localhost:8081/funcionarios/login',
+      url: 'http://localhost:8081/login/login',
       dadosLogin: {
         usuario: '',
         senha: ''
@@ -52,9 +52,21 @@ export default defineComponent({
           usuario: request.data.login.usuario,
           nome: request.data.nome,
           isLogado: true,
-          tipoCadastro: 'FUNCIONARIO',
+          tipoCadastro: request.data.tipoCadastro,
         }));
-        router.push('/home');
+
+        switch (request.data.tipoCadastro) {
+          case 'FUNCIONARIO':
+          case 'MEDICO':
+          case 'ADMINISTRADOR':
+            // TODO implementar chamadas para outros login
+            this.gerarAlerta('success', `Login de ${request.data.tipoCadastro}`, 4);
+            break;
+          case 'PACIENTE':
+            router.push('/home');
+            window.location.reload();
+            break;
+        }
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao logar', 3);
         console.log(ex.message);
@@ -68,7 +80,7 @@ export default defineComponent({
       setTimeout(() => {
         this.alertaLigado = false;
       }, segundosParaFechar * 1000);
-    },
+    }
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
