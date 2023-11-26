@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Login;
@@ -57,10 +58,12 @@ public class PacienteService {
         paciente.getLogin().setSenha(passwordEncoder.encode(paciente.getLogin().getSenha()));
     }
 
+    @Transactional
     public void inativarPaciente(int id) {
         pacienteRepository.ajustarStatus(Status.INATIVO, id);
     }
 
+    @Transactional
     public void ativarPaciente(int id) {
         pacienteRepository.ajustarStatus(Status.ATIVO, id);
     }

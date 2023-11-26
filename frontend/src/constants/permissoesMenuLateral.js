@@ -4,7 +4,7 @@ export const permissoesMenuLateral = [
   {
     titulo: 'Gerenciar Cadastros',
     icone: 'mdi-account',
-    rota: '',
+    rota: 'gerenciarCadastros',
     grupo: [
       permissoes.administrador,
     ],

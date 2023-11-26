@@ -8,6 +8,7 @@ import TelaAgendamento from "@/View/Agendamento";
 import TelaHistoricoConsultas from "@/View/HistoricoConsultasCliente";
 import AgendamentoConcluido from "@/View/AgendamentoConcluido";
 import HomeAdministrador from "@/View/HomeAdministrador";
+import GerenciarCadastros from "@/View/GerenciarCadastros";
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/homeAdm',
     name: 'homeAdm',
     component: HomeAdministrador
+  },
+  {
+    path: '/gerenciarCadastros',
+    name: 'gerenciarCadastros',
+    component: GerenciarCadastros
   },
 ]
 

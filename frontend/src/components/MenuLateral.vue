@@ -2,7 +2,7 @@
   <v-list class="lista-principal" dense>
     <v-list-item-group
         :value="buscarItemSelecionado"
-        color="primary"
+        @input="preencheItemSelecionado"
     >
       <v-list-item
           class="item-lista"
@@ -63,7 +63,11 @@ export default defineComponent({
     },
     selecionarItemMenu(indice) {
       this.selecionarItemMenuLateral(indice);
-    }
+      this.itemSelecionado = indice;
+    },
+    preencheItemSelecionado() {
+      return this.itemSelecionadoMenuLateral;
+    },
   },
   beforeMount() {
     this.verificaTipoCadastro();
@@ -74,6 +78,7 @@ export default defineComponent({
 <style scoped>
 .lista-principal {
   max-width: 15vw;
+  width: 15vw;
   height: 80vh;
   background: #a0ded6 !important;
 }

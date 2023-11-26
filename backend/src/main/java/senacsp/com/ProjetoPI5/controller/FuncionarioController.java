@@ -3,7 +3,6 @@ package senacsp.com.ProjetoPI5.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import senacsp.com.ProjetoPI5.model.Funcionario;
-import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.service.FuncionarioService;
 
 import java.util.List;
