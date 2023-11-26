@@ -4,8 +4,8 @@ import Login from "@/View/Login";
 import Home from "@/View/Home";
 import CadastroPaciente from "@/View/CadastroPaciente.vue";
 import CadastroFuncionario from "@/View/CadastroFuncionario.vue";
-import TelaAgendamento from "@/View/TelaAgendamento";
-import TelaHistoricoConsultas from "@/View/TelaHistoricoConsultas";
+import TelaAgendamento from "@/View/Agendamento";
+import TelaHistoricoConsultas from "@/View/HistoricoConsultasCliente";
 import AgendamentoConcluido from "@/View/AgendamentoConcluido";
 import HomeAdministrador from "@/View/HomeAdministrador";
 
