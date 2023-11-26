@@ -6,7 +6,7 @@
           <img src="../assets/mednote.png" alt=""/>
         </router-link>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="3">
         <div class="div-link" v-if="this.isLogado !== true">
           <router-link class="router-link" to="login">Entrar</router-link>
           <p class="router-link">&nbsp;/&nbsp;</p>
@@ -15,12 +15,17 @@
       </v-col>
       <v-col cols="2">
         <div class="texto-boas-vindas" v-if="this.isLogado">
-          <p>Olá {{this.usuario.nome}}!</p>
+          <p>Olá {{ this.usuario.nome }}!</p>
         </div>
       </v-col>
       <v-col cols="2">
-        <div v-if="this.isLogado" class="menu-navegacao">
-          <menu-navegacao />
+        <div v-if="verificarLoginPaciente" class="menu-navegacao">
+          <menu-navegacao/>
+        </div>
+      </v-col>
+      <v-col cols="1">
+        <div class="btn-sair" v-if="verificarLoginOutros">
+          <p @click="deslogar()">Sair</p>
         </div>
       </v-col>
     </v-row>
@@ -30,6 +35,7 @@
 <script>
 import {defineComponent} from "vue";
 import MenuNavegacao from "@/components/MenuNavegacao";
+import router from "@/router";
 
 export default defineComponent({
   name: "Header-Vue",
@@ -38,9 +44,25 @@ export default defineComponent({
     return {
       isLogado: false,
       usuario: {
-        nome: ''
+        nome: '',
+        tipoCadastro: '',
       }
     }
+  },
+  methods: {
+    deslogar() {
+      sessionStorage.clear();
+      router.push('/');
+      window.location.reload();
+    },
+  },
+  computed: {
+    verificarLoginPaciente() {
+      return this.isLogado && this.usuario.tipoCadastro === 'PACIENTE';
+    },
+    verificarLoginOutros() {
+      return this.isLogado && this.usuario.tipoCadastro !== 'PACIENTE';
+    },
   },
   beforeMount() {
     let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
@@ -48,6 +70,7 @@ export default defineComponent({
       if (dadosLogin.isLogado) {
         this.isLogado = true;
         this.usuario.nome = dadosLogin.nome;
+        this.usuario.tipoCadastro = dadosLogin.tipoCadastro;
       }
     }
   }
@@ -94,5 +117,17 @@ div img {
   color: grey;
   padding-top: 10vh;
   text-align: center;
+}
+
+.btn-sair {
+  color: grey;
+  padding-top: 10vh;
+  text-align: center;
+}
+
+.btn-sair:hover {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>

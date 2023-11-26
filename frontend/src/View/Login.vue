@@ -59,11 +59,11 @@ export default defineComponent({
           case 'FUNCIONARIO':
           case 'MEDICO':
           case 'ADMINISTRADOR':
-            // TODO implementar chamadas para outros login
-            this.gerarAlerta('success', `Login de ${request.data.tipoCadastro}`, 4);
+            await router.push('homeAdm');
+            window.location.reload();
             break;
           case 'PACIENTE':
-            router.push('/home');
+            await router.push('/home');
             window.location.reload();
             break;
         }
