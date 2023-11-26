@@ -7,6 +7,7 @@ import CadastroFuncionario from "@/View/CadastroFuncionario.vue";
 import TelaAgendamento from "@/View/TelaAgendamento";
 import TelaHistoricoConsultas from "@/View/TelaHistoricoConsultas";
 import AgendamentoConcluido from "@/View/AgendamentoConcluido";
+import HomeAdministrador from "@/View/HomeAdministrador";
 
 Vue.use(VueRouter)
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/agendamentoConcluido',
     name: 'agendamentoConcluido',
     component: AgendamentoConcluido
+  },
+  {
+    path: '/homeAdm',
+    name: 'homeAdm',
+    component: HomeAdministrador
   },
 ]
 
