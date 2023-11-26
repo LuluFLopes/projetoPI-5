@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Unidade;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
@@ -44,10 +45,12 @@ public class UnidadeService {
         unidadeRepository.save(unidade);
     }
 
+    @Transactional
     public void inativarUnidade(int id) {
         unidadeRepository.ajustarStatus(Status.INATIVO, id);
     }
 
+    @Transactional
     public void ativarUnidade(int id) {
         unidadeRepository.ajustarStatus(Status.ATIVO, id);
     }

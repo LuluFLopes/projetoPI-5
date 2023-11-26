@@ -9,6 +9,7 @@ import TelaHistoricoConsultas from "@/View/HistoricoConsultasCliente";
 import AgendamentoConcluido from "@/View/AgendamentoConcluido";
 import HomeAdministrador from "@/View/HomeAdministrador";
 import GerenciarCadastros from "@/View/GerenciarCadastros";
+import GerenciarUnidades from "@/View/GerenciarUnidades";
 
 Vue.use(VueRouter)
 
@@ -57,6 +58,11 @@ const routes = [
     path: '/gerenciarCadastros',
     name: 'gerenciarCadastros',
     component: GerenciarCadastros
+  },
+  {
+    path: '/gerenciarUnidades',
+    name: 'gerenciarUnidades',
+    component: GerenciarUnidades
   },
 ]
 

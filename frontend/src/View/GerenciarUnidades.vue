@@ -4,7 +4,7 @@
     <div class="div-tabela">
       <div>
         <v-card-title>
-          Cadastros
+          Unidades
           <v-spacer></v-spacer>
           <v-text-field
               v-model="buscar"
@@ -22,9 +22,7 @@
         >
           <template v-slot:item="{ item }">
             <tr>
-              <td>{{ item.nome }}</td>
-              <td>{{ item.cpf }}</td>
-              <td>{{ item.tipoCadastro }}</td>
+              <td>{{ item.descricao }}</td>
               <td>{{ item.status }}</td>
               <td>
                 <v-checkbox v-model="item.checkboxAtiva" @click="aoSelecionarUmElementoTabela(item)"></v-checkbox>
@@ -35,10 +33,10 @@
 
       </div>
       <div class="div-botoes">
-        <v-btn class="botoes-laterais" :disabled="false" @click="incluirCadastro">Incluir</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoAlterarDesativado" @click="alterarCadastro">Alterar</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoArquivarDesativado" @click="arquivarCadastro">Arquivar</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoAtivarDesativado" @click="ativarCadastro">Ativar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="false" @click="incluirUnidade">Incluir</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoAlterarDesativado" @click="alterarUnidade">Alterar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoArquivarDesativado" @click="arquivarUnidade">Arquivar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoAtivarDesativado" @click="ativarUnidade">Ativar</v-btn>
       </div>
     </div>
     <v-alert class="alerta-total"
@@ -58,7 +56,7 @@ import {mapMutations, mapState} from "vuex";
 import axios from "axios";
 
 export default defineComponent({
-  name: "GerenciaCadastros",
+  name: "GerenciarUnidades",
   components: {MenuLateral},
   data() {
     return {
@@ -69,25 +67,13 @@ export default defineComponent({
       buscar: '',
       campos: [
         {
-          text: 'Nome',
+          text: 'Descrição',
           align: 'start',
           sortable: false,
-          value: 'nome',
+          value: 'descricao',
         },
         {
-          text: 'CPF',
-          align: 'start',
-          sortable: false,
-          value: 'cpf',
-        },
-        {
-          text: 'Tipo de Cadastro',
-          align: 'start',
-          sortable: false,
-          value: 'tipoCadastro',
-        },
-        {
-          text: 'Status do Cadastro',
+          text: 'Status da Unidade',
           align: 'start',
           sortable: false,
           value: 'status',
@@ -103,47 +89,25 @@ export default defineComponent({
       botaoAlterarDesativado: true,
       botaoArquivarDesativado: true,
       botaoAtivarDesativado: true,
-      urlListarMedico: 'http://localhost:8081/medicos/listar',
-      urlListarFuncionario: 'http://localhost:8081/funcionarios/listar',
-      urlListarPaciente: 'http://localhost:8081/pacientes/listar',
-      urlArquivarMedico: 'http://localhost:8081/medicos/inativar',
-      urlArquivarFuncionario: 'http://localhost:8081/funcionarios/inativar',
-      urlArquivarPaciente: 'http://localhost:8081/pacientes/inativar',
-      urlAtivarMedico: 'http://localhost:8081/medicos/ativar',
-      urlAtivarFuncionario: 'http://localhost:8081/funcionarios/ativar',
-      urlAtivarPaciente: 'http://localhost:8081/pacientes/ativar',
+      urlListarUnidade: 'http://localhost:8081/unidades/listar',
+      urlArquivarUnidade: 'http://localhost:8081/unidades/inativar',
+      urlAtivarUnidade: 'http://localhost:8081/unidades/ativar',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
-      usuarioParaAlterar: {},
+      unidadeParaAlterar: {},
     }
   },
   methods: {
     ...mapMutations([
       'preencherDadosUsuarioAlterado'
     ]),
-    async buscarMedicos() {
+    async buscarUnidades() {
       try {
-        let response = await axios.get(this.urlListarMedico);
-        this.preencheItensLista(response.data);
+        let response = await axios.get(this.urlListarUnidade);
+        await this.preencheItensLista(response.data);
       } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao buscar medicos', 3);
-      }
-    },
-    async buscarFuncionarios() {
-      try {
-        let response = await axios.get(this.urlListarFuncionario);
-        this.preencheItensLista(response.data);
-      } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao buscar funcionarios', 3);
-      }
-    },
-    async buscarPacientes() {
-      try {
-        let response = await axios.get(this.urlListarPaciente);
-        this.preencheItensLista(response.data);
-      } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao buscar pacientes', 3);
+        this.gerarAlerta('error', 'Erro ao buscar unidades', 3);
       }
     },
     async arquivar(id, url) {
@@ -168,22 +132,18 @@ export default defineComponent({
     },
     preencheItensLista(lista) {
       lista.forEach(elemento => {
-        if (elemento.tipoCadastro !== 'ADMINISTRADOR') {
-          elemento.checkboxAtiva = false;
-          this.lista.push(elemento);
-        }
+        elemento.checkboxAtiva = false;
+        this.lista.push(elemento);
       });
     },
     buscarDadosLista() {
       this.limparLista();
-      this.buscarMedicos();
-      this.buscarFuncionarios();
-      this.buscarPacientes();
+      this.buscarUnidades();
     },
     aoSelecionarUmElementoTabela(item) {
       this.deselecionarOutros(item);
       this.mudarEstadoBotoes(item);
-      this.usuarioParaAlterar = item;
+      this.unidadeParaAlterar = item;
     },
     deselecionarOutros(item) {
       this.lista.forEach(usuario => {
@@ -192,38 +152,18 @@ export default defineComponent({
         }
       })
     },
-    incluirCadastro() {
+    incluirUnidade() {
       // TODO implementar router.push('');
     },
-    alterarCadastro() {
-      this.preencherDadosUsuarioAlterado(this.usuarioParaAlterar);
+    alterarUnidade() {
+      this.preencherDadosUsuarioAlterado(this.unidadeParaAlterar);
       // TODO implementar router.push('');
     },
-    arquivarCadastro() {
-      switch (this.usuarioParaAlterar.tipoCadastro) {
-        case 'MEDICO':
-          this.arquivar(this.usuarioParaAlterar.id, this.urlArquivarMedico);
-          break;
-        case 'FUNCIONARIO':
-          this.arquivar(this.usuarioParaAlterar.id, this.urlArquivarFuncionario);
-          break;
-        case 'PACIENTE':
-          this.arquivar(this.usuarioParaAlterar.id, this.urlArquivarPaciente);
-          break;
-      }
+    arquivarUnidade() {
+      this.arquivar(this.unidadeParaAlterar.id, this.urlArquivarUnidade);
     },
-    ativarCadastro() {
-      switch (this.usuarioParaAlterar.tipoCadastro) {
-        case 'MEDICO':
-          this.ativar(this.usuarioParaAlterar.id, this.urlAtivarMedico);
-          break;
-        case 'FUNCIONARIO':
-          this.ativar(this.usuarioParaAlterar.id, this.urlAtivarFuncionario);
-          break;
-        case 'PACIENTE':
-          this.ativar(this.usuarioParaAlterar.id, this.urlAtivarPaciente);
-          break;
-      }
+    ativarUnidade() {
+      this.ativar(this.unidadeParaAlterar.id, this.urlAtivarUnidade);
     },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
       this.tipoAlerta = tipoDeAlerta;
@@ -262,7 +202,7 @@ export default defineComponent({
     desativarBotoes() {
       this.botaoAlterarDesativado = true;
       this.botaoArquivarDesativado = true;
-      this.botaoAtivarDesativado= true;
+      this.botaoAtivarDesativado = true;
     },
   },
   beforeMount() {

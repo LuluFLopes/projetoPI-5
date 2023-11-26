@@ -12,7 +12,7 @@ export const permissoesMenuLateral = [
   {
     titulo: 'Gerenciar Unidades',
     icone: 'mdi-domain',
-    rota: '',
+    rota: 'gerenciarUnidades',
     grupo: [
       permissoes.administrador,
     ]
