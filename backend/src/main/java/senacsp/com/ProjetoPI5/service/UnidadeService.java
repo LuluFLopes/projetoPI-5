@@ -36,11 +36,13 @@ public class UnidadeService {
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_UNIDADE_NAO_ENCONTRADO));
     }
 
+    @Transactional
     public void adicionarUnidade(Unidade unidade) {
         unidade.setStatus(Status.ATIVO);
         unidadeRepository.save(unidade);
     }
 
+    @Transactional
     public void alterarUnidade(Unidade unidade) {
         unidadeRepository.save(unidade);
     }

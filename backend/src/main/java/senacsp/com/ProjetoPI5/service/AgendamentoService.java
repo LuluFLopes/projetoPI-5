@@ -1,5 +1,6 @@
 package senacsp.com.ProjetoPI5.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Agendamento;
 import senacsp.com.ProjetoPI5.model.enumeradores.Andamento;
@@ -46,11 +47,13 @@ public class AgendamentoService {
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_AGENDAMENTO_NAO_ENCONTRADO));
     }
 
+    @Transactional
     public void adicionarAgendamento(Agendamento agendamento) {
         agendamento.setAndamento(Andamento.AGENDADO);
         agendamentoRepository.save(agendamento);
     }
 
+    @Transactional
     public void alterarAgendamento(Agendamento agendamento) {
         agendamentoRepository.save(agendamento);
     }
@@ -80,10 +83,12 @@ public class AgendamentoService {
         return horariosDisponiveis;
     }
 
+    @Transactional
     public void cancelarAgendamento(int id) {
         agendamentoRepository.ajustarAgendamento(Andamento.CANCELADO, id);
     }
 
+    @Transactional
     public void concluirAgendamento(int id) {
         agendamentoRepository.ajustarAgendamento(Andamento.CONCLUIDO, id);
     }
