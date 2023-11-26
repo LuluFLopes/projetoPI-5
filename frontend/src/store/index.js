@@ -5,13 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    itemSelecionadoMenuLateral: -1,
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
+    selecionarItemMenuLateral(state, payload) {
+      state.itemSelecionadoMenuLateral = payload;
+    }
   },
-  actions: {
-  },
-  modules: {
-  }
+  actions: {},
+  modules: {}
 })
