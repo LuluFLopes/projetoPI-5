@@ -1,22 +1,19 @@
 <template>
   <v-list class="lista-principal" dense>
     <v-list-item-group
-        :value="buscarItemSelecionado"
-        @input="preencheItemSelecionado"
+        v-model="itemListaSelecionado"
     >
       <v-list-item
           class="item-lista"
           v-for="(item, i) in buscarListaFiltradaDePermissoes"
           :key="i"
-          @click="selecionarItemMenu(i)"
+          @click="selecionarItemMenu(i, item.rota)"
       >
         <v-list-item-icon>
           <v-icon v-text="item.icone"></v-icon>
         </v-list-item-icon>
         <v-list-item-content class="conteudo-item-lista">
-          <router-link class="texto-rota" :to="item.rota">
-            <v-list-item-title v-text="item.titulo"></v-list-item-title>
-          </router-link>
+          <v-list-item-title class="texto-rota" v-text="item.titulo"></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list-item-group>
@@ -27,12 +24,14 @@
 import {defineComponent} from "vue";
 import {permissoesMenuLateral} from "@/constants/permissoesMenuLateral";
 import {mapMutations, mapState} from "vuex";
+import router from "@/router";
 
 export default defineComponent({
   name: "MenuLateral",
   data() {
     return {
       tipoCadastro: '',
+      itemListaSelecionado: -1,
     }
   },
   computed: {
@@ -45,13 +44,10 @@ export default defineComponent({
           }
       )
     },
-    buscarItemSelecionado() {
-      return this.itemSelecionadoMenuLateral;
-    }
   },
   methods: {
     ...mapMutations([
-        'selecionarItemMenuLateral'
+      'selecionarItemMenuLateral'
     ]),
     verificaTipoCadastro() {
       let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
@@ -61,16 +57,17 @@ export default defineComponent({
         }
       }
     },
-    selecionarItemMenu(indice) {
+    selecionarItemMenu(indice, rota) {
       this.selecionarItemMenuLateral(indice);
-      this.itemSelecionado = indice;
+      router.push(rota);
     },
     preencheItemSelecionado() {
-      return this.itemSelecionadoMenuLateral;
+      return this.itemListaSelecionado = this.itemSelecionadoMenuLateral;
     },
   },
   beforeMount() {
     this.verificaTipoCadastro();
+    this.preencheItemSelecionado();
   }
 })
 </script>
@@ -90,6 +87,8 @@ export default defineComponent({
 .texto-rota {
   text-decoration: none;
   color: black;
+  display: flex;
+  justify-content: center;
 }
 
 .conteudo-item-lista {

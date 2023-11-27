@@ -1,17 +1,24 @@
 <template>
-  <menu-lateral />
+  <div>
+    <menu-lateral/>
+  </div>
 </template>
 
 <script>
 import {defineComponent} from "vue";
 import MenuLateral from "@/components/MenuLateral";
 
-export default defineComponent ({
+export default defineComponent({
   name: "HomeAdministrador",
   components: {MenuLateral}
 })
 </script>
 
 <style scoped>
+
+.div-vazia {
+  width: 70vw;
+  max-width: 70vw;
+}
 
 </style>
