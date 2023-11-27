@@ -100,7 +100,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations([
-      'preencherDadosUsuarioAlterado'
+      'preencherDadosUnidadeAlterada'
     ]),
     async buscarUnidades() {
       try {
@@ -156,7 +156,7 @@ export default defineComponent({
       // TODO implementar router.push('');
     },
     alterarUnidade() {
-      this.preencherDadosUsuarioAlterado(this.unidadeParaAlterar);
+      this.preencherDadosUnidadeAlterada()(this.unidadeParaAlterar);
       // TODO implementar router.push('');
     },
     arquivarUnidade() {

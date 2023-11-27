@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
     itemSelecionadoMenuLateral: -1,
     dadosUsuarioAlterado: {},
+    dadosUnidadeAlterado: {},
+    dadosEspecializacaoAlterada: {},
   },
   getters: {},
   mutations: {
@@ -15,6 +17,12 @@ export default new Vuex.Store({
     },
     preencherDadosUsuarioAlterado(state, payload) {
       state.dadosUsuarioAlterado = payload;
+    },
+    preencherDadosUnidadeAlterada(state, payload) {
+      state.dadosUnidadeAlterado = payload;
+    },
+    preencherDadosEspecializacaoAlterada(state, payload) {
+      state.dadosEspecializacaoAlterada = payload;
     },
   },
   actions: {},

@@ -15,10 +15,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
-.div-vazia {
-  width: 70vw;
-  max-width: 70vw;
-}
-
 </style>
