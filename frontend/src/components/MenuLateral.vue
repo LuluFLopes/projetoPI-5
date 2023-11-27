@@ -58,8 +58,10 @@ export default defineComponent({
       }
     },
     selecionarItemMenu(indice, rota) {
-      this.selecionarItemMenuLateral(indice);
-      router.push(rota);
+      if(indice !== this.itemSelecionadoMenuLateral) {
+        this.selecionarItemMenuLateral(indice);
+        router.push(rota);
+      }
     },
     preencheItemSelecionado() {
       return this.itemListaSelecionado = this.itemSelecionadoMenuLateral;
