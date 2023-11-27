@@ -10,6 +10,7 @@ import AgendamentoConcluido from "@/View/AgendamentoConcluido";
 import HomeAdministrador from "@/View/HomeAdministrador";
 import GerenciarCadastros from "@/View/GerenciarCadastros";
 import GerenciarUnidades from "@/View/GerenciarUnidades";
+import GerenciarEspecializacao from "@/View/GerenciarEspecializacao";
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes = [
     path: '/gerenciarUnidades',
     name: 'gerenciarUnidades',
     component: GerenciarUnidades
+  },
+  {
+    path: '/gerenciarEspecializacao',
+    name: 'gerenciarEspecializacao',
+    component: GerenciarEspecializacao
   },
 ]
 

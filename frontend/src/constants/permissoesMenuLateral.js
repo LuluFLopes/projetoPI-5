@@ -20,7 +20,7 @@ export const permissoesMenuLateral = [
   {
     titulo: 'Gerenciar Especializações',
     icone: 'mdi-medical-bag',
-    rota: '',
+    rota: 'gerenciarEspecializacao',
     grupo: [
       permissoes.administrador,
     ]
