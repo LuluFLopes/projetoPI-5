@@ -61,6 +61,9 @@ export default defineComponent({
       if(indice !== this.itemSelecionadoMenuLateral) {
         this.selecionarItemMenuLateral(indice);
         router.push(rota);
+      } else {
+        this.selecionarItemMenuLateral(-1);
+        router.push('homeAdm');
       }
     },
     preencheItemSelecionado() {
