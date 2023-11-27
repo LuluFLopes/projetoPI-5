@@ -7,9 +7,9 @@ import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String email;
-    String telefone;
+    private int id;
+    private String email;
+    private String telefone;
 
     public int getId() {
         return id;
