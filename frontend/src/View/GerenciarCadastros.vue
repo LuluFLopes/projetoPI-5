@@ -56,6 +56,7 @@ import {defineComponent} from "vue";
 import MenuLateral from "@/components/MenuLateral";
 import {mapMutations, mapState} from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 export default defineComponent({
   name: "GerenciaCadastros",
@@ -193,7 +194,7 @@ export default defineComponent({
       })
     },
     incluirCadastro() {
-      // TODO implementar router.push('');
+      router.push('incluirUsuarios');
     },
     alterarCadastro() {
       this.preencherDadosUsuarioAlterado(this.usuarioParaAlterar);
