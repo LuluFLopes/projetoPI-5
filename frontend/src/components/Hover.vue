@@ -17,7 +17,7 @@
           <br>
           <p class="texto-cartao">Especialização: {{ dadosAgendamento.medico.especializacao.descricao }}</p>
           <p class="texto-cartao">Profissional: {{ dadosAgendamento.medico.nome }}</p>
-          <p class="texto-cartao">Data e Hora: {{ dataConvertida }} as {{ horarioConvertido }}</p>
+          <p class="texto-cartao">Data e Hora: {{ dadosAgendamento.dataAgendamento }} as {{ horarioConvertido }}</p>
           <v-btn color="#1693a5" class="btn-detalhes" @click="exibirDetalhes()">Detalhes</v-btn>
         </v-card>
       </v-hover>
@@ -37,11 +37,6 @@ export default defineComponent({
     return {}
   },
   computed: {
-    dataConvertida(){
-      let data = this.dadosAgendamento.dataAgendamento;
-      let dataEmString = new Date(`${data[0]}-${data[1]}-${data[2]}`);
-      return dataEmString.toLocaleDateString('pt-BR');
-    },
     horarioConvertido(){
       let hora = this.dadosAgendamento.horaInicio;
       let horarioConvertido = new Date();
