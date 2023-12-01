@@ -230,7 +230,7 @@ export default defineComponent({
     preencherRequisicaoBuscarDatas() {
       this.dadosBuscaHorarios = {
         medico: {
-          id: 1
+          id: this.agendamento.medico.id,
         },
         dataAgendamento: this.dataPesquisada
       }

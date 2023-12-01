@@ -59,7 +59,7 @@ public class AgendamentoService {
     }
 
     public List<HorarioDisponivelView> listarHorariosDisponiveis(Agendamento agendamento) {
-        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentos(agendamento.getMedico().getId(), agendamento.getDataAgendamento());
+        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentosDisponiveis(agendamento.getMedico().getId(), agendamento.getDataAgendamento());
         return filtrarHorariosSemAgendamento(agendamentos, Arrays.asList(HorarioDeAtendimento.values()));
     }
 
