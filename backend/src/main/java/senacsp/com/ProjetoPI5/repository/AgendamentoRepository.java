@@ -20,6 +20,6 @@ public interface AgendamentoRepository extends JpaRepository<Agendamento, Intege
     @Query("SELECT a FROM Agendamento a WHERE a.medico.id = :id AND a.dataAgendamento = :dataAgendamento")
     List<Agendamento> listarAgendamentosDisponiveis(@Param("id") Integer id, @Param("dataAgendamento") LocalDate dataAgendamento);
 
-    @Query("SELECT a FROM Agendamento a WHERE a.paciente.id = :id ORDER BY a.id DESC")
+    @Query("SELECT a FROM Agendamento a WHERE a.paciente.id = :id ORDER BY a.dataAgendamento, a.id DESC")
     List<Agendamento> listarAgendamentos(@Param("id") Integer id);
 }
