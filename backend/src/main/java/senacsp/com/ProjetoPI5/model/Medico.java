@@ -8,7 +8,6 @@ public class Medico extends Pessoa {
     private String crm;
     @ManyToOne(cascade = CascadeType.MERGE)
     private Especializacao especializacao;
-
     @ManyToOne(cascade = CascadeType.MERGE)
     private Unidade unidade;
 

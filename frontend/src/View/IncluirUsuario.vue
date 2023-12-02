@@ -78,6 +78,19 @@
                   :items="listaTiposCadastros" @change="ativarTipoDeCadastro">
         </v-select>
       </div>
+      <v-divider />
+
+      <div class="div-secundaria">
+        <v-text-field class="campos-padrao" label="Login" v-model="usuario">
+        </v-text-field>
+
+        <v-text-field class="campos-padrao" label="Senha" v-model="senha">
+        </v-text-field>
+
+        <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha">
+        </v-text-field>
+      </div>
+      <v-divider />
 
       <div class="div-secundaria" v-if="camposMedicoAtivo">
         <v-text-field class="campos-padrao" label="Crm" v-model="crm">
@@ -101,7 +114,7 @@
             Voltar
           </v-btn>
 
-          <v-btn class="texto-botoes" color="#7ececa">
+          <v-btn class="texto-botoes" color="#7ececa" @click="salvarUsuario">
             Confirmar
           </v-btn>
         </div>
@@ -141,6 +154,9 @@ export default defineComponent({
       telefone: '',
       genero: '',
       tipoCadastro: '',
+      usuario: '',
+      senha: '',
+      confirmarSenha: '',
       crm: '',
       especializacao: {},
       unidade: {},
@@ -157,6 +173,9 @@ export default defineComponent({
       urlListaEspecializacoes: 'http://localhost:8081/especializacao/listar',
       urlListaUnidades: 'http://localhost:8081/unidades/listar',
       urlListaCargos: 'http://localhost:8081/listas/cargos',
+      urlSalvarMedico: 'http://localhost:8081/medicos/cadastrar',
+      urlSalvarFuncionario: 'http://localhost:8081/funcionarios/cadastrar',
+      urlSalvarPaciente: 'http://localhost:8081/pacientes/cadastrar',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
@@ -164,12 +183,34 @@ export default defineComponent({
       modal: false,
       camposMedicoAtivo: false,
       camposFuncionarioAtivo: false,
+      usuarioACadastrar: {},
     }
   },
   methods: {
     ...mapMutations([
       "selecionarItemMenuLateral"
     ]),
+    async salvarMedico() {
+      try {
+        await axios.post(this.urlSalvarMedico, this.usuarioACadastrar);
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+      }
+    },
+    async salvarFuncionario() {
+      try {
+        await axios.post(this.urlSalvarFuncionario, this.usuarioACadastrar);
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+      }
+    },
+    async salvarPaciente() {
+      try {
+        await axios.get(this.urlSalvarPaciente, this.usuarioACadastrar);
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+      }
+    },
     async buscarUf() {
       try {
         const response = await axios.get(this.urlListaUf);
@@ -257,6 +298,71 @@ export default defineComponent({
         this.gerarAlerta('error', 'Erro ao carregar cargos', 3);
       }
     },
+    salvarUsuario() {
+      if (this.tipoCadastro !== '') {
+        if (this.validaConfirmacaoDeSenha()) {
+          this.preencheUsuarioAntesDoCadastro();
+          switch (this.tipoCadastro) {
+            case 'MEDICO':
+              this.salvarMedico();
+              break;
+            case 'FUNCIONARIO':
+              this.salvarFuncionario();
+              break;
+            case 'PACIENTE':
+              this.salvarPaciente();
+              break;
+          }
+        } else {
+          this.gerarAlerta('error', 'As senhas não coincidem', 3);
+        }
+      } else {
+        this.gerarAlerta('error', 'Para prosseguir, você deve selecionar um tipo de cadastro', 3);
+      }
+    },
+    validaConfirmacaoDeSenha() {
+      return this.senha === this.confirmarSenha;
+    },
+    preencheUsuarioAntesDoCadastro() {
+      this.usuarioACadastrar = {
+        nome: this.nome,
+        cpf: this.cpf,
+        dataNascimento: this.dataNascimento,
+        endereco: {
+          logradouro: this.logradouro,
+          numero: this.numero,
+          complemento: this.complemento,
+          cep: this.cep,
+          bairro: this.bairro,
+          cidade: this.cidade,
+          uf: this.uf,
+        },
+        contato: {
+          email: this.email,
+          telefone: this.telefone,
+        },
+        login: {
+          usuario: this.usuario,
+          senha: this.senha,
+        },
+        genero: this.genero,
+        tipoCadastro: this.tipoCadastro,
+      }
+
+      if (this.tipoCadastro === 'MEDICO') {
+        this.usuarioACadastrar.crm = this.crm;
+        this.usuarioACadastrar.especializacao = {
+          id: this.especializacao,
+        };
+        this.usuarioACadastrar.unidade = {
+          id: this.unidade,
+        };
+      }
+
+      if (this.tipoCadastro === 'FUNCIONARIO') {
+        this.usuarioACadastrar.cargo = this.cargo;
+      }
+    },
     formatDate(date) {
       if (!date) return null
 
@@ -337,6 +443,9 @@ export default defineComponent({
   max-width: 60vw;
   margin: 0 auto;
   padding: 5vh;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .div-secundaria {
