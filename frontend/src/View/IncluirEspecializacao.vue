@@ -61,7 +61,7 @@ export default defineComponent ({
     },
     voltarTelaHomeAdm() {
       this.selecionarItemMenuLateral(2);
-      router.push('gerenciarCadastros');
+      router.push('gerenciarEspecializacao');
     },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
       this.tipoAlerta = tipoDeAlerta;
