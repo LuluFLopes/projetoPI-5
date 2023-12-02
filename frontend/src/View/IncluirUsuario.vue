@@ -78,7 +78,7 @@
                   :items="listaTiposCadastros" @change="ativarTipoDeCadastro">
         </v-select>
       </div>
-      <v-divider />
+      <v-divider/>
 
       <div class="div-secundaria">
         <v-text-field class="campos-padrao" label="Login" v-model="usuario">
@@ -90,7 +90,7 @@
         <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha">
         </v-text-field>
       </div>
-      <v-divider />
+      <v-divider/>
 
       <div class="div-secundaria" v-if="camposMedicoAtivo">
         <v-text-field class="campos-padrao" label="Crm" v-model="crm">
@@ -393,6 +393,13 @@ export default defineComponent({
           this.desabilitarBotoes();
           break;
       }
+      this.limparCamposEspecificos();
+    },
+    limparCamposEspecificos() {
+      this.crm = '';
+      this.especializacao = {};
+      this.unidade = {};
+      this.cargo = {};
     },
     desabilitarBotoes() {
       this.camposMedicoAtivo = false;
