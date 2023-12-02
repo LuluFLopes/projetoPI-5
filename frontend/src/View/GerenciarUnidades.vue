@@ -54,6 +54,7 @@ import {defineComponent} from "vue";
 import MenuLateral from "@/components/MenuLateral";
 import {mapMutations, mapState} from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 export default defineComponent({
   name: "GerenciarUnidades",
@@ -153,7 +154,7 @@ export default defineComponent({
       })
     },
     incluirUnidade() {
-      // TODO implementar router.push('');
+      router.push('incluirUnidade');
     },
     alterarUnidade() {
       this.preencherDadosUnidadeAlterada()(this.unidadeParaAlterar);

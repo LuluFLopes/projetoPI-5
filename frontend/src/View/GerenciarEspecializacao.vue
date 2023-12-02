@@ -63,7 +63,9 @@ export default defineComponent({
   data() {
     return {
       ...mapState([
-        'itemSelecionadoMenuLateral'
+        'itemSelecionadoMenuLateral',
+        'mensagemTela',
+        'mensagemAtiva',
       ]),
       itemSelecionado: [],
       buscar: '',
@@ -102,7 +104,9 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations([
-      'preencherDadosEspecializacaoAlterada'
+      'preencherDadosEspecializacaoAlterada',
+      'alterarMsg',
+      'alterarSeMsgEstaAtiva'
     ]),
     async buscarUnidades() {
       try {
@@ -209,7 +213,9 @@ export default defineComponent({
   },
   beforeMount() {
     this.buscarDadosLista();
-  }
+    this.preencheDadosMsg();
+    this.enviaMsgSeHouver();
+  },
 })
 </script>
 

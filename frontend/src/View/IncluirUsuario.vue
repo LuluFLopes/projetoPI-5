@@ -188,11 +188,17 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations([
-      "selecionarItemMenuLateral"
+      "selecionarItemMenuLateral",
+      "alterarMsg"
     ]),
     async salvarMedico() {
       try {
         await axios.post(this.urlSalvarMedico, this.usuarioACadastrar);
+        this.alterarMsg({
+          texto: 'Médico cadastrado com sucesso',
+          isAtiva: true,
+        });
+        this.voltarTelaHomeAdm();
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao cadastrar', 3);
       }
@@ -200,6 +206,11 @@ export default defineComponent({
     async salvarFuncionario() {
       try {
         await axios.post(this.urlSalvarFuncionario, this.usuarioACadastrar);
+        this.alterarMsg({
+          texto: 'Funcionário cadastrado com sucesso',
+          isAtiva: true,
+        });
+        this.voltarTelaHomeAdm();
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao cadastrar', 3);
       }
@@ -207,6 +218,11 @@ export default defineComponent({
     async salvarPaciente() {
       try {
         await axios.get(this.urlSalvarPaciente, this.usuarioACadastrar);
+        this.alterarMsg({
+          texto: 'Paciente cadastrado com sucesso',
+          isAtiva: true,
+        });
+        this.voltarTelaHomeAdm();
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao cadastrar', 3);
       }

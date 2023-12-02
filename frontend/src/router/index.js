@@ -14,6 +14,7 @@ import GerenciarEspecializacao from "@/View/GerenciarEspecializacao";
 import IncluirUsuario from "@/View/IncluirUsuario";
 import AlterarPaciente from "@/View/AlterarPaciente.vue"
 import IncluirEspecializacao from "@/View/IncluirEspecializacao";
+import IncluirUnidade from "@/View/IncluirUnidade";
 
 
 Vue.use(VueRouter)
@@ -88,6 +89,11 @@ const routes = [
     path: '/incluirEspecializacao',
     name: 'incluirEspecializacao',
     component: IncluirEspecializacao
+  },
+  {
+    path: '/incluirUnidade',
+    name: 'incluirUnidade',
+    component: IncluirUnidade
   },
 ]
 

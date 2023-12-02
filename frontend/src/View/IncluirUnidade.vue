@@ -5,6 +5,29 @@
       <div class="div-secundaria">
         <v-text-field class="campos-padrao" label="Descrição" v-model="descricao">
         </v-text-field>
+
+        <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro">
+        </v-text-field>
+
+        <v-text-field class="campos-padrao" label="Numero" v-model="numero">
+        </v-text-field>
+
+        <v-text-field class="campos-padrao" label="Complemento" v-model="complemento">
+        </v-text-field>
+      </div>
+
+      <div class="div-secundaria">
+        <v-text-field class="campos-padrao" label="Bairro" v-model="bairro">
+        </v-text-field>
+
+        <v-text-field class="campos-padrao" label="Cidade" v-model="cidade">
+        </v-text-field>
+
+        <v-select class="campos-padrao" label="UF" v-model="uf" :items="listaUf">
+        </v-select>
+
+        <v-text-field class="campos-padrao" label="Cep" v-model="cep">
+        </v-text-field>
       </div>
 
       <div class="quarta-div">
@@ -13,7 +36,7 @@
             Voltar
           </v-btn>
 
-          <v-btn class="texto-botoes" color="#7ececa" @click="salvarEspecializacao">
+          <v-btn class="texto-botoes" color="#7ececa" @click="salvarUnidade">
             Confirmar
           </v-btn>
         </div>
@@ -36,11 +59,20 @@ import axios from "axios";
 import router from "@/router";
 
 export default defineComponent({
-  name: "IncluirEspecializacao",
+  name: "IncluirUnidade",
   data() {
     return {
       descricao: '',
-      urlSalvarEspecializacao: 'http://localhost:8081/especializacao/cadastrar',
+      logradouro: '',
+      numero: '',
+      complemento: '',
+      cep: '',
+      bairro: '',
+      cidade: '',
+      uf: '',
+      listaUf: [],
+      urlListaUf: 'http://localhost:8081/listas/uf',
+      urlSalvarUnidade: 'http://localhost:8081/unidades/cadastrar',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
@@ -48,21 +80,40 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations([
-      'selecionarItemMenuLateral'
+      'selecionarItemMenuLateral',
     ]),
-    async salvarEspecializacao() {
+    async salvarUnidade() {
       try {
-        await axios.post(this.urlSalvarEspecializacao, {
+        await axios.post(this.urlSalvarUnidade, {
           descricao: this.descricao,
+          endereco: {
+            logradouro: this.logradouro,
+            numero: this.numero,
+            complemento: this.complemento,
+            cep: this.cep,
+            bairro: this.bairro,
+            cidade: this.cidade,
+            uf: this.uf,
+          }
         });
         this.voltarTelaHomeAdm();
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao cadastrar', 3);
       }
     },
+    async buscarUf() {
+      try {
+        const response = await axios.get(this.urlListaUf);
+        response.data.forEach((uf) => {
+          this.listaUf.push(uf);
+        });
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao carregar uf', 3);
+      }
+    },
     voltarTelaHomeAdm() {
-      this.selecionarItemMenuLateral(2);
-      router.push('gerenciarEspecializacao');
+      this.selecionarItemMenuLateral(1);
+      router.push('gerenciarUnidades');
     },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
       this.tipoAlerta = tipoDeAlerta;
@@ -75,6 +126,7 @@ export default defineComponent({
     },
   },
   beforeMount() {
+    this.buscarUf();
   }
 })
 </script>

@@ -263,7 +263,7 @@ export default defineComponent({
     desativarBotoes() {
       this.botaoAlterarDesativado = true;
       this.botaoArquivarDesativado = true;
-      this.botaoAtivarDesativado= true;
+      this.botaoAtivarDesativado = true;
     },
   },
   beforeMount() {
