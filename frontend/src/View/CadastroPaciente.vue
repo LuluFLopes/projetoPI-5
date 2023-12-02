@@ -256,7 +256,7 @@ export default {
         await axios.post(this.url, this.cliente);
         this.limparFormulario();
       } catch (ex) {
-        this.gerarAlerta('error', 'Não foi possível realizar o cadastro', 3);
+        this.gerarAlerta('error', 'Não foi possível realizar o cadastro!', 3);
       }
     },
     verificarOutroPlano() {
