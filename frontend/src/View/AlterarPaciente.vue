@@ -291,7 +291,7 @@ export default {
       const id = usuarioData.id;
       this.fetchUsuario(id);
     } else {
-      this.gerarAlerta('error', 'Erro ao resgatar id', 3);
+      this.gerarAlerta('error', 'Erro ao resgatar id!', 3);
     }
   },
 
