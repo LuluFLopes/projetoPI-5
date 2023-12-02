@@ -60,7 +60,7 @@ export default defineComponent ({
       }
     },
     voltarTelaHomeAdm() {
-      this.selecionarItemMenuLateral(1);
+      this.selecionarItemMenuLateral(2);
       router.push('gerenciarCadastros');
     },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
