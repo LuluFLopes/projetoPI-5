@@ -292,8 +292,6 @@ export default {
       router.push('home');
     },
   },
-
-
 };
 </script>
 
