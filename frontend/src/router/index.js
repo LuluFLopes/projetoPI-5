@@ -12,6 +12,7 @@ import GerenciarCadastros from "@/View/GerenciarCadastros";
 import GerenciarUnidades from "@/View/GerenciarUnidades";
 import GerenciarEspecializacao from "@/View/GerenciarEspecializacao";
 import IncluirUsuario from "@/View/IncluirUsuario";
+import AlterarPaciente from "@/View/AlterarPaciente.vue"
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes = [
     path: '/incluirUsuarios',
     name: 'incluirUsuarios',
     component: IncluirUsuario
+  },
+  {
+    path: '/alterarPaciente',
+    name: 'alterarPaciente',
+    component: AlterarPaciente
   },
 ]
 
