@@ -75,7 +75,18 @@
         </v-select>
 
         <v-select class="campos-padrao campo-final" label="Tipo de Cadastro" v-model="tipoCadastro"
-                  :items="listaTiposCadastros">
+                  :items="listaTiposCadastros" @change="ativarTipoDeCadastro">
+        </v-select>
+      </div>
+
+      <div class="div-secundaria" v-if="camposMedicoAtivo">
+        <v-text-field class="campos-padrao" label="Crm" v-model="crm">
+        </v-text-field>
+
+        <v-select class="campos-padrao" label="Especialização" v-model="especializacao" :items="listaEspecializacoes">
+        </v-select>
+
+        <v-select class="campos-padrao" label="Unidades" v-model="unidade" :items="listaUnidades">
         </v-select>
       </div>
 
@@ -125,22 +136,30 @@ export default defineComponent({
       telefone: '',
       genero: '',
       tipoCadastro: '',
+      crm: '',
+      especializacao: {},
+      unidade: {},
       listaUf: [],
       listaTiposCadastros: [],
       listaGeneros: [],
+      listaEspecializacoes: [],
+      listaUnidades: [],
       urlListaUf: 'http://localhost:8081/listas/uf',
       urlListaTiposCadastros: 'http://localhost:8081/listas/tiposCadastros',
       urlListaGeneros: 'http://localhost:8081/listas/generos',
+      urlListaEspecializacoes: 'http://localhost:8081/especializacao/listar',
+      urlListaUnidades: 'http://localhost:8081/unidades/listar',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
       dataFormatada: this.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       modal: false,
+      camposMedicoAtivo: false,
     }
   },
   methods: {
     ...mapMutations([
-        "selecionarItemMenuLateral"
+      "selecionarItemMenuLateral"
     ]),
     async buscarUf() {
       try {
@@ -156,7 +175,14 @@ export default defineComponent({
       try {
         const response = await axios.get(this.urlListaTiposCadastros);
         response.data.forEach((tipoCadastro) => {
-          this.listaTiposCadastros.push(tipoCadastro);
+          if (tipoCadastro.nome !== 'ADMINISTRADOR') {
+            this.listaTiposCadastros.push(
+                {
+                  text: tipoCadastro.descricao,
+                  value: tipoCadastro.nome,
+                }
+            );
+          }
         });
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao carregar tipos de cadastros', 3);
@@ -166,10 +192,45 @@ export default defineComponent({
       try {
         const response = await axios.get(this.urlListaGeneros);
         response.data.forEach((genero) => {
-          this.listaGeneros.push(genero);
+          this.listaGeneros.push(
+              {
+                text: genero.descricao,
+                value: genero.nome,
+              }
+          );
         });
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao carregar generos', 3);
+      }
+    },
+    async buscarEspecializacao() {
+      try {
+        const response = await axios.get(this.urlListaEspecializacoes);
+        response.data.forEach((especializacao) => {
+          this.listaEspecializacoes.push(
+              {
+                text: especializacao.descricao,
+                value: especializacao.id,
+              }
+          );
+        });
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao carregar especializações', 3);
+      }
+    },
+    async buscarUnidades() {
+      try {
+        const response = await axios.get(this.urlListaUnidades);
+        response.data.forEach((unidades) => {
+          this.listaUnidades.push(
+              {
+                text: unidades.descricao,
+                value: unidades.id,
+              }
+          );
+        });
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao carregar unidades', 3);
       }
     },
     formatDate(date) {
@@ -188,6 +249,13 @@ export default defineComponent({
       this.selecionarItemMenuLateral(0);
       router.push('gerenciarCadastros');
     },
+    ativarTipoDeCadastro() {
+        switch (this.tipoCadastro) {
+          case 'MEDICO':
+            this.camposMedicoAtivo = true;
+            break;
+        }
+    },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
       this.tipoAlerta = tipoDeAlerta;
       this.msgAlerta = mensagem;
@@ -201,6 +269,8 @@ export default defineComponent({
       this.buscarUf();
       this.buscarTiposCadastros();
       this.buscarGeneros();
+      this.buscarEspecializacao();
+      this.buscarUnidades();
     },
   },
   watch: {

@@ -8,6 +8,8 @@ import senacsp.com.ProjetoPI5.model.enumeradores.Genero;
 import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 import senacsp.com.ProjetoPI5.model.enumeradores.Uf;
 import senacsp.com.ProjetoPI5.service.ListagemCoreSistemaService;
+import senacsp.com.ProjetoPI5.view.GeneroView;
+import senacsp.com.ProjetoPI5.view.TipoCadastroView;
 
 import java.util.List;
 
@@ -27,12 +29,12 @@ public class ListagemCoreSistemaController {
     }
 
     @GetMapping("/tiposCadastros")
-    public ResponseEntity<List<TipoCadastro>> listarTiposCadastros() {
+    public ResponseEntity<List<TipoCadastroView>> listarTiposCadastros() {
         return ResponseEntity.ok(service.listarTiposCadastros());
     }
 
     @GetMapping("/generos")
-    public ResponseEntity<List<Genero>> listarGeneros() {
+    public ResponseEntity<List<GeneroView>> listarGeneros() {
         return ResponseEntity.ok(service.listarGenero());
     }
 
