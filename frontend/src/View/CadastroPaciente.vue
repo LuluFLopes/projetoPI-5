@@ -1,8 +1,11 @@
 <template>
-  <div>
-  <v-container>
+  <div class="div-principal">
+    <h1 class="titulo-principal">Cadastre-se</h1>
+  <v-card class="cartao-principal">
     <v-form @submit="cadastrarCliente">
+      <div class="div-secundaria">
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.nome"
           label="Nome"
           required
@@ -10,6 +13,7 @@
           outlined
       ></v-text-field>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.cpf"
           label="CPF"
           required
@@ -27,6 +31,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
+              class="campos-padrao"
               v-model="cliente.dataNascimento"
               label="Data de nascimento"
               required
@@ -45,13 +50,17 @@
         ></v-date-picker>
       </v-menu>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.endereco.logradouro"
           label="Logradouro"
           required
           color="teal darken-3"
           outlined
       ></v-text-field>
+      </div>
+      <div class="div-secundaria">
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.endereco.numero"
           label="Numero"
           required
@@ -60,6 +69,7 @@
           type="number"
       ></v-text-field>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.endereco.complemento"
           label="Complemento"
           required
@@ -67,6 +77,7 @@
           outlined
       ></v-text-field>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.endereco.cep"
           label="CEP"
           required
@@ -74,20 +85,26 @@
           outlined
       ></v-text-field>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.endereco.bairro"
           label="Bairro"
           required
           color="teal darken-3"
           outlined
       ></v-text-field>
+      </div>
+      <div class="div-secundaria">
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.endereco.cidade"
           label="cidade"
           required
           color="teal darken-3"
           outlined
       ></v-text-field>
+
       <v-select
+          class="campos-padrao"
           v-model="cliente.endereco.uf"
           :items="ufs"
           label="Uf"
@@ -96,6 +113,7 @@
           outlined
       ></v-select>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.contato.email"
           label="E-mail"
           required
@@ -104,6 +122,7 @@
           type="email"
       ></v-text-field>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.contato.telefone"
           label="Telefone"
           required
@@ -112,7 +131,10 @@
           type="phone"
           placeholder="(##) #####-####"
       ></v-text-field>
+      </div>
+      <div class="div-ternaria">
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.login.usuario"
           label="Login Usuario"
           required
@@ -120,6 +142,7 @@
           outlined
       ></v-text-field>
       <v-text-field
+          class="campos-padrao"
           v-model="cliente.login.senha"
           label="Login Senha"
           required
@@ -127,6 +150,7 @@
           outlined
       ></v-text-field>
       <v-select
+          class="campos-padrao"
           v-model="cliente.status"
           :items="statuses"
           label="Status"
@@ -135,6 +159,7 @@
           outlined
       ></v-select>
       <v-select
+          class="campos-padrao campo-final"
           v-model="cliente.genero"
           :items="generos"
           label="Genero"
@@ -142,15 +167,20 @@
           color="teal darken-3"
           outlined
       ></v-select>
+      </div>
+      <div class="quarta-div">
+        <div class="div-botoes">
+          <v-btn class="texto-botoes" color="#7ececa" @click="voltarTelaHome">
+            Voltar
+          </v-btn>
 
-
-      <v-row>
-      <v-btn type="submit" color="teal darken-2">Cadastrar Cliente</v-btn>
-        <v-spacer></v-spacer>
-      <v-btn @click="limparFormulario" color="error">Limpar os campos</v-btn>
-      </v-row>
+          <v-btn class="texto-botoes" color="#7ececa" type="submit">
+            Confirmar
+          </v-btn>
+        </div>
+      </div>
     </v-form>
-  </v-container>
+  </v-card>
   <v-alert class="alerta-total"
            v-if="alertaLigado"
            dismissible
@@ -164,6 +194,7 @@
 
 <script>
 import axios from "axios";
+import router from "@/router";
 
 export default {
   data() {
@@ -257,6 +288,9 @@ export default {
         this.alertaLigado = false;
       }, segundosParaFechar * 1000);
     },
+    voltarTelaHome() {
+      router.push('home');
+    },
   },
 
 
@@ -264,26 +298,61 @@ export default {
 </script>
 
 <style>
-v-container {
-  background-color: #c7ede8;
+
+.div-principal {
+  margin-top: 3vh;
+  text-align: center;
+}
+
+.titulo-principal {
+  margin-bottom: 5vh;
+}
+
+.cartao-principal {
+  width: 60vw;
+  max-width: 60vw;
+  margin: 0 auto;
+  padding: 5vh;
+}
+
+.div-secundaria {
   display: flex;
+  justify-content: space-between;
+  width: 55vw;
+  padding: 10px;
 }
 
-label {
-  color: #1693a5;
+.div-ternaria {
+  display: flex;
+  width: 55vw;
+  margin: 0 auto;
+  padding: 10px;
 }
 
-v-icon {
-  color: #7ececa;
+.campos-padrao {
+  width: 12vw;
+  max-width: 12vw;
 }
 
-v-btn {
-  background-color: #45b5c4;
-  color: white;
+.campo-final {
+  margin-left: 2vw;
 }
 
-main {
-  margin-bottom: 70px;
+.quarta-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 2vh;
+  height: 7vh;
+}
+
+.div-botoes {
+  width: 25vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.texto-botoes {
+  color: #FFFFFF !important;
 }
 
 .alerta-total {

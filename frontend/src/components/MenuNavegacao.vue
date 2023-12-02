@@ -63,7 +63,7 @@ export default defineComponent({
           router.push('agendamento');
           break;
         case 2:
-          //'TODO' criar endereço -> router.push('alterarCadastro');
+          router.push('alterarPaciente');
           break;
         case 3:
           router.push('historicoConsultas');
