@@ -90,6 +90,11 @@
         </v-select>
       </div>
 
+      <div class="div-secundaria" v-if="camposFuncionarioAtivo">
+        <v-select class="campos-padrao" label="Cargos" v-model="cargo" :items="listaCargos">
+        </v-select>
+      </div>
+
       <div class="quarta-div">
         <div class="div-botoes">
           <v-btn class="texto-botoes" color="#7ececa" @click="voltarTelaHomeAdm">
@@ -139,22 +144,26 @@ export default defineComponent({
       crm: '',
       especializacao: {},
       unidade: {},
+      cargo: {},
       listaUf: [],
       listaTiposCadastros: [],
       listaGeneros: [],
       listaEspecializacoes: [],
       listaUnidades: [],
+      listaCargos: [],
       urlListaUf: 'http://localhost:8081/listas/uf',
       urlListaTiposCadastros: 'http://localhost:8081/listas/tiposCadastros',
       urlListaGeneros: 'http://localhost:8081/listas/generos',
       urlListaEspecializacoes: 'http://localhost:8081/especializacao/listar',
       urlListaUnidades: 'http://localhost:8081/unidades/listar',
+      urlListaCargos: 'http://localhost:8081/listas/cargos',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
       dataFormatada: this.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       modal: false,
       camposMedicoAtivo: false,
+      camposFuncionarioAtivo: false,
     }
   },
   methods: {
@@ -233,6 +242,21 @@ export default defineComponent({
         this.gerarAlerta('error', 'Erro ao carregar unidades', 3);
       }
     },
+    async buscarCargos() {
+      try {
+        const response = await axios.get(this.urlListaCargos);
+        response.data.forEach((cargo) => {
+          this.listaCargos.push(
+              {
+                text: cargo.descricao,
+                value: cargo.nome,
+              }
+          );
+        });
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao carregar cargos', 3);
+      }
+    },
     formatDate(date) {
       if (!date) return null
 
@@ -250,11 +274,23 @@ export default defineComponent({
       router.push('gerenciarCadastros');
     },
     ativarTipoDeCadastro() {
-        switch (this.tipoCadastro) {
-          case 'MEDICO':
-            this.camposMedicoAtivo = true;
-            break;
-        }
+      switch (this.tipoCadastro) {
+        case 'MEDICO':
+          this.desabilitarBotoes();
+          this.camposMedicoAtivo = true;
+          break;
+        case 'FUNCIONARIO':
+          this.desabilitarBotoes();
+          this.camposFuncionarioAtivo = true;
+          break;
+        case 'PACIENTE':
+          this.desabilitarBotoes();
+          break;
+      }
+    },
+    desabilitarBotoes() {
+      this.camposMedicoAtivo = false;
+      this.camposFuncionarioAtivo = false;
     },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
       this.tipoAlerta = tipoDeAlerta;
@@ -271,6 +307,7 @@ export default defineComponent({
       this.buscarGeneros();
       this.buscarEspecializacao();
       this.buscarUnidades();
+      this.buscarCargos();
     },
   },
   watch: {

@@ -8,6 +8,7 @@ import senacsp.com.ProjetoPI5.model.enumeradores.Genero;
 import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 import senacsp.com.ProjetoPI5.model.enumeradores.Uf;
 import senacsp.com.ProjetoPI5.service.ListagemCoreSistemaService;
+import senacsp.com.ProjetoPI5.view.CargoView;
 import senacsp.com.ProjetoPI5.view.GeneroView;
 import senacsp.com.ProjetoPI5.view.TipoCadastroView;
 
@@ -36,6 +37,11 @@ public class ListagemCoreSistemaController {
     @GetMapping("/generos")
     public ResponseEntity<List<GeneroView>> listarGeneros() {
         return ResponseEntity.ok(service.listarGenero());
+    }
+
+    @GetMapping("/cargos")
+    public ResponseEntity<List<CargoView>> listarCargos() {
+        return ResponseEntity.ok(service.listarCargo());
     }
 
 }
