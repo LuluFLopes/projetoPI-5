@@ -3,10 +3,10 @@
     <h1 class="titulo-principal">Cadastro de Usuarios</h1>
     <v-card class="cartao-principal">
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Nome" v-model="nome" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Nome" v-model="nome" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="CPF" v-model="cpf" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="CPF" v-model="cpf" :disabled="camposDesabilitados">
         </v-text-field>
 
         <v-menu
@@ -34,83 +34,83 @@
               v-model="dataNascimento"
               no-title
               @input="modal = false"
-              :disabled="botoesDesabilitados"
+              :disabled="camposDesabilitados"
           ></v-date-picker>
         </v-menu>
 
-        <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro" :disabled="camposDesabilitados">
         </v-text-field>
       </div>
 
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Numero" v-model="numero" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Numero" v-model="numero" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Complemento" v-model="complemento" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Complemento" v-model="complemento" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Cep" v-model="cep" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Cep" v-model="cep" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Bairro" v-model="bairro" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Bairro" v-model="bairro" :disabled="camposDesabilitados">
         </v-text-field>
       </div>
 
 
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Cidade" v-model="cidade" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Cidade" v-model="cidade" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-select class="campos-padrao" label="UF" v-model="uf" :items="listaUf" :disabled="botoesDesabilitados">
+        <v-select class="campos-padrao" label="UF" v-model="uf" :items="listaUf" :disabled="camposDesabilitados">
         </v-select>
 
-        <v-text-field class="campos-padrao" label="Email" v-model="email" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Email" v-model="email" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Telefone" v-model="telefone" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Telefone" v-model="telefone" :disabled="camposDesabilitados">
         </v-text-field>
       </div>
 
       <div class="div-ternaria">
         <v-select class="campos-padrao" label="Genero" v-model="genero" :items="listaGeneros"
-                  :disabled="botoesDesabilitados">
+                  :disabled="camposDesabilitados">
         </v-select>
 
         <v-select class="campos-padrao campo-final" label="Tipo de Cadastro" v-model="tipoCadastro"
-                  :items="listaTiposCadastros" @change="ativarTipoDeCadastro" :disabled="botoesDesabilitados">
+                  :items="listaTiposCadastros" @change="ativarTipoDeCadastro" :disabled="camposDesabilitados">
         </v-select>
       </div>
       <v-divider/>
 
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Login" v-model="usuario" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Login" v-model="usuario" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Senha" v-model="senha" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Senha" v-model="senha" :disabled="camposDesabilitados">
         </v-text-field>
 
         <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha"
-                      :disabled="botoesDesabilitados">
+                      :disabled="camposDesabilitados">
         </v-text-field>
       </div>
       <v-divider/>
 
       <div class="div-secundaria" v-if="camposMedicoAtivo">
-        <v-text-field class="campos-padrao" label="Crm" v-model="crm" :disabled="botoesDesabilitados">
+        <v-text-field class="campos-padrao" label="Crm" v-model="crm" :disabled="camposDesabilitados">
         </v-text-field>
 
         <v-select class="campos-padrao" label="Especialização" v-model="especializacao" :items="listaEspecializacoes"
-                  :disabled="botoesDesabilitados">
+                  :disabled="camposDesabilitados">
         </v-select>
 
         <v-select class="campos-padrao" label="Unidades" v-model="unidade" :items="listaUnidades"
-                  :disabled="botoesDesabilitados">
+                  :disabled="camposDesabilitados">
         </v-select>
       </div>
 
       <div class="div-secundaria" v-if="camposFuncionarioAtivo">
         <v-select class="campos-padrao" label="Cargos" v-model="cargo" :items="listaCargos"
-                  :disabled="botoesDesabilitados">
+                  :disabled="camposDesabilitados">
         </v-select>
       </div>
 
@@ -202,7 +202,7 @@ export default defineComponent({
       camposMedicoAtivo: false,
       camposFuncionarioAtivo: false,
       usuarioACadastrar: {},
-      botoesDesabilitados: true,
+      camposDesabilitados: true,
       botoesDeConfirmacaoVisivel: false,
       botoesDeAlterarVisivel: true,
     }
@@ -351,7 +351,7 @@ export default defineComponent({
     },
     liberarBotoes() {
       this.botoesDeAlterarVisivel = false;
-      this.botoesDesabilitados = false;
+      this.camposDesabilitados = false;
       this.botoesDeConfirmacaoVisivel = true;
     },
     validaConfirmacaoDeSenha() {

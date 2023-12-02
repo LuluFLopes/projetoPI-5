@@ -158,7 +158,7 @@ export default defineComponent({
     },
     alterarUnidade() {
       this.preencherDadosUnidadeAlterada(this.unidadeParaAlterar);
-      // TODO implementar router.push('');
+      router.push('alterarUnidade');
     },
     arquivarUnidade() {
       this.arquivar(this.unidadeParaAlterar.id, this.urlArquivarUnidade);

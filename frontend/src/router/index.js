@@ -16,6 +16,7 @@ import AlterarPaciente from "@/View/AlterarPaciente.vue"
 import IncluirEspecializacao from "@/View/IncluirEspecializacao";
 import IncluirUnidade from "@/View/IncluirUnidade";
 import AlterarUsuario from "@/View/AlterarUsuario";
+import AlterarUnidade from "@/View/AlterarUnidade";
 
 
 Vue.use(VueRouter)
@@ -100,6 +101,11 @@ const routes = [
     path: '/alterarUsuario',
     name: 'alterarUsuario',
     component: AlterarUsuario
+  },
+  {
+    path: '/alterarUnidade',
+    name: 'alterarUnidade',
+    component: AlterarUnidade
   },
 ]
 
