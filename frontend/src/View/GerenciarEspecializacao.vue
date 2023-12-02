@@ -35,7 +35,8 @@
       <div class="div-botoes">
         <v-btn class="botoes-laterais" :disabled="false" @click="incluirEspecializacao">Incluir</v-btn>
         <v-btn class="botoes-laterais" :disabled="botaoAlterarDesativado" @click="alterarEspecializacao">Alterar</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoArquivarDesativado" @click="arquivarEspecializacao">Arquivar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoArquivarDesativado" @click="arquivarEspecializacao">Arquivar
+        </v-btn>
         <v-btn class="botoes-laterais" :disabled="botaoAtivarDesativado" @click="ativarEspecializacao">Ativar</v-btn>
       </div>
     </div>
@@ -54,6 +55,7 @@ import {defineComponent} from "vue";
 import MenuLateral from "@/components/MenuLateral";
 import {mapMutations, mapState} from "vuex";
 import axios from "axios";
+import router from "@/router";
 
 export default defineComponent({
   name: "GerenciarEspecializacao",
@@ -153,7 +155,7 @@ export default defineComponent({
       })
     },
     incluirEspecializacao() {
-      // TODO implementar router.push('');
+      router.push('incluirEspecializacao');
     },
     alterarEspecializacao() {
       this.preencherDadosEspecializacaoAlterada()(this.especializacaoParaAlterar);
