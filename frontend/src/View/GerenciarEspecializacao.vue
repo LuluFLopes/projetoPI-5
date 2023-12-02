@@ -104,9 +104,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations([
-      'preencherDadosEspecializacaoAlterada',
-      'alterarMsg',
-      'alterarSeMsgEstaAtiva'
+      'preencherDadosEspecializacaoAlterada'
     ]),
     async buscarUnidades() {
       try {
@@ -213,8 +211,6 @@ export default defineComponent({
   },
   beforeMount() {
     this.buscarDadosLista();
-    this.preencheDadosMsg();
-    this.enviaMsgSeHouver();
   },
 })
 </script>
