@@ -297,7 +297,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .div-principal {
   margin-top: 3vh;

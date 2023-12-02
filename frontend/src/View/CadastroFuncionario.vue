@@ -372,7 +372,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 v-container {
   background-color: #c7ede8;
 }
