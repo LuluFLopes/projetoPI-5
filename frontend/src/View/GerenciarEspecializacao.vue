@@ -160,7 +160,7 @@ export default defineComponent({
       router.push('incluirEspecializacao');
     },
     alterarEspecializacao() {
-      this.preencherDadosEspecializacaoAlterada()(this.especializacaoParaAlterar);
+      this.preencherDadosEspecializacaoAlterada(this.especializacaoParaAlterar);
       // TODO implementar router.push('');
     },
     arquivarEspecializacao() {

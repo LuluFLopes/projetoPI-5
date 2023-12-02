@@ -157,7 +157,7 @@ export default defineComponent({
       router.push('incluirUnidade');
     },
     alterarUnidade() {
-      this.preencherDadosUnidadeAlterada()(this.unidadeParaAlterar);
+      this.preencherDadosUnidadeAlterada(this.unidadeParaAlterar);
       // TODO implementar router.push('');
     },
     arquivarUnidade() {
