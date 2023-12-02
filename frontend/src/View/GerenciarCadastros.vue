@@ -63,9 +63,6 @@ export default defineComponent({
   components: {MenuLateral},
   data() {
     return {
-      ...mapState([
-        'itemSelecionadoMenuLateral'
-      ]),
       itemSelecionado: [],
       buscar: '',
       campos: [
@@ -118,6 +115,11 @@ export default defineComponent({
       msgAlerta: '',
       usuarioParaAlterar: {},
     }
+  },
+  computed: {
+    ...mapState([
+      'itemSelecionadoMenuLateral'
+    ]),
   },
   methods: {
     ...mapMutations([
@@ -198,7 +200,7 @@ export default defineComponent({
     },
     alterarCadastro() {
       this.preencherDadosUsuarioAlterado(this.usuarioParaAlterar);
-      // TODO implementar router.push('');
+      router.push('alterarUsuario');
     },
     arquivarCadastro() {
       switch (this.usuarioParaAlterar.tipoCadastro) {

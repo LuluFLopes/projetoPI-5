@@ -3,10 +3,10 @@
     <h1 class="titulo-principal">Cadastro de Usuarios</h1>
     <v-card class="cartao-principal">
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Nome" v-model="nome">
+        <v-text-field class="campos-padrao" label="Nome" v-model="nome" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="CPF" v-model="cpf">
+        <v-text-field class="campos-padrao" label="CPF" v-model="cpf" :disabled="botoesDesabilitados">
         </v-text-field>
 
         <v-menu
@@ -34,81 +34,87 @@
               v-model="dataNascimento"
               no-title
               @input="modal = false"
+              :disabled="botoesDesabilitados"
           ></v-date-picker>
         </v-menu>
 
-        <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro">
+        <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro" :disabled="botoesDesabilitados">
         </v-text-field>
       </div>
 
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Numero" v-model="numero">
+        <v-text-field class="campos-padrao" label="Numero" v-model="numero" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Complemento" v-model="complemento">
+        <v-text-field class="campos-padrao" label="Complemento" v-model="complemento" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Cep" v-model="cep">
+        <v-text-field class="campos-padrao" label="Cep" v-model="cep" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Bairro" v-model="bairro">
+        <v-text-field class="campos-padrao" label="Bairro" v-model="bairro" :disabled="botoesDesabilitados">
         </v-text-field>
       </div>
 
 
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Cidade" v-model="cidade">
+        <v-text-field class="campos-padrao" label="Cidade" v-model="cidade" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-select class="campos-padrao" label="UF" v-model="uf" :items="listaUf">
+        <v-select class="campos-padrao" label="UF" v-model="uf" :items="listaUf" :disabled="botoesDesabilitados">
         </v-select>
 
-        <v-text-field class="campos-padrao" label="Email" v-model="email">
+        <v-text-field class="campos-padrao" label="Email" v-model="email" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Telefone" v-model="telefone">
+        <v-text-field class="campos-padrao" label="Telefone" v-model="telefone" :disabled="botoesDesabilitados">
         </v-text-field>
       </div>
 
       <div class="div-ternaria">
-        <v-select class="campos-padrao" label="Genero" v-model="genero" :items="listaGeneros">
+        <v-select class="campos-padrao" label="Genero" v-model="genero" :items="listaGeneros"
+                  :disabled="botoesDesabilitados">
         </v-select>
 
         <v-select class="campos-padrao campo-final" label="Tipo de Cadastro" v-model="tipoCadastro"
-                  :items="listaTiposCadastros" @change="ativarTipoDeCadastro">
+                  :items="listaTiposCadastros" @change="ativarTipoDeCadastro" :disabled="botoesDesabilitados">
         </v-select>
       </div>
       <v-divider/>
 
       <div class="div-secundaria">
-        <v-text-field class="campos-padrao" label="Login" v-model="usuario">
+        <v-text-field class="campos-padrao" label="Login" v-model="usuario" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Senha" v-model="senha">
+        <v-text-field class="campos-padrao" label="Senha" v-model="senha" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha">
+        <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha"
+                      :disabled="botoesDesabilitados">
         </v-text-field>
       </div>
       <v-divider/>
 
       <div class="div-secundaria" v-if="camposMedicoAtivo">
-        <v-text-field class="campos-padrao" label="Crm" v-model="crm">
+        <v-text-field class="campos-padrao" label="Crm" v-model="crm" :disabled="botoesDesabilitados">
         </v-text-field>
 
-        <v-select class="campos-padrao" label="Especialização" v-model="especializacao" :items="listaEspecializacoes">
+        <v-select class="campos-padrao" label="Especialização" v-model="especializacao" :items="listaEspecializacoes"
+                  :disabled="botoesDesabilitados">
         </v-select>
 
-        <v-select class="campos-padrao" label="Unidades" v-model="unidade" :items="listaUnidades">
+        <v-select class="campos-padrao" label="Unidades" v-model="unidade" :items="listaUnidades"
+                  :disabled="botoesDesabilitados">
         </v-select>
       </div>
 
       <div class="div-secundaria" v-if="camposFuncionarioAtivo">
-        <v-select class="campos-padrao" label="Cargos" v-model="cargo" :items="listaCargos">
+        <v-select class="campos-padrao" label="Cargos" v-model="cargo" :items="listaCargos"
+                  :disabled="botoesDesabilitados">
         </v-select>
       </div>
 
-      <div class="quarta-div">
+      <div class="quarta-div" v-if="botoesDeConfirmacaoVisivel">
         <div class="div-botoes">
           <v-btn class="texto-botoes" color="#7ececa" @click="voltarTelaHomeAdm">
             Voltar
@@ -116,6 +122,18 @@
 
           <v-btn class="texto-botoes" color="#7ececa" @click="salvarUsuario">
             Confirmar
+          </v-btn>
+        </div>
+      </div>
+
+      <div class="quarta-div" v-if="botoesDeAlterarVisivel">
+        <div class="div-botoes">
+          <v-btn class="texto-botoes" color="#7ececa" @click="voltarTelaHomeAdm">
+            Voltar
+          </v-btn>
+
+          <v-btn class="texto-botoes" color="#7ececa" @click="liberarBotoes">
+            Alterar
           </v-btn>
         </div>
       </div>
@@ -132,12 +150,12 @@
 
 <script>
 import {defineComponent} from "vue";
+import {mapMutations, mapState} from "vuex";
 import axios from "axios";
 import router from "@/router";
-import {mapMutations} from "vuex";
 
 export default defineComponent({
-  name: "IncluirUsuario",
+  name: "AlterarUsuario",
   data() {
     return {
       nome: '',
@@ -184,7 +202,15 @@ export default defineComponent({
       camposMedicoAtivo: false,
       camposFuncionarioAtivo: false,
       usuarioACadastrar: {},
+      botoesDesabilitados: true,
+      botoesDeConfirmacaoVisivel: false,
+      botoesDeAlterarVisivel: true,
     }
+  },
+  computed: {
+    ...mapState([
+      'dadosUsuarioAlterado'
+    ]),
   },
   methods: {
     ...mapMutations([
@@ -323,6 +349,11 @@ export default defineComponent({
         this.gerarAlerta('error', 'Para prosseguir, você deve selecionar um tipo de cadastro', 3);
       }
     },
+    liberarBotoes() {
+      this.botoesDeAlterarVisivel = false;
+      this.botoesDesabilitados = false;
+      this.botoesDeConfirmacaoVisivel = true;
+    },
     validaConfirmacaoDeSenha() {
       return this.senha === this.confirmarSenha;
     },
@@ -417,6 +448,79 @@ export default defineComponent({
         this.alertaLigado = false;
       }, segundosParaFechar * 1000);
     },
+    preencherInformacoes() {
+      switch (this.dadosUsuarioAlterado.tipoCadastro) {
+        case 'MEDICO':
+          this.preencherMedico();
+          this.camposMedicoAtivo = true;
+          break;
+        case 'FUNCIONARIO':
+          this.preencherFuncionario();
+          this.camposFuncionarioAtivo = true;
+          break;
+        case 'PACIENTE':
+          this.preencherPaciente();
+          break;
+      }
+    },
+    preencherMedico() {
+      this.nome = this.dadosUsuarioAlterado.nome;
+      this.cpf = this.dadosUsuarioAlterado.cpf;
+      this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
+      this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
+      this.numero = this.dadosUsuarioAlterado.endereco.numero;
+      this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
+      this.cep = this.dadosUsuarioAlterado.endereco.cep;
+      this.bairro = this.dadosUsuarioAlterado.endereco.bairro;
+      this.cidade = this.dadosUsuarioAlterado.endereco.cidade;
+      this.uf = this.dadosUsuarioAlterado.endereco.uf;
+      this.email = this.dadosUsuarioAlterado.endereco.email;
+      this.telefone = this.dadosUsuarioAlterado.endereco.telefone;
+      this.usuario = this.dadosUsuarioAlterado.login.usuario;
+      this.senha = this.dadosUsuarioAlterado.login.senha;
+      this.genero = this.dadosUsuarioAlterado.genero;
+      this.tipoCadastro = this.dadosUsuarioAlterado.tipoCadastro;
+      this.crm = this.dadosUsuarioAlterado.crm;
+      this.unidade = this.dadosUsuarioAlterado.unidade;
+      this.especializacao = this.dadosUsuarioAlterado.especializacao;
+    },
+    preencherFuncionario() {
+      this.nome = this.dadosUsuarioAlterado.nome;
+      this.cpf = this.dadosUsuarioAlterado.cpf;
+      this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
+      this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
+      this.numero = this.dadosUsuarioAlterado.endereco.numero;
+      this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
+      this.cep = this.dadosUsuarioAlterado.endereco.cep;
+      this.bairro = this.dadosUsuarioAlterado.endereco.bairro;
+      this.cidade = this.dadosUsuarioAlterado.endereco.cidade;
+      this.uf = this.dadosUsuarioAlterado.endereco.uf;
+      this.email = this.dadosUsuarioAlterado.endereco.email;
+      this.telefone = this.dadosUsuarioAlterado.endereco.telefone;
+      this.usuario = this.dadosUsuarioAlterado.login.usuario;
+      this.senha = this.dadosUsuarioAlterado.login.senha;
+      this.genero = this.dadosUsuarioAlterado.genero;
+      this.tipoCadastro = this.dadosUsuarioAlterado.tipoCadastro;
+      this.cargo = this.dadosUsuarioAlterado.cargo;
+    },
+    preencherPaciente() {
+      this.nome = this.dadosUsuarioAlterado.nome;
+      this.cpf = this.dadosUsuarioAlterado.cpf;
+      this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
+      this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
+      this.numero = this.dadosUsuarioAlterado.endereco.numero;
+      this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
+      this.cep = this.dadosUsuarioAlterado.endereco.cep;
+      this.bairro = this.dadosUsuarioAlterado.endereco.bairro;
+      this.cidade = this.dadosUsuarioAlterado.endereco.cidade;
+      this.uf = this.dadosUsuarioAlterado.endereco.uf;
+      this.email = this.dadosUsuarioAlterado.endereco.email;
+      this.telefone = this.dadosUsuarioAlterado.endereco.telefone;
+      this.usuario = this.dadosUsuarioAlterado.login.usuario;
+      this.senha = this.dadosUsuarioAlterado.login.senha;
+      this.genero = this.dadosUsuarioAlterado.genero;
+      this.tipoCadastro = this.dadosUsuarioAlterado.tipoCadastro;
+    },
     inicializarDados() {
       this.buscarUf();
       this.buscarTiposCadastros();
@@ -424,6 +528,7 @@ export default defineComponent({
       this.buscarEspecializacao();
       this.buscarUnidades();
       this.buscarCargos();
+      this.preencherInformacoes();
     },
   },
   watch: {
