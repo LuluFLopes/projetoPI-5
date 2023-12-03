@@ -36,7 +36,7 @@ export const permissoesMenuLateral = [
   },
   {
     titulo: 'Agendamentos',
-    icone: 'mdi-account',
+    icone: 'mdi-clipboard-text-clock',
     rota: 'historicoMedicos',
     grupo: [
       permissoes.medico,
@@ -44,7 +44,7 @@ export const permissoesMenuLateral = [
   },
   {
     titulo: 'Agendamentos',
-    icone: 'mdi-account',
+    icone: 'mdi-clipboard-text-clock',
     rota: 'historicoFuncionarios',
     grupo: [
       permissoes.funcionario,

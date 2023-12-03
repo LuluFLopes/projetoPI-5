@@ -61,7 +61,6 @@
           <template v-slot:item="{ item }">
             <tr>
               <td>{{ item.paciente.nome }}</td>
-              <td>{{ item.medico.nome }}</td>
               <td>{{ item.andamento }}</td>
               <td>
                 <v-checkbox v-model="item.checkboxAtiva" @click="aoSelecionarItem(item)"></v-checkbox>
@@ -110,12 +109,6 @@ export default defineComponent({
           value: 'paciente.nome',
         },
         {
-          text: 'Medico',
-          align: 'start',
-          sortable: false,
-          value: 'medico.nome',
-        },
-        {
           text: 'Status',
           align: 'start',
           sortable: false,
@@ -137,7 +130,7 @@ export default defineComponent({
       modal: false,
       data: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
       urlBuscarAgendamentos: 'http://localhost:8081/agendamentos/listarPorDataEMedico',
-      idMedico: 0,
+      id: 0,
       detalhesConsulta: {},
       isModalAberto: false,
       urlCancelarAgendamento: 'http://localhost:8081/agendamentos/cancelar',
@@ -146,7 +139,7 @@ export default defineComponent({
   methods: {
     async buscarAgendamentos() {
       try {
-        const request = await axios.get(`${this.urlBuscarAgendamentos}?data=${this.data}&idMedico=${this.idMedico}`);
+        const request = await axios.get(`${this.urlBuscarAgendamentos}?data=${this.data}&id=${this.id}`);
         this.limparLista();
         request.data.forEach(agendamento => {
           this.lista.push(agendamento);
@@ -179,7 +172,7 @@ export default defineComponent({
       let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
       if (dadosLogin !== undefined && dadosLogin !== null) {
         if (dadosLogin.isLogado) {
-          this.idMedico = dadosLogin.id;
+          this.id = dadosLogin.id;
         }
       }
     },
