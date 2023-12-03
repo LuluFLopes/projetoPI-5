@@ -236,7 +236,7 @@ export default defineComponent({
         await axios.post(this.urlSalvarMedico, this.usuarioACadastrar);
         this.voltarTelaHomeAdm();
       } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+        this.gerarAlerta('error', 'Erro ao alterar', 3);
       }
     },
     async salvarFuncionario() {
@@ -244,7 +244,7 @@ export default defineComponent({
         await axios.post(this.urlSalvarFuncionario, this.usuarioACadastrar);
         this.voltarTelaHomeAdm();
       } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+        this.gerarAlerta('error', 'Erro ao alterar', 3);
       }
     },
     async salvarPaciente() {
@@ -252,7 +252,7 @@ export default defineComponent({
         await axios.post(this.urlSalvarPaciente, this.usuarioACadastrar);
         this.voltarTelaHomeAdm();
       } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+        this.gerarAlerta('error', 'Erro ao alterar', 3);
       }
     },
     async buscarUf() {

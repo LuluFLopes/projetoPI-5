@@ -122,7 +122,7 @@ export default defineComponent({
         });
         this.voltarTelaHomeAdm();
       } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao cadastrar', 3);
+        this.gerarAlerta('error', 'Erro ao alterar', 3);
       }
     },
     async buscarUf() {
