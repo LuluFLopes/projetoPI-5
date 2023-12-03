@@ -62,11 +62,6 @@ export default defineComponent({
   components: {MenuLateral},
   data() {
     return {
-      ...mapState([
-        'itemSelecionadoMenuLateral',
-        'mensagemTela',
-        'mensagemAtiva',
-      ]),
       itemSelecionado: [],
       buscar: '',
       campos: [
@@ -101,6 +96,11 @@ export default defineComponent({
       msgAlerta: '',
       especializacaoParaAlterar: {},
     }
+  },
+  computed: {
+    ...mapState([
+      'itemSelecionadoMenuLateral',
+    ]),
   },
   methods: {
     ...mapMutations([
@@ -161,7 +161,7 @@ export default defineComponent({
     },
     alterarEspecializacao() {
       this.preencherDadosEspecializacaoAlterada(this.especializacaoParaAlterar);
-      // TODO implementar router.push('');
+      router.push('alterarEspecializacao');
     },
     arquivarEspecializacao() {
       this.arquivar(this.especializacaoParaAlterar.id, this.urlArquivarEspecializacao);

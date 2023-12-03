@@ -44,6 +44,7 @@ public class UnidadeService {
 
     @Transactional
     public void alterarUnidade(Unidade unidade) {
+        unidade.setStatus(Status.ATIVO);
         unidadeRepository.save(unidade);
     }
 

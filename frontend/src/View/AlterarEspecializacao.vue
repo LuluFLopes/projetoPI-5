@@ -7,7 +7,7 @@
         </v-text-field>
       </div>
 
-      <div class="quarta-div">
+      <div class="quarta-div" v-if="botoesDeConfirmacaoVisivel">
         <div class="div-botoes">
           <v-btn class="texto-botoes" color="#7ececa" @click="voltarTelaHomeAdm">
             Voltar
@@ -15,6 +15,18 @@
 
           <v-btn class="texto-botoes" color="#7ececa" @click="salvarEspecializacao">
             Confirmar
+          </v-btn>
+        </div>
+      </div>
+
+      <div class="quarta-div" v-if="botoesDeAlterarVisivel">
+        <div class="div-botoes">
+          <v-btn class="texto-botoes" color="#7ececa" @click="voltarTelaHomeAdm">
+            Voltar
+          </v-btn>
+
+          <v-btn class="texto-botoes" color="#7ececa" @click="liberarBotoes">
+            Alterar
           </v-btn>
         </div>
       </div>
@@ -50,15 +62,15 @@ export default defineComponent({
       botoesDeAlterarVisivel: true,
     }
   },
+  computed: {
+    ...mapState([
+      'dadosEspecializacaoAlterada'
+    ]),
+  },
   methods: {
     ...mapMutations([
       'selecionarItemMenuLateral'
     ]),
-    computed: {
-      ...mapState([
-        'dadosEspecializacaoAlterada'
-      ])
-    },
     async salvarEspecializacao() {
       try {
         await axios.post(this.urlSalvarEspecializacao, {
@@ -76,7 +88,7 @@ export default defineComponent({
       this.botoesDeConfirmacaoVisivel = true;
     },
     preencherInformacoes() {
-      this.id = this.this.dadosEspecializacaoAlterada.id;
+      this.id = this.dadosEspecializacaoAlterada.id;
       this.descricao = this.dadosEspecializacaoAlterada.descricao;
     },
     voltarTelaHomeAdm() {
@@ -93,6 +105,9 @@ export default defineComponent({
       }, segundosParaFechar * 1000);
     },
   },
+  beforeMount() {
+    this.preencherInformacoes();
+  }
 })
 </script>
 
