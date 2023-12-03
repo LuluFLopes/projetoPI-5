@@ -37,7 +37,7 @@
               <h2 class="sub-titulos">Informações do Agendamento</h2>
               <div class="padrao-div">
                 <p class="padrao-linha padrao-esquerda">Unidade: {{ unidade }}</p>
-                <p class="padrao-linha">Data do Agendamento:  {{ dataAgendamento }}</p>
+                <p class="padrao-linha">Data do Agendamento: {{ detalhesConsulta.dataAgendamento }}</p>
                 <p class="padrao-linha padrao-direita">Hora do Agendamento: {{ horaAgendamento }}</p>
               </div>
               <div class="padrao-div">
@@ -49,6 +49,14 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn
+              v-if="botaoAtivo"
+              color="red darken-1"
+              text
+              @click="cancelarAgendamento"
+          >
+            Cancelar Consulta
+          </v-btn>
           <v-btn
               color="red darken-1"
               text
@@ -64,9 +72,15 @@
 
 <script>
 import {defineComponent} from "vue";
+import axios from "axios";
 
 export default defineComponent({
   name: "ModalDetalhesConsulta",
+  data() {
+    return {
+      urlCancelarAgendamento: 'http://localhost:8081/agendamentos/cancelar',
+    }
+  },
   emits: ['ao-clicar-botao-fechar-modal'],
   props: {
     isAberto: Boolean,
@@ -102,12 +116,7 @@ export default defineComponent({
     unidade() {
       return this.detalhesConsulta.unidade.descricao;
     },
-    dataAgendamento(){
-      let data = this.detalhesConsulta.dataAgendamento;
-      let dataEmString = new Date(`${data[0]}-${data[1]}-${data[2]}`);
-      return dataEmString.toLocaleDateString('pt-BR');
-    },
-    horaAgendamento(){
+    horaAgendamento() {
       let hora = this.detalhesConsulta.horaInicio;
       let horarioConvertido = new Date();
       horarioConvertido.setHours(hora[0]);
@@ -121,13 +130,24 @@ export default defineComponent({
     },
     statusDoAgendamento() {
       return this.detalhesConsulta.andamento;
+    },
+    botaoAtivo() {
+      return this.detalhesConsulta.andamento !== 'CANCELADO';
     }
   },
   methods: {
+    async cancelarAgendamento() {
+      try {
+        await axios.put(`${this.urlCancelarAgendamento}/${this.detalhesConsulta.id}`);
+        window.location.reload();
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao cancelar agendamento', 3);
+      }
+    },
     desativarModal() {
       this.$emit('ao-clicar-botao-fechar-modal');
-    }
-  }
+    },
+  },
 })
 </script>
 
