@@ -28,7 +28,7 @@ export const permissoesMenuLateral = [
   {
     titulo: 'Alterar Meus Dados',
     icone: 'mdi-account',
-    rota: '',
+    rota: 'alterarCadastro',
     grupo: [
       permissoes.medico,
       permissoes.funcionario,

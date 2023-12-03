@@ -18,6 +18,7 @@ import IncluirUnidade from "@/View/IncluirUnidade";
 import AlterarUsuario from "@/View/AlterarUsuario";
 import AlterarUnidade from "@/View/AlterarUnidade";
 import AlterarEspecializacao from "@/View/AlterarEspecializacao";
+import AlterarCadastro from "@/View/AlterarCadastro";
 
 
 Vue.use(VueRouter)
@@ -112,6 +113,11 @@ const routes = [
     path: '/alterarEspecializacao',
     name: 'alterarEspecializacao',
     component: AlterarEspecializacao
+  },
+  {
+    path: '/alterarCadastro',
+    name: 'alterarCadastro',
+    component: AlterarCadastro
   },
 ]
 
