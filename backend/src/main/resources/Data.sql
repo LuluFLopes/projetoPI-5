@@ -24,10 +24,10 @@ VALUES ('Unidade Santo Amaro', 0, 1),
 
 
 INSERT INTO LOGIN (SENHA, USUARIO)
-VALUES ('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'luciano.lopes'),
-       ('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'stevart.guerra'),
-       ('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'vitor.lucats'),
-       ('$2a$10$5DkTh9Vdg9etHZig.1w1puvxHCtYNDto8CwJT6nNvlcDX1fyIoXi2', 'fernando.martiniano');
+VALUES ('$2a$10$cIZ1krIsXzG6rfpxC/hSc.D35fshC5FXNpkocrwl0A4KrwJfE3OjS', 'luciano.lopes'),
+       ('$2a$10$6YU7Bta1M5TtiyfsXZe3geL9/p734y5qiPjFlVuvdcPQR2In7r3uK', 'stevart.guerra'),
+       ('$2a$10$eAt6ErDstG4u7mfsIt4O1.6WSHhIo9beu3pKgZ960ziI9PsvJjm.q', 'vitor.lucats'),
+       ('$2a$10$dU4J3fjWL8grNJe0gkYrWuJcS1r.n/rMAb9zhzEyb9H6YkAKnvKiq', 'fernando.martiniano');
 
 
 INSERT INTO CONTATO (EMAIL, TELEFONE)

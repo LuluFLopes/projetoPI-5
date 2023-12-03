@@ -248,6 +248,8 @@ export default defineComponent ({
   padding-top: 2vh;
   display: flex;
   justify-content: space-between;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .div-botoes {
