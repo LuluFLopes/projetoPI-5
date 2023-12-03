@@ -9,33 +9,44 @@
         <v-text-field class="campos-padrao" label="CPF" v-model="cpf">
         </v-text-field>
 
-        <v-menu
-            ref="modal"
+        <v-dialog
+            ref="dialog"
             v-model="modal"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            max-width="290px"
-            min-width="auto"
+            :return-value.sync="dataNascimento"
+            persistent
+            width="290px"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
                 class="campos-padrao"
-                :value="dataFormatada"
-                @input="parseDate(dataFormatada)"
+                v-model="dataNascimento"
                 label="Data Nascimento"
-                persistent-hint
                 prepend-icon="mdi-calendar"
+                readonly
                 v-bind="attrs"
                 v-on="on"
             ></v-text-field>
           </template>
           <v-date-picker
               v-model="dataNascimento"
-              no-title
-              @input="modal = false"
-          ></v-date-picker>
-        </v-menu>
+              scrollable
+          >
+            <v-spacer></v-spacer>
+            <v-btn
+                text
+                color="primary"
+                @click="modal = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+                text
+                color="primary"
+                @click="$refs.dialog.save(dataNascimento)"
+            >OK
+            </v-btn>
+          </v-date-picker>
+        </v-dialog>
 
         <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro">
         </v-text-field>
@@ -84,10 +95,10 @@
         <v-text-field class="campos-padrao" label="Login" v-model="usuario">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Senha" v-model="senha">
+        <v-text-field class="campos-padrao" type="password" label="Senha" v-model="senha">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha">
+        <v-text-field class="campos-padrao" type="password" label="Confirmar Senha" v-model="confirmarSenha">
         </v-text-field>
       </div>
       <v-divider/>
@@ -179,7 +190,6 @@ export default defineComponent({
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
-      dataFormatada: this.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       modal: false,
       camposMedicoAtivo: false,
       camposFuncionarioAtivo: false,
@@ -366,18 +376,6 @@ export default defineComponent({
         this.usuarioACadastrar.cargo = this.cargo;
       }
     },
-    formatDate(date) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    parseDate(date) {
-      if (!date) return null
-
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
     voltarTelaHomeAdm() {
       this.selecionarItemMenuLateral(0);
       router.push('gerenciarCadastros');
@@ -424,11 +422,6 @@ export default defineComponent({
       this.buscarEspecializacao();
       this.buscarUnidades();
       this.buscarCargos();
-    },
-  },
-  watch: {
-    dataNascimento() {
-      this.dataFormatada = this.formatDate(this.dataNascimento)
     },
   },
   beforeMount() {

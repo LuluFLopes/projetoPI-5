@@ -9,34 +9,45 @@
         <v-text-field class="campos-padrao" label="CPF" v-model="cpf" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-menu
-            ref="modal"
+        <v-dialog
+            ref="dialog"
             v-model="modal"
-            :close-on-content-click="false"
-            transition="scale-transition"
-            offset-y
-            max-width="290px"
-            min-width="auto"
+            :return-value.sync="dataNascimento"
+            persistent
+            width="290px"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
                 class="campos-padrao"
-                :value="dataFormatada"
-                @input="parseDate(dataFormatada)"
+                v-model="dataNascimento"
                 label="Data Nascimento"
-                persistent-hint
                 prepend-icon="mdi-calendar"
+                readonly
                 v-bind="attrs"
                 v-on="on"
+                :disabled="camposDesabilitados"
             ></v-text-field>
           </template>
           <v-date-picker
               v-model="dataNascimento"
-              no-title
-              @input="modal = false"
-              :disabled="camposDesabilitados"
-          ></v-date-picker>
-        </v-menu>
+              scrollable
+          >
+            <v-spacer></v-spacer>
+            <v-btn
+                text
+                color="primary"
+                @click="modal = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+                text
+                color="primary"
+                @click="$refs.dialog.save(dataNascimento)"
+            >OK
+            </v-btn>
+          </v-date-picker>
+        </v-dialog>
 
         <v-text-field class="campos-padrao" label="Logradouro" v-model="logradouro" :disabled="camposDesabilitados">
         </v-text-field>
@@ -86,10 +97,11 @@
         <v-text-field class="campos-padrao" label="Login" v-model="usuario" :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Senha" v-model="senha" :disabled="camposDesabilitados">
+        <v-text-field class="campos-padrao" type="password" label="Senha" v-model="senha"
+                      :disabled="camposDesabilitados">
         </v-text-field>
 
-        <v-text-field class="campos-padrao" label="Confirmar Senha" v-model="confirmarSenha"
+        <v-text-field class="campos-padrao" type="password" label="Confirmar Senha" v-model="confirmarSenha"
                       :disabled="camposDesabilitados">
         </v-text-field>
       </div>
@@ -201,7 +213,6 @@ export default defineComponent({
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
-      dataFormatada: this.formatDate((new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)),
       modal: false,
       camposMedicoAtivo: false,
       camposFuncionarioAtivo: false,
@@ -401,18 +412,6 @@ export default defineComponent({
         this.usuarioACadastrar.cargo = this.cargo;
       }
     },
-    formatDate(date) {
-      if (!date) return null
-
-      const [year, month, day] = date.split('-')
-      return `${day}/${month}/${year}`
-    },
-    parseDate(date) {
-      if (!date) return null
-
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
     voltarTelaHomeAdm() {
       this.selecionarItemMenuLateral(0);
       router.push('gerenciarCadastros');
@@ -471,8 +470,8 @@ export default defineComponent({
       this.usuarioId = this.dadosUsuarioAlterado.id;
       this.nome = this.dadosUsuarioAlterado.nome;
       this.cpf = this.dadosUsuarioAlterado.cpf;
-      this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
-      this.enderecoId = this. dadosUsuarioAlterado.endereco.id;
+      this.dataNascimento = this.coversorDeData();
+      this.enderecoId = this.dadosUsuarioAlterado.endereco.id;
       this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
       this.numero = this.dadosUsuarioAlterado.endereco.numero;
       this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
@@ -486,18 +485,19 @@ export default defineComponent({
       this.loginId = this.dadosUsuarioAlterado.login.id;
       this.usuario = this.dadosUsuarioAlterado.login.usuario;
       this.senha = this.dadosUsuarioAlterado.login.senha;
+      this.confirmarSenha = this.dadosUsuarioAlterado.login.senha;
       this.genero = this.dadosUsuarioAlterado.genero;
       this.tipoCadastro = this.dadosUsuarioAlterado.tipoCadastro;
       this.crm = this.dadosUsuarioAlterado.crm;
-      this.unidade = this.dadosUsuarioAlterado.unidade;
-      this.especializacao = this.dadosUsuarioAlterado.especializacao;
+      this.unidade = this.dadosUsuarioAlterado.unidade.id;
+      this.especializacao = this.dadosUsuarioAlterado.especializacao.id;
     },
     preencherFuncionario() {
       this.usuarioId = this.dadosUsuarioAlterado.id;
       this.nome = this.dadosUsuarioAlterado.nome;
       this.cpf = this.dadosUsuarioAlterado.cpf;
-      this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
-      this.enderecoId = this. dadosUsuarioAlterado.endereco.id;
+      this.dataNascimento = this.coversorDeData();
+      this.enderecoId = this.dadosUsuarioAlterado.endereco.id;
       this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
       this.numero = this.dadosUsuarioAlterado.endereco.numero;
       this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
@@ -511,6 +511,7 @@ export default defineComponent({
       this.loginId = this.dadosUsuarioAlterado.login.id;
       this.usuario = this.dadosUsuarioAlterado.login.usuario;
       this.senha = this.dadosUsuarioAlterado.login.senha;
+      this.confirmarSenha = this.dadosUsuarioAlterado.login.senha;
       this.genero = this.dadosUsuarioAlterado.genero;
       this.tipoCadastro = this.dadosUsuarioAlterado.tipoCadastro;
       this.cargo = this.dadosUsuarioAlterado.cargo;
@@ -519,8 +520,8 @@ export default defineComponent({
       this.usuarioId = this.dadosUsuarioAlterado.id;
       this.nome = this.dadosUsuarioAlterado.nome;
       this.cpf = this.dadosUsuarioAlterado.cpf;
-      this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
-      this.enderecoId = this. dadosUsuarioAlterado.endereco.id;
+      this.dataNascimento = this.coversorDeData();
+      this.enderecoId = this.dadosUsuarioAlterado.endereco.id;
       this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
       this.numero = this.dadosUsuarioAlterado.endereco.numero;
       this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
@@ -534,8 +535,14 @@ export default defineComponent({
       this.loginId = this.dadosUsuarioAlterado.login.id;
       this.usuario = this.dadosUsuarioAlterado.login.usuario;
       this.senha = this.dadosUsuarioAlterado.login.senha;
+      this.confirmarSenha = this.dadosUsuarioAlterado.login.senha;
       this.genero = this.dadosUsuarioAlterado.genero;
       this.tipoCadastro = this.dadosUsuarioAlterado.tipoCadastro;
+    },
+    coversorDeData() {
+      let data = this.dadosUsuarioAlterado.dataNascimento;
+      let dataConvertida = new Date(data[0], data[1] - 1, data[2]);
+      return (new Date(dataConvertida.getTime() - dataConvertida.getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
     },
     inicializarDados() {
       this.buscarUf();
@@ -545,11 +552,6 @@ export default defineComponent({
       this.buscarUnidades();
       this.buscarCargos();
       this.preencherInformacoes();
-    },
-  },
-  watch: {
-    dataNascimento() {
-      this.dataFormatada = this.formatDate(this.dataNascimento)
     },
   },
   beforeMount() {
