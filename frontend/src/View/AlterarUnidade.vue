@@ -74,7 +74,9 @@ export default defineComponent({
   name: "AlterarUnidade",
   data() {
     return {
+      descricaoId: 0,
       descricao: '',
+      enderecoId: 0,
       logradouro: '',
       numero: '',
       complemento: '',
@@ -84,7 +86,7 @@ export default defineComponent({
       uf: '',
       listaUf: [],
       urlListaUf: 'http://localhost:8081/listas/uf',
-      urlSalvarUnidade: 'http://localhost:8081/unidades/cadastrar',
+      urlSalvarUnidade: 'http://localhost:8081/unidades/alterar',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
@@ -105,8 +107,10 @@ export default defineComponent({
     async salvarUnidade() {
       try {
         await axios.post(this.urlSalvarUnidade, {
+          id: this.descricaoId,
           descricao: this.descricao,
           endereco: {
+            id: this.enderecoId,
             logradouro: this.logradouro,
             numero: this.numero,
             complemento: this.complemento,
@@ -137,7 +141,9 @@ export default defineComponent({
       this.botoesDeConfirmacaoVisivel = true;
     },
     preencherInformacoes() {
+      this.descricaoId = this.dadosUnidadeAlterado.id;
       this.descricao = this.dadosUnidadeAlterado.descricao;
+      this.enderecoId = this.dadosUnidadeAlterado.endereco.id;
       this.logradouro = this.dadosUnidadeAlterado.endereco.logradouro;
       this.numero = this.dadosUnidadeAlterado.endereco.numero;
       this.complemento = this.dadosUnidadeAlterado.endereco.complemento;
