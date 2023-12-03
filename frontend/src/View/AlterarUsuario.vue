@@ -158,9 +158,11 @@ export default defineComponent({
   name: "AlterarUsuario",
   data() {
     return {
+      usuarioId: 0,
       nome: '',
       cpf: '',
       dataNascimento: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      enderecoId: 0,
       logradouro: '',
       numero: '',
       complemento: '',
@@ -168,10 +170,12 @@ export default defineComponent({
       bairro: '',
       cidade: '',
       uf: '',
+      contatoId: 0,
       email: '',
       telefone: '',
       genero: '',
       tipoCadastro: '',
+      loginId: 0,
       usuario: '',
       senha: '',
       confirmarSenha: '',
@@ -191,9 +195,9 @@ export default defineComponent({
       urlListaEspecializacoes: 'http://localhost:8081/especializacao/listar',
       urlListaUnidades: 'http://localhost:8081/unidades/listar',
       urlListaCargos: 'http://localhost:8081/listas/cargos',
-      urlSalvarMedico: 'http://localhost:8081/medicos/cadastrar',
-      urlSalvarFuncionario: 'http://localhost:8081/funcionarios/cadastrar',
-      urlSalvarPaciente: 'http://localhost:8081/pacientes/cadastrar',
+      urlSalvarMedico: 'http://localhost:8081/medicos/alterar',
+      urlSalvarFuncionario: 'http://localhost:8081/funcionarios/alterar',
+      urlSalvarPaciente: 'http://localhost:8081/pacientes/alterar',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
@@ -359,10 +363,12 @@ export default defineComponent({
     },
     preencheUsuarioAntesDoCadastro() {
       this.usuarioACadastrar = {
+        id: this.usuarioId,
         nome: this.nome,
         cpf: this.cpf,
         dataNascimento: this.dataNascimento,
         endereco: {
+          id: this.enderecoId,
           logradouro: this.logradouro,
           numero: this.numero,
           complemento: this.complemento,
@@ -372,10 +378,12 @@ export default defineComponent({
           uf: this.uf,
         },
         contato: {
+          id: this.contatoId,
           email: this.email,
           telefone: this.telefone,
         },
         login: {
+          id: this.loginId,
           usuario: this.usuario,
           senha: this.senha,
         },
@@ -385,12 +393,8 @@ export default defineComponent({
 
       if (this.tipoCadastro === 'MEDICO') {
         this.usuarioACadastrar.crm = this.crm;
-        this.usuarioACadastrar.especializacao = {
-          id: this.especializacao,
-        };
-        this.usuarioACadastrar.unidade = {
-          id: this.unidade,
-        };
+        this.usuarioACadastrar.especializacao = this.especializacao;
+        this.usuarioACadastrar.unidade = this.unidade;
       }
 
       if (this.tipoCadastro === 'FUNCIONARIO') {
@@ -464,9 +468,11 @@ export default defineComponent({
       }
     },
     preencherMedico() {
+      this.usuarioId = this.dadosUsuarioAlterado.id;
       this.nome = this.dadosUsuarioAlterado.nome;
       this.cpf = this.dadosUsuarioAlterado.cpf;
       this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
+      this.enderecoId = this. dadosUsuarioAlterado.endereco.id;
       this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
       this.numero = this.dadosUsuarioAlterado.endereco.numero;
       this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
@@ -474,8 +480,10 @@ export default defineComponent({
       this.bairro = this.dadosUsuarioAlterado.endereco.bairro;
       this.cidade = this.dadosUsuarioAlterado.endereco.cidade;
       this.uf = this.dadosUsuarioAlterado.endereco.uf;
-      this.email = this.dadosUsuarioAlterado.endereco.email;
-      this.telefone = this.dadosUsuarioAlterado.endereco.telefone;
+      this.contatoId = this.dadosUsuarioAlterado.contato.id;
+      this.email = this.dadosUsuarioAlterado.contato.email;
+      this.telefone = this.dadosUsuarioAlterado.contato.telefone;
+      this.loginId = this.dadosUsuarioAlterado.login.id;
       this.usuario = this.dadosUsuarioAlterado.login.usuario;
       this.senha = this.dadosUsuarioAlterado.login.senha;
       this.genero = this.dadosUsuarioAlterado.genero;
@@ -485,9 +493,11 @@ export default defineComponent({
       this.especializacao = this.dadosUsuarioAlterado.especializacao;
     },
     preencherFuncionario() {
+      this.usuarioId = this.dadosUsuarioAlterado.id;
       this.nome = this.dadosUsuarioAlterado.nome;
       this.cpf = this.dadosUsuarioAlterado.cpf;
       this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
+      this.enderecoId = this. dadosUsuarioAlterado.endereco.id;
       this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
       this.numero = this.dadosUsuarioAlterado.endereco.numero;
       this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
@@ -495,8 +505,10 @@ export default defineComponent({
       this.bairro = this.dadosUsuarioAlterado.endereco.bairro;
       this.cidade = this.dadosUsuarioAlterado.endereco.cidade;
       this.uf = this.dadosUsuarioAlterado.endereco.uf;
-      this.email = this.dadosUsuarioAlterado.endereco.email;
-      this.telefone = this.dadosUsuarioAlterado.endereco.telefone;
+      this.contatoId = this.dadosUsuarioAlterado.contato.id;
+      this.email = this.dadosUsuarioAlterado.contato.email;
+      this.telefone = this.dadosUsuarioAlterado.contato.telefone;
+      this.loginId = this.dadosUsuarioAlterado.login.id;
       this.usuario = this.dadosUsuarioAlterado.login.usuario;
       this.senha = this.dadosUsuarioAlterado.login.senha;
       this.genero = this.dadosUsuarioAlterado.genero;
@@ -504,9 +516,11 @@ export default defineComponent({
       this.cargo = this.dadosUsuarioAlterado.cargo;
     },
     preencherPaciente() {
+      this.usuarioId = this.dadosUsuarioAlterado.id;
       this.nome = this.dadosUsuarioAlterado.nome;
       this.cpf = this.dadosUsuarioAlterado.cpf;
       this.dataNascimento = this.dadosUsuarioAlterado.dataNascimento;
+      this.enderecoId = this. dadosUsuarioAlterado.endereco.id;
       this.logradouro = this.dadosUsuarioAlterado.endereco.logradouro;
       this.numero = this.dadosUsuarioAlterado.endereco.numero;
       this.complemento = this.dadosUsuarioAlterado.endereco.complemento;
@@ -514,8 +528,10 @@ export default defineComponent({
       this.bairro = this.dadosUsuarioAlterado.endereco.bairro;
       this.cidade = this.dadosUsuarioAlterado.endereco.cidade;
       this.uf = this.dadosUsuarioAlterado.endereco.uf;
-      this.email = this.dadosUsuarioAlterado.endereco.email;
-      this.telefone = this.dadosUsuarioAlterado.endereco.telefone;
+      this.contatoId = this.dadosUsuarioAlterado.contato.id;
+      this.email = this.dadosUsuarioAlterado.contato.email;
+      this.telefone = this.dadosUsuarioAlterado.contato.telefone;
+      this.loginId = this.dadosUsuarioAlterado.login.id;
       this.usuario = this.dadosUsuarioAlterado.login.usuario;
       this.senha = this.dadosUsuarioAlterado.login.senha;
       this.genero = this.dadosUsuarioAlterado.genero;
