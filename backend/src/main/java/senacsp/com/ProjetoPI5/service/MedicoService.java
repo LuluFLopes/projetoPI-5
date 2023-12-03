@@ -3,6 +3,7 @@ package senacsp.com.ProjetoPI5.service;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import senacsp.com.ProjetoPI5.model.Endereco;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
@@ -76,6 +77,8 @@ public class MedicoService {
     private void tratarDadosMedico(Medico medico) {
         medico.setStatus(Status.ATIVO);
         medico.setTipoCadastro(TipoCadastro.MEDICO);
+        Endereco endereco = medicoRepository.buscarEndereco(medico.getId());
+        medico.setEndereco(endereco.conversor(medico.getEndereco()));
         medico.setUnidade(unidadeRepository.getReferenceById(medico.getUnidade().getId()));
         medico.setEspecializacao(especializacaoRepository.getReferenceById(medico.getEspecializacao().getId()));
         medico.getLogin().setSenha(passwordEncoder.encode(medico.getLogin().getSenha()));

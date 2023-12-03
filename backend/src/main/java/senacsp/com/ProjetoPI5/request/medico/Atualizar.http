@@ -2,7 +2,7 @@ POST http://localhost:8081/medicos/alterar
 Content-Type: application/json
 
 {
-  "id": 1,
+  "id": 4,
   "nome": "Luciano Alterar",
   "cpf": "405.046.560-40",
   "crm": "2132415343",
@@ -12,7 +12,7 @@ Content-Type: application/json
     10
   ],
   "endereco": {
-    "id": 1,
+    "id": 4,
     "logradouro": "Rua Teste2",
     "numero": "20",
     "complemento": "Teste2",
@@ -22,12 +22,12 @@ Content-Type: application/json
     "uf": "SP"
   },
   "contato": {
-    "id": 1,
+    "id": 4,
     "email": "luciano.teste@teste.com.br",
     "telefone": "11931010447"
   },
   "login": {
-    "id": 1,
+    "id": 4,
     "usuario": "luciano.teste",
     "senha": "123"
   },

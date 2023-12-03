@@ -404,8 +404,17 @@ export default defineComponent({
 
       if (this.tipoCadastro === 'MEDICO') {
         this.usuarioACadastrar.crm = this.crm;
-        this.usuarioACadastrar.especializacao = this.especializacao;
-        this.usuarioACadastrar.unidade = this.unidade;
+        this.usuarioACadastrar.especializacao = {
+          id: this.dadosUsuarioAlterado.especializacao.id,
+          descricao: this.dadosUsuarioAlterado.especializacao.descricao,
+          status: this.dadosUsuarioAlterado.especializacao.status,
+        };
+        this.usuarioACadastrar.unidade = {
+          id: this.dadosUsuarioAlterado.unidade.id,
+          descricao: this.dadosUsuarioAlterado.unidade.descricao,
+          endereco: this.dadosUsuarioAlterado.unidade.endereco,
+          status: this.dadosUsuarioAlterado.unidade.status,
+        };
       }
 
       if (this.tipoCadastro === 'FUNCIONARIO') {

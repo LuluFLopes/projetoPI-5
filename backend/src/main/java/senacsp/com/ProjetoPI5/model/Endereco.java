@@ -18,6 +18,17 @@ public class Endereco {
     @Enumerated
     private Uf uf;
 
+    public Endereco conversor(Endereco endereco) {
+        this.logradouro = endereco.getLogradouro();
+        this.numero = endereco.getNumero();
+        this.complemento = endereco.getComplemento();
+        this.cep = endereco.getCep();
+        this.bairro = endereco.getBairro();
+        this.cidade = endereco.getCidade();
+
+        return this;
+    }
+
     public int getId() {
         return id;
     }
