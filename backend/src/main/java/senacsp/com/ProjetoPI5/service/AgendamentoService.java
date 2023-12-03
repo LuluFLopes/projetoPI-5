@@ -2,13 +2,13 @@ package senacsp.com.ProjetoPI5.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import senacsp.com.ProjetoPI5.form.AgendamentoForm;
 import senacsp.com.ProjetoPI5.model.Agendamento;
 import senacsp.com.ProjetoPI5.model.enumeradores.Andamento;
 import senacsp.com.ProjetoPI5.model.enumeradores.HorarioDeAtendimento;
 import senacsp.com.ProjetoPI5.repository.AgendamentoRepository;
 import senacsp.com.ProjetoPI5.view.HorarioDisponivelView;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -35,6 +35,15 @@ public class AgendamentoService {
 
     public List<Agendamento> listarAgendamentos(int id) {
         List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentos(id);
+
+        if (agendamentos.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_AGENDAMENTO_VAZIA);
+        }
+        return agendamentos;
+    }
+
+    public List<Agendamento> listarAgendamentos(AgendamentoForm form) {
+        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentosDisponiveis(form.getId(), form.getData());
 
         if (agendamentos.isEmpty()) {
             throw new NoSuchElementException(MENSAGEM_LISTA_AGENDAMENTO_VAZIA);

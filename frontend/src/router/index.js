@@ -19,6 +19,7 @@ import AlterarUsuario from "@/View/AlterarUsuario";
 import AlterarUnidade from "@/View/AlterarUnidade";
 import AlterarEspecializacao from "@/View/AlterarEspecializacao";
 import AlterarCadastro from "@/View/AlterarCadastro";
+import GerenciaHistoricoMedicos from "@/View/GerenciaHistoricoMedicos";
 
 
 Vue.use(VueRouter)
@@ -118,6 +119,11 @@ const routes = [
     path: '/alterarCadastro',
     name: 'alterarCadastro',
     component: AlterarCadastro
+  },
+  {
+    path: '/historicoMedicos',
+    name: 'historicoMedicos',
+    component: GerenciaHistoricoMedicos
   },
 ]
 

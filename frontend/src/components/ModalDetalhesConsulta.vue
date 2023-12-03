@@ -79,6 +79,7 @@ export default defineComponent({
   data() {
     return {
       urlCancelarAgendamento: 'http://localhost:8081/agendamentos/cancelar',
+      tipoCadastro: '',
     }
   },
   emits: ['ao-clicar-botao-fechar-modal'],
@@ -132,7 +133,7 @@ export default defineComponent({
       return this.detalhesConsulta.andamento;
     },
     botaoAtivo() {
-      return this.detalhesConsulta.andamento !== 'CANCELADO';
+      return this.detalhesConsulta.andamento !== 'CANCELADO' && this.tipoCadastro === 'PACIENTE';
     }
   },
   methods: {
@@ -147,7 +148,18 @@ export default defineComponent({
     desativarModal() {
       this.$emit('ao-clicar-botao-fechar-modal');
     },
+    buscarTipoDeLogin() {
+      let dadosLogin = JSON.parse(sessionStorage.getItem('usuarioLogado'));
+      if (dadosLogin !== undefined && dadosLogin !== null) {
+        if (dadosLogin.isLogado) {
+          this.tipoCadastro = dadosLogin.tipoCadastro;
+        }
+      }
+    },
   },
+  beforeMount() {
+    this.buscarTipoDeLogin();
+  }
 })
 </script>
 

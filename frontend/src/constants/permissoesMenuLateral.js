@@ -33,5 +33,21 @@ export const permissoesMenuLateral = [
       permissoes.medico,
       permissoes.funcionario,
     ]
+  },
+  {
+    titulo: 'Agendamentos',
+    icone: 'mdi-account',
+    rota: 'historicoMedicos',
+    grupo: [
+      permissoes.medico,
+    ]
+  },
+  {
+    titulo: 'Agendamentos',
+    icone: 'mdi-account',
+    rota: '',
+    grupo: [
+      permissoes.funcionario,
+    ]
   }
 ]

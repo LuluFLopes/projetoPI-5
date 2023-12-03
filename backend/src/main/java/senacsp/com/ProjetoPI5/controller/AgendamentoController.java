@@ -2,12 +2,14 @@ package senacsp.com.ProjetoPI5.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import senacsp.com.ProjetoPI5.form.AgendamentoForm;
 import senacsp.com.ProjetoPI5.model.Agendamento;
 import senacsp.com.ProjetoPI5.model.enumeradores.HorarioDeAtendimento;
 import senacsp.com.ProjetoPI5.service.AgendamentoService;
 import senacsp.com.ProjetoPI5.view.AgendamentoView;
 import senacsp.com.ProjetoPI5.view.HorarioDisponivelView;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +32,15 @@ public class AgendamentoController {
     public ResponseEntity<List<AgendamentoView>> listarAgendamentos(@PathVariable int id) {
         return ResponseEntity.ok(agendamentoService.
                 listarAgendamentos(id)
+                .stream()
+                .map(AgendamentoView::new)
+                .toList());
+    }
+
+    @GetMapping("/listarPorDataEMedico")
+    public ResponseEntity<List<AgendamentoView>> listarAgendamentos(AgendamentoForm form) {
+        return ResponseEntity.ok(agendamentoService.
+                listarAgendamentos(form)
                 .stream()
                 .map(AgendamentoView::new)
                 .toList());
