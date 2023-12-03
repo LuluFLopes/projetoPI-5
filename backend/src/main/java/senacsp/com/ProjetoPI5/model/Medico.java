@@ -6,9 +6,9 @@ import jakarta.persistence.*;
 public class Medico extends Pessoa {
 
     private String crm;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Especializacao especializacao;
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Unidade unidade;
 
     public String getCrm() {

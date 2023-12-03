@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Endereco;
-import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Medico;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
@@ -64,17 +63,25 @@ public class MedicoService {
 
     @Transactional
     public void adicionarMedico(Medico medico) {
-        tratarDadosMedico(medico);
+        tratarDadosParaCadastrarMedico(medico);
         medicoRepository.save(medico);
+    }
+
+    private void tratarDadosParaCadastrarMedico(Medico medico) {
+        medico.setStatus(Status.ATIVO);
+        medico.setTipoCadastro(TipoCadastro.MEDICO);
+        medico.setUnidade(unidadeRepository.getReferenceById(medico.getUnidade().getId()));
+        medico.setEspecializacao(especializacaoRepository.getReferenceById(medico.getEspecializacao().getId()));
+        medico.getLogin().setSenha(passwordEncoder.encode(medico.getLogin().getSenha()));
     }
 
     @Transactional
     public void alterarMedico(Medico medico) {
-        tratarDadosMedico(medico);
+        tratarDadosParaAlterarMedico(medico);
         medicoRepository.save(medico);
     }
 
-    private void tratarDadosMedico(Medico medico) {
+    private void tratarDadosParaAlterarMedico(Medico medico) {
         medico.setStatus(Status.ATIVO);
         medico.setTipoCadastro(TipoCadastro.MEDICO);
         Endereco endereco = medicoRepository.buscarEndereco(medico.getId());
