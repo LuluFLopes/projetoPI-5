@@ -1,6 +1,13 @@
 <template>
   <div>
     <menu-lateral/>
+    <v-alert class="alerta-total"
+             v-if="alertaLigado"
+             dismissible
+             elevation="24"
+             :type="tipoAlerta"
+    >{{ this.msgAlerta }}
+    </v-alert>
   </div>
 </template>
 
@@ -16,6 +23,9 @@ export default defineComponent({
   data() {
     return {
       urlBuscarUsuario: '',
+      alertaLigado: false,
+      tipoAlerta: '',
+      msgAlerta: '',
     }
   },
   methods: {
@@ -23,11 +33,13 @@ export default defineComponent({
       'preencherDadosUsuarioAlterado'
     ]),
     async buscarUsuario() {
-      try {
-        const response = await axios.get(`${this.urlBuscarUsuario}/${this.idUsuarioLogado}`);
-        await this.preencherDadosUsuarioAlterado(response.data);
-      } catch (ex) {
-        this.gerarAlerta('error', 'Erro ao carregar usuario', 3);
+      if (this.tipoUsuario !== 'ADMINISTRADOR'){
+        try {
+          const response = await axios.get(`${this.urlBuscarUsuario}/${this.idUsuarioLogado}`);
+          await this.preencherDadosUsuarioAlterado(response.data);
+        } catch (ex) {
+          this.gerarAlerta('error', 'Erro ao carregar usuario', 3);
+        }
       }
     },
     preencherUrl() {
@@ -52,6 +64,15 @@ export default defineComponent({
         }
       }
     },
+    gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
+      this.tipoAlerta = tipoDeAlerta;
+      this.msgAlerta = mensagem;
+      this.alertaLigado = true;
+
+      setTimeout(() => {
+        this.alertaLigado = false;
+      }, segundosParaFechar * 1000);
+    },
   },
   beforeMount() {
     this.buscarIdUsuarioLogado();
@@ -62,4 +83,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.alerta-total {
+  position: absolute;
+  top: 1vh;
+  left: 3vw;
+}
 </style>
