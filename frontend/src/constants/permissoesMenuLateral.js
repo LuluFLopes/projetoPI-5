@@ -45,7 +45,7 @@ export const permissoesMenuLateral = [
   {
     titulo: 'Agendamentos',
     icone: 'mdi-account',
-    rota: '',
+    rota: 'historicoFuncionarios',
     grupo: [
       permissoes.funcionario,
     ]

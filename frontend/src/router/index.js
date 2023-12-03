@@ -20,6 +20,7 @@ import AlterarUnidade from "@/View/AlterarUnidade";
 import AlterarEspecializacao from "@/View/AlterarEspecializacao";
 import AlterarCadastro from "@/View/AlterarCadastro";
 import GerenciaHistoricoMedicos from "@/View/GerenciaHistoricoMedicos";
+import GerenciaHistoricoFuncionarios from "@/View/GerenciaHistoricoFuncionarios";
 
 
 Vue.use(VueRouter)
@@ -124,6 +125,11 @@ const routes = [
     path: '/historicoMedicos',
     name: 'historicoMedicos',
     component: GerenciaHistoricoMedicos
+  },
+  {
+    path: '/historicoFuncionarios',
+    name: 'historicoFuncionarios',
+    component: GerenciaHistoricoFuncionarios
   },
 ]
 

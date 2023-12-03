@@ -46,6 +46,15 @@ public class AgendamentoController {
                 .toList());
     }
 
+    @GetMapping("/listarPorData")
+    public ResponseEntity<List<AgendamentoView>> listarAgendamentosPorData(AgendamentoForm form) {
+        return ResponseEntity.ok(agendamentoService.
+                listarAgendamentosPorData(form)
+                .stream()
+                .map(AgendamentoView::new)
+                .toList());
+    }
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Agendamento> buscarAgendamentos(@PathVariable int id) {
         return ResponseEntity.ok(agendamentoService.buscarAgendamento(id));

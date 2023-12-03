@@ -51,6 +51,15 @@ public class AgendamentoService {
         return agendamentos;
     }
 
+    public List<Agendamento> listarAgendamentosPorData(AgendamentoForm form) {
+        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentosDisponiveis(form.getData());
+
+        if (agendamentos.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_AGENDAMENTO_VAZIA);
+        }
+        return agendamentos;
+    }
+
     public Agendamento buscarAgendamento(int id) {
         return agendamentoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_AGENDAMENTO_NAO_ENCONTRADO));
