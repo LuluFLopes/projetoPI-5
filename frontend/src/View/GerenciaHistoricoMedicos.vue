@@ -72,6 +72,7 @@
       </div>
       <div class="div-botoes">
         <v-btn class="botoes-laterais" :disabled="false" @click="buscarAgendamentos">Buscar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoConcluir" @click="concluirAgendamento">Concluir</v-btn>
         <v-btn class="botoes-laterais" :disabled="botaoCancelar" @click="cancelarAgendamento">Cancelar</v-btn>
         <v-btn class="botoes-laterais" :disabled="botaoDetalhes" @click="ativarModal">Detalhes</v-btn>
       </div>
@@ -125,6 +126,7 @@ export default defineComponent({
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
+      botaoConcluir: true,
       botaoCancelar: true,
       botaoDetalhes: true,
       modal: false,
@@ -134,6 +136,7 @@ export default defineComponent({
       detalhesConsulta: {},
       isModalAberto: false,
       urlCancelarAgendamento: 'http://localhost:8081/agendamentos/cancelar',
+      urlConcluirAgendamento: 'http://localhost:8081/agendamentos/concluir',
     }
   },
   methods: {
@@ -157,6 +160,16 @@ export default defineComponent({
         this.deselecionarTodos();
       } catch (ex) {
         this.gerarAlerta('error', 'Erro ao cancelar agendamento', 3);
+      }
+    },
+    async concluirAgendamento() {
+      try {
+        await axios.put(`${this.urlConcluirAgendamento}/${this.detalhesConsulta.id}`);
+        await this.buscarAgendamentos();
+        this.desativarBotoes();
+        this.deselecionarTodos();
+      } catch (ex) {
+        this.gerarAlerta('error', 'Erro ao concluir agendamento', 3);
       }
     },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
@@ -189,10 +202,12 @@ export default defineComponent({
       })
     },
     ativarBotoes() {
+      this.botaoConcluir = false;
       this.botaoCancelar = false;
       this.botaoDetalhes = false;
     },
     desativarBotoes() {
+      this.botaoConcluir = true;
       this.botaoCancelar = true;
       this.botaoDetalhes = true;
     },
