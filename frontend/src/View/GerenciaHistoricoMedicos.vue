@@ -53,6 +53,7 @@
           </v-dialog>
         </v-card-title>
         <v-data-table
+            aria-label="Tabela de agendamentos"
             :headers="campos"
             :items="lista"
             :search="buscar"
@@ -71,10 +72,10 @@
 
       </div>
       <div class="div-botoes">
-        <v-btn class="botoes-laterais" :disabled="false" @click="buscarAgendamentos">Buscar</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoConcluir" @click="concluirAgendamento">Concluir</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoCancelar" @click="cancelarAgendamento">Cancelar</v-btn>
-        <v-btn class="botoes-laterais" :disabled="botaoDetalhes" @click="ativarModal">Detalhes</v-btn>
+        <v-btn class="botoes-laterais" :disabled="false" @click="buscarAgendamentos" aria-label="Botão de buscar agendamentos">Buscar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoConcluir" @click="concluirAgendamento" aria-label="Botão de concluir agendamentos">Concluir</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoCancelar" @click="cancelarAgendamento" aria-label="Botão de cancelar agendamentos">Cancelar</v-btn>
+        <v-btn class="botoes-laterais" :disabled="botaoDetalhes" @click="ativarModal" aria-label="Botão de detalhes">Detalhes</v-btn>
       </div>
     </div>
     <modal-detalhes-consulta :isAberto="isModalAberto" :detalhesConsulta="detalhesConsulta"

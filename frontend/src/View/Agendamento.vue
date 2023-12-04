@@ -1,9 +1,7 @@
 <template>
   <div class="principal">
     <v-col>
-      <v-row>
-        <v-col cols="1">
-        </v-col>
+      <v-row align="center">
         <v-col cols="3">
           <v-card height="378px">
             <h2 style="text-align: center;padding-bottom: 10px">Dados do Agendamento</h2>
@@ -67,11 +65,14 @@
           </v-card>
         </v-col>
 
-        <v-col cols="2" v-if="this.componenteDatasAtiva">
-          <v-date-picker header-color="#7ececa" v-model="dataPesquisada" class="menuHorarios"
-                         @change="buscarDatas()"></v-date-picker>
+        <v-col cols="auto" v-if="this.componenteDatasAtiva">
+          <div class="div-datepicker">
+            <v-date-picker header-color="#7ececa" v-model="dataPesquisada" class="menuHorarios"
+                           @change="buscarDatas()"></v-date-picker>
+          </div>
+
         </v-col>
-        <v-col cols="2" v-if="this.componenteDatasAtiva">
+        <v-col cols="3" v-if="this.componenteDatasAtiva">
           <v-card height="378px">
             <h2 class="cabecalhoHorarios">Horários Disponíveis</h2>
             <div class="menuHorarios" v-for="(horario, index) in horariosDisponiveis" :key="index">
@@ -330,7 +331,6 @@ export default defineComponent({
 <style scoped>
 .principal {
   max-height: 350px !important;
-  margin-top: 10vh;
 }
 
 label {
@@ -362,14 +362,13 @@ label {
 .horariosDisponiveis {
   background: #45b5c4 !important;
   padding: 5px;
-  margin-left: 5px;
   margin-top: 5px;
   font-weight: bold;
   color: #FFF !important;
 }
 
 .btnRealizarAgendamento {
-  margin: 8vh auto;
+  margin: 2vh auto;
 }
 
 .alerta-total {
