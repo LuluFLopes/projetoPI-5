@@ -43,7 +43,7 @@ public class AgendamentoService {
     }
 
     public List<Agendamento> listarAgendamentos(AgendamentoForm form) {
-        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentosDisponiveis(form.getId(), form.getData());
+        List<Agendamento> agendamentos = agendamentoRepository.listarAgendamentos(form.getId(), form.getData());
 
         if (agendamentos.isEmpty()) {
             throw new NoSuchElementException(MENSAGEM_LISTA_AGENDAMENTO_VAZIA);

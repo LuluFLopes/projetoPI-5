@@ -72,7 +72,7 @@
           </div>
 
         </v-col>
-        <v-col cols="3" v-if="this.componenteDatasAtiva">
+        <v-col cols="2" v-if="this.componenteDatasAtiva">
           <v-card height="378px">
             <h2 class="cabecalhoHorarios">Horários Disponíveis</h2>
             <div class="menuHorarios" v-for="(horario, index) in horariosDisponiveis" :key="index">
@@ -362,6 +362,7 @@ label {
 .horariosDisponiveis {
   background: #45b5c4 !important;
   padding: 5px;
+  margin-left: 5px;
   margin-top: 5px;
   font-weight: bold;
   color: #FFF !important;
