@@ -124,7 +124,7 @@
 
         <div class="div-secundaria" v-if="camposFuncionarioAtivo">
           <v-select class="campos-padrao" label="Cargos" v-model="cargo" :items="listaCargos"
-                    :disabled="camposDesabilitados">
+                    :disabled="true">
           </v-select>
         </div>
 

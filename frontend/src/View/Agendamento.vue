@@ -2,6 +2,7 @@
   <div class="principal">
     <v-col>
       <v-row align="center">
+        <v-col cols="1"></v-col>
         <v-col cols="3">
           <v-card height="378px">
             <h2 style="text-align: center;padding-bottom: 10px">Dados do Agendamento</h2>
