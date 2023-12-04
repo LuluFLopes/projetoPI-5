@@ -23,22 +23,18 @@
               placeholder="Ex: 000.000.000-00"
               :disabled="!modoEdicao"
           ></v-text-field>
-          <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              min-width="auto"
+          <v-dialog
+              ref="dialog"
+              v-model="modal"
+              :return-value.sync="paciente.dataNascimento"
+              persistent
+              width="290px"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                   class="campos-padrao"
                   v-model="paciente.dataNascimento"
-                  label="Data de nascimento"
-                  required
-                  color="teal darken-3"
-                  outlined
+                  label="Data Nascimento"
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
@@ -48,10 +44,25 @@
             </template>
             <v-date-picker
                 v-model="paciente.dataNascimento"
-                header-color="#7ececa"
-                @change="save"
-            ></v-date-picker>
-          </v-menu>
+                scrollable
+            >
+              <v-spacer></v-spacer>
+              <v-btn
+                  text
+                  color="primary"
+                  @click="modal = false"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog.save(paciente.dataNascimento)"
+              >OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+
           <v-text-field
               class="campos-padrao"
               v-model="paciente.endereco.logradouro"
@@ -162,6 +173,7 @@
               color="teal darken-3"
               outlined
               :disabled="!modoEdicao"
+              type="password"
           ></v-text-field>
           <v-select
               class="campos-padrao"
@@ -171,7 +183,7 @@
               required
               color="teal darken-3"
               outlined
-              :disabled="!modoEdicao"
+              :disabled="true"
           ></v-select>
           <v-select
               class="campos-padrao campo-final"
@@ -221,6 +233,7 @@ export default {
     return {
       url: 'http://localhost:8081/pacientes/alterar',
       paciente: '',
+      modal: false,
       generos: [
         'MASCULINO',
         'FEMININO',
@@ -246,14 +259,6 @@ export default {
         this.gerarAlerta('error', 'Não foi possível realizar a alteração', 3);
       }
     },
-    verificarOutroPlano() {
-      if (this.paciente.plano !== 'Outro') {
-        this.paciente.outroPlano = '';
-      }
-    },
-    save (date) {
-      this.$refs.menu.save(date)
-    },
     gerarAlerta(tipoDeAlerta, mensagem, segundosParaFechar) {
       this.tipoAlerta = tipoDeAlerta;
       this.msgAlerta = mensagem;
@@ -275,6 +280,7 @@ export default {
           .then(response => {
             // Atualiza o estado da aplicação com os dados do usuário
             this.paciente = response.data;
+            this.paciente.dataNascimento = this.coversorDeData();
           })
           .catch(error => {
             this.gerarAlerta('error', error, 3);
@@ -282,6 +288,11 @@ export default {
     },
     ativarModoEdicao() {
       this.modoEdicao = true;
+    },
+    coversorDeData() {
+      let data = this.paciente.dataNascimento;
+      let dataConvertida = new Date(data[0], data[1] - 1, data[2]);
+      return (new Date(dataConvertida.getTime() - dataConvertida.getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
     },
   },
   mounted() {
@@ -329,6 +340,7 @@ export default {
   width: 55vw;
   margin: 0 auto;
   padding: 10px;
+  justify-content: space-between;
 }
 
 .campos-padrao {

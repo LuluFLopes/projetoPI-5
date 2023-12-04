@@ -148,6 +148,7 @@
           required
           color="teal darken-3"
           outlined
+          type="password"
       ></v-text-field>
       <v-select
           class="campos-padrao campo-final"
