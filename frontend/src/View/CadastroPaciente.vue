@@ -150,15 +150,6 @@
           outlined
       ></v-text-field>
       <v-select
-          class="campos-padrao"
-          v-model="cliente.status"
-          :items="statuses"
-          label="Status"
-          required
-          color="teal darken-3"
-          outlined
-      ></v-select>
-      <v-select
           class="campos-padrao campo-final"
           v-model="cliente.genero"
           :items="generos"
@@ -221,27 +212,13 @@ export default {
           usuario: '',
           senha: ''
         },
-        status: '',
+        status: 'ATIVO',
         genero: '',
-        plano: null,
-        cartaoPlano: ''
       },
-      planosSaude: [
-        'NotreDame Intermédica',
-        'Hapvida Assistência Médica',
-        'Bradesco Saúde',
-        'Amil Assistência Médica',
-        'Central Nacional Unimed',
-        'Outro',
-      ],
       generos: [
         'MASCULINO',
         'FEMININO',
         'PREFIRO_NAO_INFORMAR'
-      ],
-      statuses: [
-        'ATIVO',
-        'INATIVO'
       ],
       ufs: [
         'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG',
@@ -259,11 +236,6 @@ export default {
         this.gerarAlerta('error', 'Não foi possível realizar o cadastro!', 3);
       }
     },
-    verificarOutroPlano() {
-      if (this.cliente.plano !== 'Outro') {
-        this.cliente.outroPlano = '';
-      }
-    },
     limparFormulario(){
       this.cliente.nome = '';
       this.cliente.cpf = '';
@@ -271,10 +243,7 @@ export default {
       this.cliente.endereco = '';
       this.cliente.contato = '';
       this.cliente.login = '';
-      this.cliente.status = '';
       this.cliente.genero = '';
-      this.cliente.plano = '';
-      this.cliente.cartaoPlano = '';
     },
     save (date) {
       this.$refs.menu.save(date)
@@ -325,6 +294,7 @@ export default {
   width: 55vw;
   margin: 0 auto;
   padding: 10px;
+  justify-content: space-between;
 }
 
 .campos-padrao {
