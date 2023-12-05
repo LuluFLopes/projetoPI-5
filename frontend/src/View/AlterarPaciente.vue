@@ -272,13 +272,9 @@ export default {
       router.push('home');
     },
     fetchUsuario(usuarioId) {
-      // Substitua a URL pelo endpoint real do seu backend
       const apiUrl = `http://localhost:8081/pacientes/buscar/${usuarioId}`;
-
-      // Faz uma solicitação HTTP usando axios (ou outro método de sua escolha)
       axios.get(apiUrl)
           .then(response => {
-            // Atualiza o estado da aplicação com os dados do usuário
             this.paciente = response.data;
             this.paciente.dataNascimento = this.coversorDeData();
           })
