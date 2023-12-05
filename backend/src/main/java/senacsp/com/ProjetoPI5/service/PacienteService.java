@@ -3,7 +3,6 @@ package senacsp.com.ProjetoPI5.service;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Paciente;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
@@ -55,7 +54,18 @@ public class PacienteService {
     private void tratarDadosPaciente(Paciente paciente) {
         paciente.setStatus(Status.ATIVO);
         paciente.setTipoCadastro(TipoCadastro.PACIENTE);
-        paciente.getLogin().setSenha(passwordEncoder.encode(paciente.getLogin().getSenha()));
+        if (!verificaSeUsouAMesmaSenha(paciente)) {
+            paciente.getLogin().setSenha(passwordEncoder.encode(paciente.getLogin().getSenha()));
+        }
+    }
+
+    private boolean verificaSeUsouAMesmaSenha(Paciente paciente) {
+        try {
+            Paciente pacienteBase = pacienteRepository.findById(paciente.getId()).orElseThrow();
+            return pacienteBase.getLogin().getSenha().equals(paciente.getLogin().getSenha());
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
     }
 
     @Transactional

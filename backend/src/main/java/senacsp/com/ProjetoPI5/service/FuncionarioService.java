@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Funcionario;
-import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 import senacsp.com.ProjetoPI5.repository.FuncionarioRepository;
@@ -58,7 +57,18 @@ public class FuncionarioService {
     private void trataDadosFuncionario(Funcionario funcionario) {
         funcionario.setStatus(Status.ATIVO);
         funcionario.setTipoCadastro(TipoCadastro.FUNCIONARIO);
-        funcionario.getLogin().setSenha(passwordEncoder.encode(funcionario.getLogin().getSenha()));
+        if (!verificaSeUsouAMesmaSenha(funcionario)) {
+            funcionario.getLogin().setSenha(passwordEncoder.encode(funcionario.getLogin().getSenha()));
+        }
+    }
+
+    private boolean verificaSeUsouAMesmaSenha(Funcionario funcionario) {
+        try {
+            Funcionario funcionarioBase = funcionarioRepository.findById(funcionario.getId()).orElseThrow();
+            return funcionarioBase.getLogin().getSenha().equals(funcionario.getLogin().getSenha());
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
     }
 
     @Transactional

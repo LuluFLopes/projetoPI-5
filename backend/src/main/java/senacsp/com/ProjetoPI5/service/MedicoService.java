@@ -88,7 +88,18 @@ public class MedicoService {
         medico.setEndereco(endereco.conversor(medico.getEndereco()));
         medico.setUnidade(unidadeRepository.getReferenceById(medico.getUnidade().getId()));
         medico.setEspecializacao(especializacaoRepository.getReferenceById(medico.getEspecializacao().getId()));
-        medico.getLogin().setSenha(passwordEncoder.encode(medico.getLogin().getSenha()));
+        if (!verificaSeUsouAMesmaSenha(medico)) {
+            medico.getLogin().setSenha(passwordEncoder.encode(medico.getLogin().getSenha()));
+        }
+    }
+
+    private boolean verificaSeUsouAMesmaSenha(Medico medico) {
+        try {
+            Medico medicoBase = medicoRepository.findById(medico.getId()).orElseThrow();
+            return medicoBase.getLogin().getSenha().equals(medico.getLogin().getSenha());
+        } catch (NoSuchElementException ex) {
+            return false;
+        }
     }
 
     @Transactional
