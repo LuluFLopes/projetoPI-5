@@ -202,11 +202,11 @@
               Voltar
             </v-btn>
 
-            <v-btn class="texto-botoes" color="#7ececa" type="submit" :disabled="!modoEdicao">
+            <v-btn class="texto-botoes" color="#7ececa" type="submit" v-show="modoEdicao">
               Confirmar
             </v-btn>
 
-            <v-btn class="texto-botoes" color="#7ececa" :disabled="modoEdicao" @click="ativarModoEdicao">
+            <v-btn class="texto-botoes" color="#7ececa" v-show="!modoEdicao" @click="ativarModoEdicao">
               Alterar os meus dados
             </v-btn>
           </div>
