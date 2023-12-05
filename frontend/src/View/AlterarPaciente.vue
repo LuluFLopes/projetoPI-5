@@ -326,6 +326,9 @@ export default {
   max-width: 60vw;
   margin: 0 auto;
   padding: 5vh;
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .div-secundaria {
