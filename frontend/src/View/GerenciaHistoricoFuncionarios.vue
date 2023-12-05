@@ -248,6 +248,7 @@ export default defineComponent ({
   padding-top: 2vh;
   display: flex;
   justify-content: space-between;
+  max-height: 50vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
