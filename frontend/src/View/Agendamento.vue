@@ -280,7 +280,9 @@ export default defineComponent({
     },
     gravarEspecialidade() {
       this.agendamento.especializacao.id = this.filtrarEspecializacaoPorNome();
-      this.listaDeMedicosCompleta = [];
+      this.componenteDatasAtiva = false;
+      this.medicoInput = {};
+      this.listaDeMedicos = [];
       this.buscarMedicosPorUnidade();
     },
     filtrarEspecializacaoPorNome() {
