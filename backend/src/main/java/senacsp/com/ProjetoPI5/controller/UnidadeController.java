@@ -22,6 +22,11 @@ public class UnidadeController {
         return ResponseEntity.ok(unidadeService.listarUnidades());
     }
 
+    @GetMapping("/listarAtivas")
+    public ResponseEntity<List<Unidade>> listarUnidadesAtivas() {
+        return ResponseEntity.ok(unidadeService.listarUnidadesAtivas());
+    }
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Unidade> buscarUnidade(@PathVariable int id) {
         return ResponseEntity.ok(unidadeService.buscarUnidade(id));

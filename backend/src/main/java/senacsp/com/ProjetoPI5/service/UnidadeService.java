@@ -31,6 +31,16 @@ public class UnidadeService {
         return unidades;
     }
 
+    public List<Unidade> listarUnidadesAtivas() {
+        List<Unidade> unidades = unidadeRepository.listarUnidadesAtivas();
+
+        if (unidades.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_UNIDADE_VAZIA);
+        }
+
+        return unidades;
+    }
+
     public Unidade buscarUnidade(int id) {
         return unidadeRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_UNIDADE_NAO_ENCONTRADO));
