@@ -122,7 +122,7 @@ export default defineComponent({
       dataSelecionada: {},
       urlBuscarHorarios: 'http://localhost:8081/agendamentos/listarHorariosDisponiveisPorData',
       urlBuscarUnidades: 'http://localhost:8081/unidades/listar',
-      urlBuscarEspecialidades: 'http://localhost:8081/especializacao/listar',
+      urlBuscarEspecialidades: 'http://localhost:8081/especializacao/listarAtiva',
       urlBuscarMedicoPorUnidadeEPorEspecializacao: 'http://localhost:8081/medicos/listarPorUnidadeEPorEspecializacao',
       urlCadastrarAgendamento: 'http://localhost:8081/agendamentos/cadastrar',
       dadosBuscaHorarios: {

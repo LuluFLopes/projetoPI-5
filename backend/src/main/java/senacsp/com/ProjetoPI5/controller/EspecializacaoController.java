@@ -22,6 +22,11 @@ public class EspecializacaoController {
         return ResponseEntity.ok(especializacaoService.listarEspecializacao());
     }
 
+    @GetMapping("/listarAtiva")
+    public ResponseEntity<List<Especializacao>> listarEspecializacaoAtiva() {
+        return ResponseEntity.ok(especializacaoService.listarEspecializacaoAtiva());
+    }
+
     @GetMapping("/buscar/{id}")
     public ResponseEntity<Especializacao> buscarEspecializacao(@PathVariable int id) {
         return ResponseEntity.ok(especializacaoService.buscarUnidade(id));

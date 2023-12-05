@@ -32,6 +32,16 @@ public class EspecializacaoService {
         return especializacoes;
     }
 
+    public List<Especializacao> listarEspecializacaoAtiva() {
+        List<Especializacao> especializacoes = especializacaoRepository.listarEspecializacaoAtiva();
+
+        if (especializacoes.isEmpty()) {
+            throw new NoSuchElementException(MENSAGEM_LISTA_ESPECIALIZACAO_VAZIA);
+        }
+
+        return especializacoes;
+    }
+
     public Especializacao buscarUnidade(int id) {
         return especializacaoRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(MENSAGEM_ESPECIALIZACAO_NAO_ENCONTRADO));
