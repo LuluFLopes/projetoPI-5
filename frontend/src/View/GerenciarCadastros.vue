@@ -26,6 +26,7 @@
               <td>{{ item.cpf }}</td>
               <td>{{ item.tipoCadastro }}</td>
               <td>{{ item.status }}</td>
+              <td><img :src="require(`../assets/imagens-usuarios/${item.nomeFoto}`)" class="img-medico"></td>
               <td>
                 <v-checkbox v-model="item.checkboxAtiva" @click="aoSelecionarUmElementoTabela(item)"></v-checkbox>
               </td>
@@ -89,6 +90,12 @@ export default defineComponent({
           align: 'start',
           sortable: false,
           value: 'status',
+        },
+        {
+          text: '',
+          align: 'start',
+          sortable: false,
+          value: 'caminhoFoto',
         },
         {
           text: '',
@@ -312,5 +319,10 @@ export default defineComponent({
   position: absolute;
   top: 1vh;
   left: 3vw;
+}
+
+.img-medico {
+  width: 3vw;
+  border-radius: 1vw;
 }
 </style>

@@ -88,6 +88,8 @@
         <v-select class="campos-padrao campo-final" label="Tipo de Cadastro" v-model="tipoCadastro"
                   :items="listaTiposCadastros" @change="ativarTipoDeCadastro">
         </v-select>
+
+        <v-file-input v-model="foto"/>
       </div>
       <v-divider/>
 
@@ -169,6 +171,8 @@ export default defineComponent({
       senha: '',
       confirmarSenha: '',
       crm: '',
+      nomeFoto: '',
+      foto: {},
       especializacao: {},
       unidade: {},
       cargo: {},
@@ -187,6 +191,7 @@ export default defineComponent({
       urlSalvarMedico: 'http://localhost:8081/medicos/cadastrar',
       urlSalvarFuncionario: 'http://localhost:8081/funcionarios/cadastrar',
       urlSalvarPaciente: 'http://localhost:8081/pacientes/cadastrar',
+      urlSalvarImagem: 'http://localhost:8081/salvarImagem',
       alertaLigado: false,
       tipoAlerta: '',
       msgAlerta: '',
@@ -311,21 +316,45 @@ export default defineComponent({
         this.gerarAlerta('error', 'Erro ao carregar cargos', 3);
       }
     },
+    async salvarImagem() {
+      try {
+        let response = await axios.post(this.urlSalvarImagem,
+            {
+              imagem: this.foto
+            },
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+        );
+        await this.preencherCaminhoImagem(response.data);
+        await this.preencheUsuarioAntesDoCadastro();
+        await this.salvar();
+      } catch (ex) {
+        this.gerarAlerta('error', ex, 3);
+      }
+    },
+    salvar(){
+      switch (this.tipoCadastro) {
+        case 'MEDICO':
+          this.salvarMedico();
+          break;
+        case 'FUNCIONARIO':
+          this.salvarFuncionario();
+          break;
+        case 'PACIENTE':
+          this.salvarPaciente();
+          break;
+      }
+    },
+    preencherCaminhoImagem(caminho) {
+      this.nomeFoto = caminho;
+    },
     salvarUsuario() {
       if (this.tipoCadastro !== '') {
         if (this.validaConfirmacaoDeSenha()) {
-          this.preencheUsuarioAntesDoCadastro();
-          switch (this.tipoCadastro) {
-            case 'MEDICO':
-              this.salvarMedico();
-              break;
-            case 'FUNCIONARIO':
-              this.salvarFuncionario();
-              break;
-            case 'PACIENTE':
-              this.salvarPaciente();
-              break;
-          }
+          this.salvarImagem();
         } else {
           this.gerarAlerta('error', 'As senhas não coincidem', 3);
         }
@@ -360,7 +389,11 @@ export default defineComponent({
         },
         genero: this.genero,
         tipoCadastro: this.tipoCadastro,
+        nomeFoto: this.nomeFoto,
       }
+
+      /* eslint-disable */
+      debugger;
 
       if (this.tipoCadastro === 'MEDICO') {
         this.usuarioACadastrar.crm = this.crm;
@@ -496,5 +529,4 @@ export default defineComponent({
   top: 1vh;
   left: 3vw;
 }
-
 </style>

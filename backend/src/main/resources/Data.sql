@@ -38,11 +38,11 @@ VALUES ('luciano.lopes@gmail.com.br', '(11) 92458-7562'),
 
 
 INSERT INTO PESSOA (CARGO, CONTATO_ID, DATA_NASCIMENTO, ENDERECO_ID, ESPECIALIZACAO_ID, GENERO, LOGIN_ID, STATUS,
-                    UNIDADE_ID, CPF, CRM, NOME, DTYPE, TIPO_CADASTRO)
-VALUES (0, 1, '1990-10-10', 1, null, 0, 1, 0, 1, '147.228.350-39', 'null', 'Luciano Freire', 'Funcionario', 0),
-       (1, 2, '1990-10-10', 2, null, 1, 2, 0, 2, '239.812.690-04', null, 'José Stevart', 'Funcionario', 1),
-       (null, 3, '1990-10-10', 3, null, 0, 3, 0, 3, '804.635.770-78', null, 'Vitor Carlos', 'Paciente', 3),
-       (null, 4, '1990-10-10', 4, 1, 0, 4, 0, 4, '508.868.960-88', 111111, 'Fernando Martiniano', 'Medico', 2);
+                    UNIDADE_ID, CPF, CRM, NOME, DTYPE, TIPO_CADASTRO, NOME_FOTO)
+VALUES (0, 1, '1990-10-10', 1, null, 0, 1, 0, 1, '147.228.350-39', 'null', 'Luciano Freire', 'Funcionario', 0, 'doc-gen-img.png'),
+       (1, 2, '1990-10-10', 2, null, 1, 2, 0, 2, '239.812.690-04', null, 'José Stevart', 'Funcionario', 1, 'doc-gen-img.png'),
+       (null, 3, '1990-10-10', 3, null, 0, 3, 0, 3, '804.635.770-78', null, 'Vitor Carlos', 'Paciente', 3, 'doc-gen-img.png'),
+       (null, 4, '1990-10-10', 4, 1, 0, 4, 0, 4, '508.868.960-88', 111111, 'Fernando Martiniano', 'Medico', 2, 'doc-gen-img.png');
 
 INSERT INTO AGENDAMENTO (ANDAMENTO, DATA_AGENDAMENTO, HORA_INICIO, HORA_TERMINO, MEDICO_ID, PACIENTE_ID, UNIDADE_ID)
 VALUES (0, '2023-12-03', '09:00', '10:00', 4, 3, 1),

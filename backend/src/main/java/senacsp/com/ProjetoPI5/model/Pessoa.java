@@ -16,6 +16,7 @@ public abstract class Pessoa {
     private String nome;
     private String cpf;
     private LocalDate dataNascimento;
+    private String nomeFoto;
     @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     @OneToOne(cascade = CascadeType.ALL)
@@ -59,6 +60,14 @@ public abstract class Pessoa {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public String getNomeFoto() {
+        return nomeFoto;
+    }
+
+    public void setNomeFoto(String nomeFoto) {
+        this.nomeFoto = nomeFoto;
     }
 
     public Endereco getEndereco() {
