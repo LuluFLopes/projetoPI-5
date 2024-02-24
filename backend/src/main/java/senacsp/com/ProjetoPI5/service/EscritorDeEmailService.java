@@ -2,11 +2,14 @@ package senacsp.com.ProjetoPI5.service;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
+import senacsp.com.ProjetoPI5.model.Pessoa;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
+
+import static java.lang.String.format;
 
 @Service
 public class EscritorDeEmailService {
@@ -31,21 +34,27 @@ public class EscritorDeEmailService {
                 });
     }
 
-    public void enviarEmailPosCadastro(String emailDestinatario) {
+    public void enviarEmailPosCadastro(Pessoa pessoa) {
         try {
-            enviar(emailDestinatario);
+            enviar(pessoa);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void enviar(String emailDestinatario) throws Exception {
+    private void enviar(Pessoa pessoa) throws Exception {
         Message message = new MimeMessage(sessao);
         message.setFrom(new InternetAddress(EMAIL));
         message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(emailDestinatario));
+                InternetAddress.parse(pessoa.getContato().getEmail()));
         message.setSubject("Nova conta criada com sucesso!");
-        message.setText("Corpo do email");
+        message.setText(format("""
+                Olá %s!
+                
+                Você tomou a decisão de fazer parte da familia med note !
+                
+                Obrigado pela sua confiança !
+                """, pessoa.getNome()));
         Transport.send(message);
     }
 
