@@ -21,9 +21,12 @@ public class PacienteService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public PacienteService(PacienteRepository pacienteRepository, PasswordEncoder passwordEncoder) {
+    private final EscritorDeEmailService emailService;
+
+    public PacienteService(PacienteRepository pacienteRepository, PasswordEncoder passwordEncoder, EscritorDeEmailService emailService) {
         this.pacienteRepository = pacienteRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     public List<Paciente> listarPacientes() {
@@ -44,6 +47,7 @@ public class PacienteService {
     public void adicionarPaciente(Paciente paciente) {
         tratarDadosPaciente(paciente);
         pacienteRepository.save(paciente);
+        emailService.enviarEmailPosCadastro(paciente);
     }
 
     public void alterarPaciente(Paciente paciente) {

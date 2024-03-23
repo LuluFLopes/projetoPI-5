@@ -1,6 +1,5 @@
 package senacsp.com.ProjetoPI5.service;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import senacsp.com.ProjetoPI5.model.Pessoa;
 
@@ -16,17 +15,15 @@ public class EscritorDeEmailService {
 
     private static final String EMAIL = "mednoteclinicmanager@gmail.com";
     private static final String SENHA = "MedNote2024*";
-    private Session sessao = null;
 
-    @PostConstruct
-    public void inicializar() {
+    public Session logar() {
         Properties propriedades = new Properties();
         propriedades.put("mail.smtp.auth", "true");
         propriedades.put("mail.smtp.starttls.enable", "true");
         propriedades.put("mail.smtp.host", "smtp.gmail.com");
         propriedades.put("mail.smtp.port", "587");
 
-        sessao = Session.getInstance(propriedades,
+        return Session.getInstance(propriedades,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(EMAIL, SENHA);
@@ -43,7 +40,7 @@ public class EscritorDeEmailService {
     }
 
     private void enviar(Pessoa pessoa) throws Exception {
-        Message message = new MimeMessage(sessao);
+        Message message = new MimeMessage(logar());
         message.setFrom(new InternetAddress(EMAIL));
         message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(pessoa.getContato().getEmail()));
