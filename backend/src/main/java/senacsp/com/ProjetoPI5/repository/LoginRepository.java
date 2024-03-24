@@ -8,5 +8,8 @@ import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 
 public interface LoginRepository extends JpaRepository<Pessoa, Integer> {
     @Query("SELECT p FROM Pessoa p WHERE p.login.usuario = :usuario AND p.status = :status")
-    Pessoa login(@Param("usuario") String usuario, @Param("status") Status status );
+    Pessoa login(@Param("usuario") String usuario, @Param("status") Status status);
+
+    @Query("SELECT p FROM Pessoa p WHERE p.login.usuario = :usuario")
+    Pessoa buscarUsuario(@Param("usuario") String usuario);
 }

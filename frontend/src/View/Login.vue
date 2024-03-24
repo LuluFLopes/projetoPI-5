@@ -49,7 +49,7 @@ export default defineComponent({
         const request = await axios.put(this.url, this.dadosLogin);
         sessionStorage.setItem('usuarioLogado', JSON.stringify({
           id: request.data.id,
-          usuario: request.data.login.usuario,
+          usuario: request.data.usuario,
           nome: request.data.nome,
           isLogado: true,
           tipoCadastro: request.data.tipoCadastro,

@@ -1,38 +1,41 @@
 package senacsp.com.ProjetoPI5.service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
+import senacsp.com.ProjetoPI5.config.TokenService;
 import senacsp.com.ProjetoPI5.model.Login;
 import senacsp.com.ProjetoPI5.model.Pessoa;
-import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.repository.LoginRepository;
+import senacsp.com.ProjetoPI5.view.RespostaLoginView;
 
 import java.util.NoSuchElementException;
 
 @Service
 public class LoginService {
 
+    private final AuthenticationManager authenticationManager;
+
     private final LoginRepository loginRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
-    public LoginService(LoginRepository loginRepository, PasswordEncoder passwordEncoder) {
+    public LoginService(AuthenticationManager authenticationManager, LoginRepository loginRepository, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
         this.loginRepository = loginRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.tokenService = tokenService;
     }
 
-    public Pessoa realizarLogin(Login login) {
-        Pessoa pessoa = loginRepository.login(login.getUsuario(), Status.ATIVO);
-
-        if (validaSeSenhasBatem(login, pessoa)) {
-            return pessoa;
-        } else {
-            throw new NoSuchElementException();
+    public RespostaLoginView realizarLogin(Login login) {
+        try {
+            Authentication auth = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUsuario(), login.getSenha()));
+            String token = tokenService.generateToken((Pessoa) auth.getPrincipal());
+            Pessoa pessoa = loginRepository.buscarUsuario(login.getUsuario());
+            return RespostaLoginView.geraRespostaView(pessoa, token);
+        } catch (AuthenticationException ex) {
+            throw new NoSuchElementException("Não foi possível autenticar");
         }
     }
-
-    private boolean validaSeSenhasBatem(Login login, Pessoa medico) {
-        return passwordEncoder.matches(login.getSenha(), medico.getLogin().getSenha());
-    }
-
 }

@@ -1,15 +1,20 @@
 package senacsp.com.ProjetoPI5.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import senacsp.com.ProjetoPI5.model.enumeradores.Genero;
 import senacsp.com.ProjetoPI5.model.enumeradores.Status;
 import senacsp.com.ProjetoPI5.model.enumeradores.TipoCadastro;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Pessoa {
+public abstract class Pessoa implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -117,4 +122,42 @@ public abstract class Pessoa {
     public void setTipoCadastro(TipoCadastro tipoCadastro) {
         this.tipoCadastro = tipoCadastro;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.tipoCadastro == TipoCadastro.ADMINISTRADOR
+                ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"))
+                : List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return login.getUsuario();
+    }
+
+    @Override
+    public String getPassword() {
+        return login.getSenha();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }
